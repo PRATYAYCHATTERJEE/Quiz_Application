@@ -1,0 +1,460 @@
+/**
+ * QuizVerse - Animations CSS
+ * GSAP-compatible CSS animations and keyframes
+ */
+
+/* =========================================
+   Particle Canvas Background
+   ========================================= */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-behind);
+  pointer-events: none;
+}
+
+/* =========================================
+   Floating Orbs
+   ========================================= */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  bottom: -250px;
+  left: -150px;
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 77, 109, 0.08) 0%, transparent 70%);
+  top: 40%;
+  left: 20%;
+  animation-delay: -2s;
+  animation-duration: 10s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* =========================================
+   Grid Background
+   ========================================= */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-behind);
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%);
+}
+
+/* =========================================
+   Neon Glow Effect
+   ========================================= */
+.neon-glow {
+  text-shadow:
+    0 0 10px var(--color-primary),
+    0 0 20px var(--color-primary),
+    0 0 40px var(--color-primary),
+    0 0 80px rgba(0, 229, 255, 0.5);
+}
+
+.neon-border {
+  box-shadow:
+    0 0 5px var(--color-primary),
+    0 0 10px var(--color-primary),
+    inset 0 0 5px rgba(0, 229, 255, 0.1);
+}
+
+/* =========================================
+   Pulse Animations
+   ========================================= */
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid var(--color-primary);
+  animation: pulsRing 2s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes pulsRing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* =========================================
+   Float Animation
+   ========================================= */
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* =========================================
+   Rotate Animation
+   ========================================= */
+.spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   Gradient Border
+   ========================================= */
+.gradient-border {
+  position: relative;
+  border-radius: var(--radius-xl);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: var(--gradient-primary);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* =========================================
+   Shimmer Effect on Elements
+   ========================================= */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  animation: shimmerBtn 2.5s infinite;
+}
+
+@keyframes shimmerBtn {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* =========================================
+   Counter Animation
+   ========================================= */
+.counter-value {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   Page Transition
+   ========================================= */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: var(--z-loading);
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.page-transition-overlay.entering {
+  transform: translateY(0);
+}
+
+.page-transition-overlay.leaving {
+  transform: translateY(-100%);
+}
+
+/* =========================================
+   Reveal Animations (AOS-compatible)
+   ========================================= */
+[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-aos="fade-up"].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-aos="fade-in"] {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+[data-aos="fade-in"].aos-animate {
+  opacity: 1;
+}
+
+[data-aos="zoom-in"] {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-aos="zoom-in"].aos-animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================
+   Glow Border Animation
+   ========================================= */
+@keyframes glowBorder {
+  0%, 100% { box-shadow: 0 0 5px rgba(0,229,255,0.3), 0 0 10px rgba(0,229,255,0.2); }
+  50% { box-shadow: 0 0 20px rgba(0,229,255,0.6), 0 0 40px rgba(0,229,255,0.3); }
+}
+
+.glow-border-animated {
+  animation: glowBorder 3s ease-in-out infinite;
+}
+
+/* =========================================
+   Typewriter Effect
+   ========================================= */
+.typewriter {
+  border-right: 2px solid var(--color-primary);
+  animation: blink 0.75s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--color-primary); }
+}
+
+/* =========================================
+   Confetti CSS Fallback
+   ========================================= */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confettiFall linear forwards;
+  z-index: var(--z-toast);
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* =========================================
+   Stars Background
+   ========================================= */
+.stars-bg {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-behind);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* =========================================
+   Card Hover 3D Effect
+   ========================================= */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform var(--transition-base);
+}
+
+.card-3d:hover {
+  transform: rotateX(2deg) rotateY(5deg);
+}
+
+/* =========================================
+   Scan Line Effect (Cyberpunk)
+   ========================================= */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(transparent, rgba(0,229,255,0.1), transparent);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { top: -4px; }
+  100% { top: 110%; }
+}
+
+/* =========================================
+   Achievement Unlock Animation
+   ========================================= */
+.achievement-popup {
+  animation: achievementIn 0.5s var(--transition-spring);
+}
+
+@keyframes achievementIn {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* =========================================
+   Leaderboard Row Animation
+   ========================================= */
+.leaderboard-row-enter {
+  animation: rowSlideIn 0.4s ease forwards;
+}
+
+@keyframes rowSlideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* =========================================
+   Circular Progress
+   ========================================= */
+.circular-progress {
+  --progress: 0;
+  --size: 160px;
+  --stroke: 10px;
+  --color: var(--color-primary);
+  
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+}
+
+.circular-progress svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circular-progress .track {
+  fill: none;
+  stroke: rgba(255,255,255,0.1);
+  stroke-width: var(--stroke);
+}
+
+.circular-progress .fill {
+  fill: none;
+  stroke: var(--color);
+  stroke-width: var(--stroke);
+  stroke-linecap: round;
+  stroke-dasharray: 440;
+  stroke-dashoffset: calc(440 - (440 * var(--progress)) / 100);
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 8px var(--color));
+}
+
+.circular-progress .label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* =========================================
+   Timer Ring
+   ========================================= */
+.timer-ring {
+  --timer-progress: 100;
+  --timer-color: var(--color-primary);
+}
+
+.timer-ring .fill {
+  stroke: var(--timer-color);
+  stroke-dashoffset: calc(440 - (440 * var(--timer-progress)) / 100);
+  transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+
+.timer-ring.warning .fill { --timer-color: var(--color-warning); }
+.timer-ring.danger .fill { --timer-color: var(--color-error); }

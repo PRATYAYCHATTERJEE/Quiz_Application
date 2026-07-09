@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizVerse — The Futuristic Quiz Platform</title>
+  <meta name="description" content="QuizVerse is a modern, premium quiz platform with real-time leaderboards, analytics, and beautiful animations. Challenge yourself today!" />
+  <meta property="og:title" content="QuizVerse — The Futuristic Quiz Platform" />
+  <meta property="og:description" content="Take quizzes, compete on leaderboards, and earn certificates on the most beautiful quiz platform." />
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-logo">QuizVerse</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+
+  <!-- Particle Background -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="grid-bg"></div>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">⚡</div>
+          <span class="logo-text">QuizVerse</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+          <a href="login.html" class="nav-link">Admin</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-3);">
+          <a href="join.html" class="btn btn-primary shimmer-btn">
+            <i class="fas fa-play"></i> Play Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-label">
+          <div class="dot"></div>
+          <span>The Future of Learning</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="line"><span class="word">Challenge</span> <span class="word text-gradient">Your</span></span>
+          <span class="line"><span class="word">Mind.</span> <span class="word text-gradient-secondary">Rise</span></span>
+          <span class="line"><span class="word">to</span> <span class="word">the</span> <span class="word text-gradient">Top.</span></span>
+        </h1>
+
+        <p class="hero-description">
+          QuizVerse is the most immersive quiz platform ever built. Compete with the world, earn certificates, and dominate the leaderboards in real-time.
+        </p>
+
+        <div class="hero-cta">
+          <a href="join.html" class="btn btn-primary btn-xl shimmer-btn">
+            <i class="fas fa-rocket"></i> Start Quiz Now
+          </a>
+          <a href="leaderboard.html" class="btn btn-ghost btn-xl">
+            <i class="fas fa-trophy"></i> View Leaderboard
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-value">
+              <span data-counter="25000" data-suffix="+">0+</span>
+            </div>
+            <div class="hero-stat-label">Questions Available</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">
+              <span data-counter="10000" data-suffix="+">0+</span>
+            </div>
+            <div class="hero-stat-label">Participants</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-value">
+              <span data-counter="98" data-suffix="%">0%</span>
+            </div>
+            <div class="hero-stat-label">Satisfaction Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Floating Cards -->
+      <div class="hero-visual">
+        <div class="hero-card-stack float">
+          <!-- Main Quiz Card -->
+          <div class="floating-card floating-card-main">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#00E5FF,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:18px;">⚡</div>
+              <div>
+                <div style="font-weight:700;font-size:14px;">Current Question</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);">Q3 of 10 • 08:42 left</div>
+              </div>
+            </div>
+            <p style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:16px;line-height:1.5;">What is the time complexity of Binary Search algorithm?</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;font-size:12px;display:flex;gap:8px;align-items:center;"><span style="background:#00E5FF;color:#000;padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px;">A</span>O(n)</div>
+              <div style="padding:8px 12px;background:rgba(0,229,255,0.1);border:2px solid #00E5FF;border-radius:8px;font-size:12px;display:flex;gap:8px;align-items:center;"><span style="background:#00E5FF;color:#000;padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px;">B</span>O(log n) ✓</div>
+              <div style="padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;font-size:12px;display:flex;gap:8px;align-items:center;"><span style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px;">C</span>O(n²)</div>
+              <div style="padding:8px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;font-size:12px;display:flex;gap:8px;align-items:center;"><span style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-weight:700;font-size:10px;">D</span>O(1)</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:12px;">
+              <div style="flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden;"><div style="width:30%;height:100%;background:linear-gradient(90deg,#00E5FF,#8B5CF6);border-radius:9999px;"></div></div>
+              <span style="font-size:11px;color:rgba(255,255,255,0.4);">3/10</span>
+            </div>
+          </div>
+
+          <!-- Leaderboard Card -->
+          <div class="floating-card floating-card-1">
+            <div style="font-size:12px;font-weight:700;color:var(--color-primary);margin-bottom:12px;display:flex;align-items:center;gap:6px;"><i class="fas fa-trophy"></i> Top Scorers</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:#FFD700;font-weight:700;font-size:12px;">🥇</span>
+                <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#FFD700,#FFA500);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000;">A</div>
+                <span style="font-size:12px;flex:1;">Alex</span>
+                <span style="font-size:12px;font-weight:700;color:#FFD700;">98%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:#C0C0C0;font-weight:700;font-size:12px;">🥈</span>
+                <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#00E5FF,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000;">J</div>
+                <span style="font-size:12px;flex:1;">Jordan</span>
+                <span style="font-size:12px;font-weight:700;color:#C0C0C0;">92%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:#CD7F32;font-weight:700;font-size:12px;">🥉</span>
+                <div style="width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,#FF4D6D,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;">S</div>
+                <span style="font-size:12px;flex:1;">Sam</span>
+                <span style="font-size:12px;font-weight:700;color:#CD7F32;">87%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="floating-card floating-card-2">
+            <div style="text-align:center;">
+              <div style="font-size:28px;margin-bottom:4px;">🏆</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">Quiz Complete!</div>
+              <div style="font-size:24px;font-weight:800;color:#00E5FF;margin:4px 0;">92%</div>
+              <div style="display:flex;justify-content:center;gap:12px;font-size:11px;">
+                <span style="color:#10B981;">✓8 Correct</span>
+                <span style="color:#FF4D6D;">✗2 Wrong</span>
+              </div>
+              <div style="margin-top:8px;padding:4px 12px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);border-radius:9999px;font-size:10px;font-weight:700;color:#FFD700;display:inline-block;">🏆 Champion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Quiz Status Section -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <!-- If quiz is live -->
+      <div id="live-quiz-section" class="hidden">
+        <div style="background:rgba(255,77,109,0.05);border:1px solid rgba(255,77,109,0.2);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,77,109,0.05),transparent);pointer-events:none;"></div>
+          <div class="live-badge" style="margin:0 auto var(--space-4);">
+            <div class="live-dot"></div>
+            LIVE NOW
+          </div>
+          <h2 style="font-size:var(--text-2xl);font-weight:800;margin-bottom:var(--space-2);" id="quiz-title-display">Quiz is Live</h2>
+          <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6);">Join thousands of participants competing right now!</p>
+          <div style="display:flex;justify-content:center;gap:var(--space-8);flex-wrap:wrap;margin-bottom:var(--space-6);">
+            <div style="text-align:center;">
+              <div style="font-weight:700;color:var(--color-primary);" id="quiz-questions-display">10</div>
+              <div style="font-size:var(--text-xs);color:var(--color-text-muted);">Questions</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-weight:700;color:var(--color-secondary);" id="quiz-duration-display">10:00</div>
+              <div style="font-size:var(--text-xs);color:var(--color-text-muted);">Duration</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-weight:700;color:var(--color-accent);" id="quiz-category-display">Mixed</div>
+              <div style="font-size:var(--text-xs);color:var(--color-text-muted);">Category</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-weight:700;color:var(--color-success);" id="quiz-difficulty-display">Medium</div>
+              <div style="font-size:var(--text-xs);color:var(--color-text-muted);">Difficulty</div>
+            </div>
+          </div>
+          <a href="join.html" class="btn btn-primary btn-xl shimmer-btn">
+            <i class="fas fa-rocket"></i> Join Quiz Now
+          </a>
+        </div>
+      </div>
+
+      <!-- No active quiz -->
+      <div id="no-quiz-section" class="hidden" style="text-align:center;padding:var(--space-12) 0;">
+        <div style="font-size:4rem;margin-bottom:var(--space-4);">😴</div>
+        <h3 style="font-size:var(--text-2xl);margin-bottom:var(--space-2);">No Active Quiz Right Now</h3>
+        <p style="color:var(--color-text-secondary);">Check back soon or view the leaderboard while you wait.</p>
+        <div style="display:flex;gap:var(--space-3);justify-content:center;margin-top:var(--space-6);">
+          <a href="leaderboard.html" class="btn btn-outline">View Leaderboard</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Why QuizVerse?</div>
+        <h2 class="section-title">Built for <span class="text-gradient">Champions</span></h2>
+        <p class="section-subtitle">Every feature designed to make your quiz experience extraordinary.</p>
+        <div class="neon-divider"></div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="feature-icon cyan"><i class="fas fa-bolt"></i></div>
+          <h3 class="feature-title">Real-Time Experience</h3>
+          <p class="feature-desc">Live countdown timers, instant feedback, and animated responses keep you engaged every second.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon purple"><i class="fas fa-trophy"></i></div>
+          <h3 class="feature-title">Global Leaderboard</h3>
+          <p class="feature-desc">Compete with participants worldwide. Climb the ranks and claim your spot on the podium.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon pink"><i class="fas fa-certificate"></i></div>
+          <h3 class="feature-title">Earn Certificates</h3>
+          <p class="feature-desc">Get beautiful, downloadable certificates for every quiz completion. Perfect for your portfolio.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon green"><i class="fas fa-shield-alt"></i></div>
+          <h3 class="feature-title">Secure Platform</h3>
+          <p class="feature-desc">JWT authentication, rate limiting, and encrypted data ensure a safe quiz environment.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="feature-icon cyan"><i class="fas fa-chart-line"></i></div>
+          <h3 class="feature-title">Analytics Dashboard</h3>
+          <p class="feature-desc">Admins get beautiful Charts with participant trends, score distributions, and more.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="feature-icon purple"><i class="fas fa-mobile-alt"></i></div>
+          <h3 class="feature-title">Fully Responsive</h3>
+          <p class="feature-desc">Smooth animations and perfect layouts on desktop, tablet, and mobile devices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" style="background:linear-gradient(180deg,transparent,rgba(0,229,255,0.02),transparent);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Simple Process</div>
+        <h2 class="section-title">How It <span class="text-gradient">Works</span></h2>
+        <div class="neon-divider"></div>
+      </div>
+      <div class="steps-timeline">
+        <div class="step-item" data-aos="fade-up" data-aos-delay="0">
+          <div class="step-number active">01</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-3);">Enter Your Name</h3>
+          <p style="color:var(--color-text-secondary);font-size:var(--text-base);">Quick and easy. No registration required. Just your name and you're ready to go.</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="150">
+          <div class="step-number active">02</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-3);">Take the Quiz</h3>
+          <p style="color:var(--color-text-secondary);font-size:var(--text-base);">Answer questions one at a time with a live countdown timer tracking your pace.</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="step-number active">03</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-3);">See Your Results</h3>
+          <p style="color:var(--color-text-secondary);font-size:var(--text-base);">Detailed score breakdown, rank, badge, and confetti celebration await you.</p>
+        </div>
+        <div class="step-item" data-aos="fade-up" data-aos-delay="450">
+          <div class="step-number active">04</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-3);">Download Certificate</h3>
+          <p style="color:var(--color-text-secondary);font-size:var(--text-base);">Get a beautiful certificate proving your achievement. Share it with the world!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="section-label">Ready to Play?</div>
+      <h2 class="cta-title">Start Your <span class="text-gradient">Journey</span> Today</h2>
+      <p style="color:var(--color-text-secondary);font-size:var(--text-lg);margin-bottom:var(--space-10);max-width:500px;margin-left:auto;margin-right:auto;">Join thousands of participants who are already competing on QuizVerse.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;">
+        <a href="join.html" class="btn btn-primary btn-xl shimmer-btn">
+          <i class="fas fa-rocket"></i> Start for Free
+        </a>
+        <a href="leaderboard.html" class="btn btn-ghost btn-xl">
+          <i class="fas fa-users"></i> See Rankings
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div class="logo" style="margin-bottom:var(--space-2);">
+            <div class="logo-icon">⚡</div>
+            <span class="logo-text">QuizVerse</span>
+          </div>
+          <p class="footer-text">The Futuristic Quiz Platform</p>
+        </div>
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Home</a>
+          <a href="join.html" class="footer-link">Play</a>
+          <a href="leaderboard.html" class="footer-link">Leaderboard</a>
+          <a href="login.html" class="footer-link">Admin</a>
+        </div>
+        <p class="footer-text">© 2024 QuizVerse. Built with ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+  
+  <!-- JS -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
