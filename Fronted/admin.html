@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizVerse — Admin Dashboard</title>
+  <meta name="description" content="QuizVerse Admin Control Panel. Manage participants, create questions, check leaderboards, and visualize real-time analytics." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Central CSS Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/reponsive.css" /> <!-- Spell matches landing page files -->
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-logo">QuizVerse Control Panel</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+
+  <!-- Particle Background -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="grid-bg"></div>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container"></div>
+
+  <!-- =========================================
+     Dashboard Layout Wrapper
+     ========================================= -->
+  <div class="admin-container">
+
+    <!-- Mobile Header (Hamburger & Logo) -->
+    <header class="mobile-header">
+      <div class="mobile-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">QuizVerse</span>
+      </div>
+      <button class="burger-menu-btn" id="burger-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- LEFT FIXED SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">QuizVerse</span>
+      </div>
+      
+      <nav class="sidebar-menu">
+        <a class="menu-item active" data-tab="dashboard">
+          <i class="fas fa-chart-line"></i> Dashboard
+        </a>
+        <a class="menu-item" data-tab="participants">
+          <i class="fas fa-users"></i> Participants
+        </a>
+        <a class="menu-item" data-tab="questions">
+          <i class="fas fa-list-ol"></i> Questions
+        </a>
+        <a class="menu-item" data-tab="create-question">
+          <i class="fas fa-plus-circle"></i> Create Question
+        </a>
+        <a class="menu-item" data-tab="leaderboard">
+          <i class="fas fa-trophy"></i> Leaderboard
+        </a>
+        <a class="menu-item" data-tab="analytics">
+          <i class="fas fa-chart-bar"></i> Analytics
+        </a>
+        <a class="menu-item" data-tab="settings">
+          <i class="fas fa-sliders-h"></i> Settings
+        </a>
+        
+        <a class="menu-item logout-item" data-tab="logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      
+      <!-- TOP NAVBAR (Hidden on mobile) -->
+      <nav class="top-navbar">
+        <div class="nav-welcome">
+          <h2 id="nav-welcome-title">Welcome Admin, Elena</h2>
+          <span id="current-date-span">Control Station — <span class="font-mono">July 10, 2026</span></span>
+        </div>
+        
+        <div class="nav-controls">
+          <div class="search-container">
+            <input type="text" class="search-input" placeholder="Quick search control..." />
+            <i class="fas fa-search"></i>
+          </div>
+          
+          <button class="nav-btn" title="System Notifications">
+            <i class="fas fa-bell"></i>
+            <span class="badge-dot"></span>
+          </button>
+          
+          <button class="nav-btn" data-tab="settings" title="System Settings">
+            <i class="fas fa-cog"></i>
+          </button>
+
+          <div class="admin-profile" data-tab="settings">
+            <div class="admin-avatar-wrapper">
+              <img src="" id="nav-admin-avatar" alt="Admin Avatar" />
+            </div>
+            <div class="admin-info">
+              <span class="admin-name" id="nav-admin-name">Loading...</span>
+              <span class="admin-role">Super Admin</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- SUB-PAGES CONTAINERS -->
+
+      <!-- =========================================
+         1. DASHBOARD OVERVIEW SECTION
+         ========================================= -->
+      <section class="dashboard-section active" id="dashboard-section">
+        <div class="section-header">
+          <h1 class="section-title">⚡ <span>Dashboard Overview</span></h1>
+          <p class="section-desc">Real-time statistics, active participant counts, and server status.</p>
+        </div>
+
+        <!-- Stats Cards Grid -->
+        <div class="stats-grid">
+          
+          <!-- Card 1: Total Participants -->
+          <div class="glass-card stat-card cyan">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Total Participants</span>
+              <div class="stat-icon"><i class="fas fa-users-cog"></i></div>
+            </div>
+            <div class="stat-value" id="dash-total-participants">0</div>
+            <div class="stat-trend up">
+              <i class="fas fa-arrow-up"></i> +12% this week
+            </div>
+          </div>
+
+          <!-- Card 2: Total Questions -->
+          <div class="glass-card stat-card purple">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Total Questions</span>
+              <div class="stat-icon"><i class="fas fa-question-circle"></i></div>
+            </div>
+            <div class="stat-value" id="dash-total-questions">0</div>
+            <div class="stat-trend up">
+              <i class="fas fa-plus"></i> +6 new database
+            </div>
+          </div>
+
+          <!-- Card 3: Active Quizzes -->
+          <div class="glass-card stat-card pink">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Active Quizzes</span>
+              <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            </div>
+            <div class="stat-value" id="dash-active-quiz">0</div>
+            <div class="stat-trend up">
+              <i class="fas fa-spinner fa-spin"></i> Live session
+            </div>
+          </div>
+
+          <!-- Card 4: Average Score -->
+          <div class="glass-card stat-card blue">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Average Score</span>
+              <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+            </div>
+            <div class="stat-value" id="dash-avg-score">0%</div>
+            <div class="stat-trend up">
+              <i class="fas fa-arrow-up"></i> +4.5% compared avg
+            </div>
+          </div>
+
+          <!-- Card 5: Highest Score -->
+          <div class="glass-card stat-card cyan">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Highest Score</span>
+              <div class="stat-icon"><i class="fas fa-award"></i></div>
+            </div>
+            <div class="stat-value" id="dash-highest-score">0%</div>
+            <div class="stat-trend">
+              <i class="fas fa-circle" style="color:var(--color-primary);font-size:6px;"></i> QuizVerse Peak Record
+            </div>
+          </div>
+
+          <!-- Card 6: Today's Signup -->
+          <div class="glass-card stat-card purple">
+            <div class="stat-card-glow"></div>
+            <div class="stat-header">
+              <span class="stat-title">Today's Signup</span>
+              <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+            </div>
+            <div class="stat-value" id="dash-today-participants">0</div>
+            <div class="stat-trend up">
+              <i class="fas fa-angle-double-up"></i> Active traffic
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Graph -->
+        <div class="glass-card" style="padding: var(--space-6); margin-bottom: var(--space-6);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5);">
+            <h3 style="font-family:var(--font-secondary);font-size:var(--text-base);font-weight:700;">
+              📈 Traffic & Participation Trends
+            </h3>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted);">Real-time monitoring enabled</span>
+          </div>
+          <div style="height: 300px; position: relative;">
+            <canvas id="dashboard-overview-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================
+         2. PARTICIPANTS LIST SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="participants-section">
+        <div class="section-header">
+          <h1 class="section-title">👥 <span>Participants Manager</span></h1>
+          <p class="section-desc">View, filter, edit status, or export participant lists of current quizzes.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="glass-card" style="padding: var(--space-5); margin-bottom: var(--space-6);">
+          <div class="table-header-controls">
+            
+            <div class="search-container">
+              <input type="text" class="search-input" id="part-search-input" placeholder="Search by name or email..." />
+              <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="table-filters">
+              <select class="filter-select" id="part-filter-status">
+                <option value="all">All Statuses</option>
+                <option value="completed">Completed</option>
+                <option value="active">Active Runs</option>
+                <option value="pending">Pending</option>
+              </select>
+
+              <select class="filter-select" id="part-sort-select">
+                <option value="rank">Sort by Rank</option>
+                <option value="score">Sort by Score</option>
+                <option value="name">Sort by Name</option>
+                <option value="time">Sort by Time Taken</option>
+              </select>
+
+              <button class="btn btn-primary shimmer-btn" id="btn-export-participants-csv">
+                <i class="fas fa-file-csv"></i> Export CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Glassmorphism Data Table -->
+          <div class="table-container">
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Rank</th>
+                  <th>Participant</th>
+                  <th>Score</th>
+                  <th>Correct</th>
+                  <th>Wrong</th>
+                  <th>Accuracy</th>
+                  <th>Time Taken</th>
+                  <th>Status</th>
+                  <th style="width: 100px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="participants-table-body">
+                <!-- Injected via admin.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="table-pagination">
+            <span class="pagination-info" id="participants-pagination-info">Showing...</span>
+            <div class="pagination-btns">
+              <button class="pagination-btn" id="participants-prev-btn"><i class="fas fa-chevron-left"></i> Prev</button>
+              <button class="pagination-btn" id="participants-next-btn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================
+         3. QUESTIONS GRID SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="questions-section">
+        <div class="section-header">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);">
+            <div>
+              <h1 class="section-title">❓ <span>Questions Database</span></h1>
+              <p class="section-desc">Manage existing questions, preview choices, and edit point structures.</p>
+            </div>
+            <button class="btn btn-primary shimmer-btn" data-tab="create-question">
+              <i class="fas fa-plus"></i> Add New Question
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Tools -->
+        <div class="glass-card" style="padding: var(--space-5); margin-bottom: var(--space-6);">
+          <div class="table-header-controls">
+            
+            <div class="search-container" style="flex-grow: 1; max-width: 400px;">
+              <input type="text" class="search-input" id="question-search-input" placeholder="Search questions..." />
+              <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="table-filters">
+              <select class="filter-select" id="question-filter-category">
+                <option value="all">All Categories</option>
+                <!-- Injected via JS -->
+              </select>
+
+              <select class="filter-select" id="question-filter-difficulty">
+                <option value="all">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+
+              <button class="btn btn-ghost" id="btn-add-category-dialog" onclick="document.getElementById('add-category-modal').classList.add('active');">
+                <i class="fas fa-folder-plus"></i> New Category
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Grid Wrapper -->
+        <div class="questions-grid" id="questions-grid-container">
+          <!-- Injected via admin.js -->
+        </div>
+      </section>
+
+      <!-- =========================================
+         4. CREATE QUESTION FORM SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="create-question-section">
+        <div class="section-header">
+          <h1 class="section-title">📝 <span>Create Question</span></h1>
+          <p class="section-desc">Add a new question card into the central database containing choices and tags.</p>
+        </div>
+
+        <div class="glass-card form-card">
+          <form id="create-question-form">
+            <div class="form-grid">
+              
+              <!-- Question Text -->
+              <div class="form-group col-span-2">
+                <div class="floating-label-group">
+                  <textarea id="q-text" placeholder=" " required></textarea>
+                  <label for="q-text">Enter Question Description</label>
+                </div>
+              </div>
+
+              <!-- Option A -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <input type="text" id="q-opt-a" placeholder=" " required />
+                  <label for="q-opt-a">Option A</label>
+                </div>
+              </div>
+
+              <!-- Option B -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <input type="text" id="q-opt-b" placeholder=" " required />
+                  <label for="q-opt-b">Option B</label>
+                </div>
+              </div>
+
+              <!-- Option C -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <input type="text" id="q-opt-c" placeholder=" " required />
+                  <label for="q-opt-c">Option C</label>
+                </div>
+              </div>
+
+              <!-- Option D -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <input type="text" id="q-opt-d" placeholder=" " required />
+                  <label for="q-opt-d">Option D</label>
+                </div>
+              </div>
+
+              <!-- Correct Answer Selector -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <select id="q-correct" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="0">Option A</option>
+                    <option value="1">Option B</option>
+                    <option value="2">Option C</option>
+                    <option value="3">Option D</option>
+                  </select>
+                  <label for="q-correct">Correct Option Choice</label>
+                </div>
+              </div>
+
+              <!-- Category -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <select id="q-category" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="Data Structures">Data Structures</option>
+                    <option value="Algorithms">Algorithms</option>
+                    <option value="Networking">Networking</option>
+                    <option value="Databases">Databases</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="DevOps">DevOps</option>
+                  </select>
+                  <label for="q-category">Select Category</label>
+                </div>
+              </div>
+
+              <!-- Difficulty -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <select id="q-difficulty" required>
+                    <option value="" disabled selected hidden></option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                  <label for="q-difficulty">Difficulty Level</label>
+                </div>
+              </div>
+
+              <!-- Marks Weight -->
+              <div class="form-group">
+                <div class="floating-label-group">
+                  <input type="number" id="q-marks" min="1" max="100" placeholder=" " required />
+                  <label for="q-marks">Award points (Marks)</label>
+                </div>
+              </div>
+
+              <!-- Upload Custom Image -->
+              <div class="form-group col-span-2">
+                <span style="font-size: var(--text-xs); color: var(--color-text-secondary); display:block; margin-bottom:6px;">Upload Question Image (Optional)</span>
+                
+                <!-- Input wrapper layout -->
+                <div class="image-upload-wrapper" id="img-upload-wrapper">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span>Drag files here or click to browse templates</span>
+                </div>
+
+                <div class="image-upload-preview-container" id="img-preview-container">
+                  <img src="" id="img-upload-preview" alt="Upload thumbnail" />
+                  <div class="remove-preview-btn" id="btn-remove-img-preview" title="Remove image">
+                    <i class="fas fa-times"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Explanation Text Area -->
+              <div class="form-group col-span-2">
+                <div class="floating-label-group">
+                  <textarea id="q-explanation" placeholder=" "></textarea>
+                  <label for="q-explanation">Provide brief explanation for correct answer...</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="form-actions">
+              <button class="btn btn-ghost" id="btn-create-reset">Reset Form</button>
+              <button class="btn btn-ghost" id="btn-create-preview" style="border-color: rgba(255,255,255,0.25);">
+                <i class="fas fa-play"></i> Preview Mode
+              </button>
+              <button type="submit" class="btn btn-primary shimmer-btn">
+                <i class="fas fa-paper-plane"></i> Publish Question
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- =========================================
+         5. LEADERBOARD LIST SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="leaderboard-section">
+        <div class="section-header">
+          <h1 class="section-title">🏆 <span>Rank Leaderboard</span></h1>
+          <p class="section-desc">Podium showcase of top 3 winners, followed by remaining player stats.</p>
+        </div>
+
+        <!-- Podium Showcase layout -->
+        <div class="podium-container">
+          
+          <!-- Rank 2: Silver Card -->
+          <div class="glass-card podium-card silver">
+            <span class="podium-crown">🥈</span>
+            <div class="podium-avatar">
+              <span id="podium-silver-avatar-init">C</span>
+              <span class="podium-rank">2</span>
+            </div>
+            <h3 class="podium-name" id="podium-silver-name">Cortex.AI</h3>
+            <div class="podium-score" id="podium-silver-score">95%</div>
+            <span class="podium-accuracy" id="podium-silver-accuracy">Accuracy: 90%</span>
+          </div>
+
+          <!-- Rank 1: Gold Card -->
+          <div class="glass-card podium-card gold">
+            <span class="podium-crown">👑</span>
+            <div class="podium-avatar" style="width: 84px; height: 84px; font-size: var(--text-3xl);">
+              <span id="podium-gold-avatar-init">N</span>
+              <span class="podium-rank" style="width: 26px; height: 26px; font-size: 11px;">1</span>
+            </div>
+            <h3 class="podium-name" id="podium-gold-name" style="font-size: var(--text-lg)">Nova Prime</h3>
+            <div class="podium-score" id="podium-gold-score" style="font-size: var(--text-base)">98%</div>
+            <span class="podium-accuracy" id="podium-gold-accuracy">Accuracy: 90%</span>
+          </div>
+
+          <!-- Rank 3: Bronze Card -->
+          <div class="glass-card podium-card bronze">
+            <span class="podium-crown">🥉</span>
+            <div class="podium-avatar">
+              <span id="podium-bronze-avatar-init">C</span>
+              <span class="podium-rank">3</span>
+            </div>
+            <h3 class="podium-name" id="podium-bronze-name">Cipher Hacker</h3>
+            <div class="podium-score" id="podium-bronze-score">92%</div>
+            <span class="podium-accuracy" id="podium-bronze-accuracy">Accuracy: 90%</span>
+          </div>
+        </div>
+
+        <!-- Filters controls & Table layout -->
+        <div class="glass-card" style="padding: var(--space-5);">
+          <div class="table-header-controls">
+            
+            <div class="search-container">
+              <input type="text" class="search-input" id="lead-search-input" placeholder="Search leaderboard..." />
+              <i class="fas fa-search"></i>
+            </div>
+            
+            <div class="table-filters">
+              <select class="filter-select" id="lead-filter-accuracy">
+                <option value="all">All Accuracies</option>
+                <option value="90">Accuracy &gt;= 90%</option>
+                <option value="80">Accuracy &gt;= 80%</option>
+                <option value="70">Accuracy &gt;= 70%</option>
+                <option value="50">Accuracy &gt;= 50%</option>
+              </select>
+
+              <button class="btn btn-ghost" id="lead-btn-pdf" style="border-color: rgba(255,255,255,0.25);">
+                <i class="fas fa-file-pdf"></i> Save PDF
+              </button>
+
+              <button class="btn btn-primary shimmer-btn" id="lead-btn-csv">
+                <i class="fas fa-file-excel"></i> Export CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Remaining Table ranks -->
+          <div class="table-container">
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Rank</th>
+                  <th>Name</th>
+                  <th>Score</th>
+                  <th>Correct</th>
+                  <th>Wrong</th>
+                  <th>Accuracy</th>
+                  <th>Time Taken</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-table-body">
+                <!-- Injected via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================
+         6. ANALYTICS CHARTS SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="analytics-section">
+        <div class="section-header">
+          <h1 class="section-title">📊 <span>Analytics Visual Reports</span></h1>
+          <p class="section-desc">Comprehensive data charts, user accuracy reports, and category performance scales.</p>
+        </div>
+
+        <!-- 4 Grid Charts Container -->
+        <div class="analytics-grid">
+          
+          <!-- Bar Chart -->
+          <div class="glass-card chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">📊 Score Distributions</h3>
+              <span style="font-size:10px; color:var(--color-primary)">BAR CHART</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-score-dist"></canvas>
+            </div>
+          </div>
+
+          <!-- Pie Chart -->
+          <div class="glass-card chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">🍕 Categories Accuracy Perf</h3>
+              <span style="font-size:10px; color:var(--color-secondary)">PIE CHART</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-categories-perf"></canvas>
+            </div>
+          </div>
+
+          <!-- Line Chart -->
+          <div class="glass-card chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">📈 Participation Trends</h3>
+              <span style="font-size:10px; color:var(--color-accent)">LINE CHART</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-participation-trend"></canvas>
+            </div>
+          </div>
+
+          <!-- Area Chart -->
+          <div class="glass-card chart-card">
+            <div class="chart-header">
+              <h3 class="chart-title">🌀 Average Accuracy Rate</h3>
+              <span style="font-size:10px; color:var(--color-info)">AREA CHART</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="chart-accuracy-rate"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Metrics Panel -->
+        <div class="glass-card" style="padding: var(--space-6);">
+          <h3 style="font-family: var(--font-secondary); margin-bottom: var(--space-4); font-size: var(--text-base);">
+            🔍 Deep Analytics Summary
+          </h3>
+          <div class="analytics-stat-row">
+            
+            <div class="glass-card analytics-stat-item" style="background: rgba(255,255,255,0.02);">
+              <i class="fas fa-clock" style="font-size: 20px; color: var(--color-primary)"></i>
+              <div class="analytics-stat-info">
+                <span class="analytics-stat-label">Average Run Score</span>
+                <span class="analytics-stat-value" id="analytics-avg-score">0%</span>
+              </div>
+            </div>
+
+            <div class="glass-card analytics-stat-item" style="background: rgba(255,255,255,0.02);">
+              <i class="fas fa-exclamation-triangle" style="font-size: 20px; color: var(--color-accent)"></i>
+              <div class="analytics-stat-info">
+                <span class="analytics-stat-label">Most Difficult Question</span>
+                <span class="analytics-stat-value" id="analytics-most-diff">Calculating...</span>
+              </div>
+            </div>
+
+            <div class="glass-card analytics-stat-item" style="background: rgba(255,255,255,0.02);">
+              <i class="fas fa-check-double" style="font-size: 20px; color: var(--color-success)"></i>
+              <div class="analytics-stat-info">
+                <span class="analytics-stat-label">Highest Correct Ratio</span>
+                <span class="analytics-stat-value" id="analytics-most-corr">Calculating...</span>
+              </div>
+            </div>
+
+            <div class="glass-card analytics-stat-item" style="background: rgba(255,255,255,0.02);">
+              <i class="fas fa-chart-line" style="font-size: 20px; color: var(--color-secondary)"></i>
+              <div class="analytics-stat-info">
+                <span class="analytics-stat-label">Participation Trend</span>
+                <span class="analytics-stat-value" id="analytics-participation-trend">Calculating...</span>
+              </div>
+            </div>
+
+            <div class="glass-card analytics-stat-item" style="background: rgba(255,255,255,0.02);">
+              <i class="fas fa-chart-pie" style="font-size: 20px; color: var(--color-info)"></i>
+              <div class="analytics-stat-info">
+                <span class="analytics-stat-label">Category Performance</span>
+                <span class="analytics-stat-value" id="analytics-category-performance">Calculating...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================
+         7. SETTINGS & PROFILE SECTION
+         ========================================= -->
+      <section class="dashboard-section" id="settings-section">
+        <div class="section-header">
+          <h1 class="section-title">⚙️ <span>System Settings</span></h1>
+          <p class="section-desc">Manage admin credentials, adjust platform features, and toggle dark themes.</p>
+        </div>
+
+        <div class="glass-card" style="padding: var(--space-6);">
+          <div class="settings-container">
+            
+            <!-- Settings Navigation -->
+            <nav class="settings-nav">
+              <a class="settings-nav-item active" data-panel="profile"><i class="fas fa-user-edit"></i> Profile Info</a>
+              <a class="settings-nav-item" data-panel="security"><i class="fas fa-shield-alt"></i> Security & Pass</a>
+              <a class="settings-nav-item" data-panel="system"><i class="fas fa-cogs"></i> System & Theme</a>
+            </nav>
+
+            <!-- Panel 1: Profile -->
+            <div class="settings-panel active" id="settings-panel-profile">
+              <div class="profile-upload-section">
+                <div class="profile-avatar-large">
+                  <img src="" id="settings-avatar-preview" alt="Admin Avatar Large" />
+                </div>
+                <div class="profile-upload-btns">
+                  <button class="btn btn-ghost" id="btn-upload-avatar" style="padding: var(--space-2) var(--space-4); font-size:var(--text-xs); border-color: rgba(255,255,255,0.25)">Upload Avatar</button>
+                  <button class="btn btn-ghost" id="btn-reset-avatar" style="padding: var(--space-2) var(--space-4); font-size:var(--text-xs); color:var(--color-accent); border-color: transparent">Reset Picture</button>
+                </div>
+              </div>
+
+              <form id="settings-profile-form">
+                <div class="form-group">
+                  <div class="floating-label-group">
+                    <input type="text" id="settings-name-input" placeholder=" " required />
+                    <label for="settings-name-input">Profile Name</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="floating-label-group">
+                    <input type="email" id="settings-email-input" placeholder=" " required />
+                    <label for="settings-email-input">E-mail Address</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary shimmer-btn" style="margin-top:var(--space-2);">Save Profile Details</button>
+              </form>
+            </div>
+
+            <!-- Panel 2: Security -->
+            <div class="settings-panel" id="settings-panel-security">
+              <h3 style="font-family: var(--font-secondary); margin-bottom:var(--space-4);">Security Settings</h3>
+              <form id="settings-security-form">
+                <div class="form-group">
+                  <div class="floating-label-group">
+                    <input type="password" id="settings-current-pass" placeholder=" " required />
+                    <label for="settings-current-pass">Current Password</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="floating-label-group">
+                    <input type="password" id="settings-new-pass" placeholder=" " required />
+                    <label for="settings-new-pass">New Password</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="floating-label-group">
+                    <input type="password" id="settings-confirm-pass" placeholder=" " required />
+                    <label for="settings-confirm-pass">Confirm New Password</label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary shimmer-btn" style="margin-top:var(--space-2);">Update Admin Password</button>
+              </form>
+            </div>
+
+            <!-- Panel 3: System Configurations -->
+            <div class="settings-panel" id="settings-panel-system">
+              <h3 style="font-family: var(--font-secondary); margin-bottom:var(--space-4);">General System Settings</h3>
+              <div class="settings-toggle-group">
+                
+                <!-- Toggle Theme -->
+                <div class="toggle-item">
+                  <div class="toggle-details">
+                    <span class="toggle-title">Toggle Cyber-Light Mode</span>
+                    <span class="toggle-desc">Switch interface to lighter background styling.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="theme-toggle-switch" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <!-- Toggle Notifications -->
+                <div class="toggle-item">
+                  <div class="toggle-details">
+                    <span class="toggle-title">Enable Sound FX on Join</span>
+                    <span class="toggle-desc">Play sounds when participants submit answers.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <!-- Auto-Publish -->
+                <div class="toggle-item">
+                  <div class="toggle-details">
+                    <span class="toggle-title">Auto-publish created questions</span>
+                    <span class="toggle-desc">Instantly pushes new questions live.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <!-- Maintain Logs -->
+                <div class="toggle-item">
+                  <div class="toggle-details">
+                    <span class="toggle-title">Maintain audit system logs</span>
+                    <span class="toggle-desc">Keeps system security access history.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- MOBILE BOTTOM NAVIGATION BAR -->
+    <nav class="mobile-nav-bar">
+      <div class="mobile-nav-item active" data-tab="dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span>Dash</span>
+      </div>
+      <div class="mobile-nav-item" data-tab="participants">
+        <i class="fas fa-users"></i>
+        <span>Users</span>
+      </div>
+      <div class="mobile-nav-item" data-tab="create-question">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add</span>
+      </div>
+      <div class="mobile-nav-item" data-tab="leaderboard">
+        <i class="fas fa-trophy"></i>
+        <span>Ranks</span>
+      </div>
+      <div class="mobile-nav-item" data-tab="settings">
+        <i class="fas fa-sliders-h"></i>
+        <span>Settings</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- =========================================
+     INTERACTIVE MODALS SECTION
+     ========================================= -->
+
+  <!-- Modal 1: Participant Deletion Confirm -->
+  <div class="modal-overlay" id="delete-participant-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-accent)"><i class="fas fa-exclamation-triangle"></i> Delete Participant</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--color-text-secondary); line-height:1.5;">Are you sure you want to remove this participant's scores and record from the QuizVerse history? This action is permanent and cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-modal-close">Cancel</button>
+        <button class="btn btn-primary" id="btn-confirm-delete-participant" style="background:var(--color-error)">Delete Record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Question Deletion Confirm -->
+  <div class="modal-overlay" id="delete-question-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-accent)"><i class="fas fa-exclamation-triangle"></i> Delete Question</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--color-text-secondary); line-height:1.5;">Are you sure you want to delete this question card from the central database? Existing quizzes referencing it might be affected.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-modal-close">Cancel</button>
+        <button class="btn btn-primary" id="btn-confirm-delete-question" style="background:var(--color-error)">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Edit Question Overlay Form -->
+  <div class="modal-overlay" id="edit-question-modal">
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-primary)"><i class="fas fa-edit"></i> Edit Question Details</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-question-form">
+          <div class="form-grid">
+            <div class="form-group col-span-2">
+              <div class="floating-label-group">
+                <textarea id="edit-q-text" placeholder=" " required></textarea>
+                <label for="edit-q-text">Enter Question Description</label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="floating-label-group">
+                <input type="text" id="edit-q-opt-a" placeholder=" " required />
+                <label for="edit-q-opt-a">Option A</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <input type="text" id="edit-q-opt-b" placeholder=" " required />
+                <label for="edit-q-opt-b">Option B</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <input type="text" id="edit-q-opt-c" placeholder=" " required />
+                <label for="edit-q-opt-c">Option C</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <input type="text" id="edit-q-opt-d" placeholder=" " required />
+                <label for="edit-q-opt-d">Option D</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <select id="edit-q-correct" required>
+                  <option value="0">Option A</option>
+                  <option value="1">Option B</option>
+                  <option value="2">Option C</option>
+                  <option value="3">Option D</option>
+                </select>
+                <label for="edit-q-correct">Correct Option Choice</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <select id="edit-q-category" required>
+                  <option value="Data Structures">Data Structures</option>
+                  <option value="Algorithms">Algorithms</option>
+                  <option value="Networking">Networking</option>
+                  <option value="Databases">Databases</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="DevOps">DevOps</option>
+                </select>
+                <label for="edit-q-category">Select Category</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <select id="edit-q-difficulty" required>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+                <label for="edit-q-difficulty">Difficulty Level</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="floating-label-group">
+                <input type="number" id="edit-q-marks" min="1" max="100" placeholder=" " required />
+                <label for="edit-q-marks">Award points (Marks)</label>
+              </div>
+            </div>
+
+            <div class="form-group col-span-2">
+              <span style="font-size: var(--text-xs); color: var(--color-text-secondary); display:block; margin-bottom:6px;">Upload Question Image</span>
+              <div class="image-upload-wrapper" id="edit-img-upload-wrapper">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Drag files here or click to change preview</span>
+              </div>
+              <div class="image-upload-preview-container" id="edit-img-preview-container">
+                <img src="" id="edit-img-upload-preview" alt="Upload thumbnail" />
+                <div class="remove-preview-btn" id="edit-btn-remove-img-preview" title="Remove image">
+                  <i class="fas fa-times"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-span-2">
+              <div class="floating-label-group">
+                <textarea id="edit-q-explanation" placeholder=" "></textarea>
+                <label for="edit-q-explanation">Provide brief explanation for correct answer...</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-ghost btn-modal-close">Close Editor</button>
+            <button type="submit" class="btn btn-primary shimmer-btn">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Add New Category Dialog -->
+  <div class="modal-overlay" id="add-category-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-primary)"><i class="fas fa-folder-plus"></i> Add New Category</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="floating-label-group">
+            <input type="text" id="new-category-input" placeholder=" " required />
+            <label for="new-category-input">Category Name</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-modal-close">Cancel</button>
+        <button class="btn btn-primary shimmer-btn" id="btn-add-cat-submit">Add Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Participant Details and Score Circle Progress -->
+  <div class="modal-overlay" id="participant-details-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-primary)"><i class="fas fa-id-card"></i> Participant Details</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" style="display:flex; align-items:center; gap: var(--space-6); flex-wrap:wrap; justify-content:center;">
+        
+        <!-- Score Circular Progress Container -->
+        <div id="modal-score-circle" style="text-align:center;"></div>
+        
+        <!-- User stats description panel -->
+        <div style="flex-grow:1; min-width: 200px;">
+          <h4 id="modal-score-name" style="font-family: var(--font-secondary); font-size:var(--text-lg); margin-bottom:2px;">Name</h4>
+          <p id="modal-score-email" style="font-size: var(--text-xs); color: var(--color-text-muted); margin-bottom:var(--space-4);">email@domain.com</p>
+          
+          <div style="display:flex; flex-direction:column; gap:var(--space-2); font-size:var(--text-sm);">
+            <div style="display:flex; justify-content:between;">
+              <span style="color:var(--color-text-secondary)">Correct Answers:</span>
+              <span style="font-weight:700; color:var(--color-success)" id="modal-score-correct">0</span>
+            </div>
+            <div style="display:flex; justify-content:between;">
+              <span style="color:var(--color-text-secondary)">Incorrect Answers:</span>
+              <span style="font-weight:700; color:var(--color-error)" id="modal-score-wrong">0</span>
+            </div>
+            <div style="display:flex; justify-content:between;">
+              <span style="color:var(--color-text-secondary)">Total Time Taken:</span>
+              <span style="font-weight:700; font-family:var(--font-mono)" id="modal-score-time">0:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary shimmer-btn btn-modal-close" style="width: 100%;">Close Summary</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Question Live Preview Showcase -->
+  <div class="modal-overlay" id="question-preview-modal">
+    <div class="modal-box modal-lg">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color:var(--color-primary)"><i class="fas fa-play"></i> Question Live Preview</h3>
+        <button class="modal-close-btn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Interactive card container matching candidate UI -->
+        <div class="preview-card-wrapper glass-card">
+          <p class="question-text" id="preview-modal-text" style="font-size:var(--text-lg); margin-bottom:var(--space-4);">Question placeholder description goes here...</p>
+          
+          <!-- Mock optional uploaded image -->
+          <img src="" id="preview-modal-image" class="preview-question-image" alt="Question reference illustration" style="display:none;" />
+          
+          <!-- Choices options buttons grid -->
+          <div class="preview-options-container" id="preview-modal-options">
+            <!-- Option pills loaded dynamically -->
+          </div>
+        </div>
+
+        <p style="font-size: 11px; color: var(--color-text-muted); text-align:center;">
+          <i class="fas fa-info-circle"></i> Click on any choice option to simulate candidate feedback.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-modal-close" style="width: 100%">Close Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+     JavaScript Libraries & Client
+     ========================================= -->
+  <!-- GSAP Animation Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+  
+  <!-- Chart.js Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- QuizVerse Systems -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
