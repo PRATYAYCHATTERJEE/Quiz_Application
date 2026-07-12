@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizVerse | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="admin2.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">Q</div>
+          <div>
+            <h2>QuizVerse</h2>
+            <p>Admin Console</p>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Sidebar navigation">
+          <button class="nav-item active" type="button" data-page="dashboard">
+            <i class="bx bxs-dashboard"></i>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" type="button" data-page="participants">
+            <i class="bx bxs-group"></i>
+            <span>Participants</span>
+          </button>
+          <button class="nav-item" type="button" data-page="questions">
+            <i class="bx bxs-help-circle"></i>
+            <span>Questions</span>
+          </button>
+          <button class="nav-item" type="button" data-page="create-question">
+            <i class="bx bxs-plus-circle"></i>
+            <span>Create Question</span>
+          </button>
+          <button class="nav-item" type="button" data-page="leaderboard">
+            <i class="bx bxs-trophy"></i>
+            <span>Leaderboard</span>
+          </button>
+          <button class="nav-item" type="button" data-page="analytics">
+            <i class="bx bxs-bar-chart-alt-2"></i>
+            <span>Analytics</span>
+          </button>
+          <button class="nav-item" type="button" data-page="settings">
+            <i class="bx bxs-cog"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="avatar">AD</div>
+          <div>
+            <strong>Admin Team</strong>
+            <p>Live operations</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Control Center</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="chip" type="button">+ New Quiz</button>
+            <button class="chip ghost" type="button">Sync Now</button>
+          </div>
+        </header>
+
+        <section id="page-content" class="page-content" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <template id="template-dashboard">
+      <section class="page-section">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">Live Session</p>
+            <h2>QuizVerse is running smoothly.</h2>
+            <p>Monitor participants, update questions, and track engagement from one place.</p>
+          </div>
+          <button class="primary-btn" type="button">Open Live Quiz</button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Participants</span>
+            <strong>1,284</strong>
+            <small>+12% this week</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Questions</span>
+            <strong>320</strong>
+            <small>24 new today</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Avg. Score</span>
+            <strong>84%</strong>
+            <small>Up from 79%</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Active Quizzes</span>
+            <strong>8</strong>
+            <small>3 scheduled</small>
+          </article>
+        </div>
+
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-head">
+              <h3>Recent Activity</h3>
+              <a href="#">View all</a>
+            </div>
+            <ul class="list-stack">
+              <li><span>New participant joined</span><strong>2m ago</strong></li>
+              <li><span>Question set updated</span><strong>8m ago</strong></li>
+              <li><span>Leaderboard refreshed</span><strong>16m ago</strong></li>
+            </ul>
+          </article>
+          <article class="panel">
+            <div class="panel-head">
+              <h3>Today’s Focus</h3>
+              <a href="#">Manage</a>
+            </div>
+            <div class="focus-box">
+              <div class="focus-pill">High engagement</div>
+              <div class="focus-pill">Content review</div>
+              <div class="focus-pill">Award setup</div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-participants">
+      <section class="page-section">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Participant Directory</h3>
+            <button class="primary-btn small" type="button">Export</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Aarav Mehta</td>
+                <td>aarav@email.com</td>
+                <td>92</td>
+                <td><span class="badge success">Verified</span></td>
+              </tr>
+              <tr>
+                <td>Sophia Chen</td>
+                <td>sophia@email.com</td>
+                <td>88</td>
+                <td><span class="badge success">Verified</span></td>
+              </tr>
+              <tr>
+                <td>Daniel Ortiz</td>
+                <td>daniel@email.com</td>
+                <td>76</td>
+                <td><span class="badge warning">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-questions">
+      <section class="page-section">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Question Bank</h3>
+            <button class="primary-btn small" type="button">Add Set</button>
+          </div>
+          <div class="question-list">
+            <article class="question-card">
+              <strong>JavaScript Basics</strong>
+              <p>10 questions • Mixed difficulty</p>
+            </article>
+            <article class="question-card">
+              <strong>Frontend Logic</strong>
+              <p>8 questions • Advanced</p>
+            </article>
+            <article class="question-card">
+              <strong>General Knowledge</strong>
+              <p>12 questions • Beginner</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-create-question">
+      <section class="page-section">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Create a New Question</h3>
+          </div>
+          <form class="form-grid">
+            <label>
+              Question Title
+              <input type="text" placeholder="Enter the question" />
+            </label>
+            <label>
+              Category
+              <input type="text" placeholder="e.g. HTML, CSS" />
+            </label>
+            <label>
+              Correct Answer
+              <input type="text" placeholder="Type the answer" />
+            </label>
+            <label>
+              Difficulty
+              <select>
+                <option>Easy</option>
+                <option>Medium</option>
+                <option>Hard</option>
+              </select>
+            </label>
+            <button class="primary-btn" type="button">Publish Question</button>
+          </form>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-leaderboard">
+      <section class="page-section">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Leaderboard</h3>
+            <button class="primary-btn small" type="button">Refresh</button>
+          </div>
+          <ol class="leaderboard-list">
+            <li><span>#1 Maya Singh</span><strong>1,020 pts</strong></li>
+            <li><span>#2 Liam Clark</span><strong>983 pts</strong></li>
+            <li><span>#3 Noah Brooks</span><strong>952 pts</strong></li>
+          </ol>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-analytics">
+      <section class="page-section">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Completion Rate</span>
+            <strong>91%</strong>
+            <small>Steady growth</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Retention</span>
+            <strong>67%</strong>
+            <small>Top cohort</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Average Time</span>
+            <strong>4.2m</strong>
+            <small>Per quiz</small>
+          </article>
+        </div>
+      </section>
+    </template>
+
+    <template id="template-settings">
+      <section class="page-section">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Settings</h3>
+          </div>
+          <form class="form-grid">
+            <label>
+              Quiz Title
+              <input type="text" value="QuizVerse Pro" />
+            </label>
+            <label>
+              Notification Email
+              <input type="email" value="ops@quizverse.com" />
+            </label>
+            <label>
+              Theme Mode
+              <select>
+                <option>Dark Neon</option>
+                <option>Light</option>
+              </select>
+            </label>
+            <button class="primary-btn" type="button">Save Changes</button>
+          </form>
+        </div>
+      </section>
+    </template>
+
+    <script src="admin2.js"></script>
+  </body>
+</html>
