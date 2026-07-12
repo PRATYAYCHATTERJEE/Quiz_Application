@@ -1440,3 +1440,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load the default page (Dashboard)
   switchView('dashboard');
 });
+
+
