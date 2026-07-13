@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizVerse Live Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        --bg: #060816;
+        --panel: rgba(14, 20, 35, 0.78);
+        --panel-strong: rgba(20, 28, 48, 0.92);
+        --border: rgba(255, 255, 255, 0.12);
+        --text: #f4f7ff;
+        --muted: #91a0c8;
+        --primary: #7c3aed;
+        --secondary: #06b6d4;
+        --success: #34d399;
+        --warning: #f59e0b;
+        --shadow: 0 18px 60px rgba(2, 7, 23, 0.55);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at top left, rgba(7, 89, 133, 0.22), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.2), transparent 35%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .background-orb {
+        position: fixed;
+        width: 18rem;
+        height: 18rem;
+        filter: blur(90px);
+        opacity: 0.25;
+        pointer-events: none;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      .orb-1 {
+        top: -4rem;
+        left: -3rem;
+        background: var(--secondary);
+      }
+
+      .orb-2 {
+        right: -4rem;
+        bottom: 5rem;
+        background: var(--primary);
+        animation-delay: -3s;
+      }
+
+      .app-shell {
+        position: relative;
+        z-index: 1;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 24px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+        backdrop-filter: blur(24px);
+        box-shadow: var(--shadow);
+        margin-bottom: 20px;
+      }
+
+      .brand-group,
+      .topbar-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+      }
+
+      .brand-name {
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .live-badge,
+      .timer-pill,
+      .question-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .live-badge i {
+        color: #fb7185;
+        animation: pulse 1.5s infinite;
+      }
+
+      .quiz-title {
+        font-size: 1.08rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-align: center;
+        flex: 1;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 1.2fr 320px;
+        gap: 20px;
+      }
+
+      .main-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .question-card,
+      .sidebar-card,
+      .loading-card {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(24px);
+      }
+
+      .question-card {
+        padding: 28px;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .question-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .question-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.35), rgba(6, 182, 212, 0.22));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-weight: 700;
+      }
+
+      .question-meta {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .question-title {
+        font-size: clamp(1.25rem, 2vw, 1.8rem);
+        line-height: 1.4;
+        margin: 0 0 16px;
+        font-weight: 700;
+      }
+
+      .question-media {
+        margin: 18px 0 24px;
+      }
+
+      .placeholder-image {
+        min-height: 180px;
+        border-radius: 22px;
+        border: 1px dashed rgba(255, 255, 255, 0.16);
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(6, 182, 212, 0.16));
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .placeholder-image::before,
+      .placeholder-image::after {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .placeholder-image i {
+        font-size: 2.4rem;
+        color: #ffffff;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .option-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        cursor: pointer;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        text-align: left;
+        overflow: hidden;
+      }
+
+      .option-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(6, 182, 212, 0.6);
+        box-shadow: 0 14px 32px rgba(6, 182, 212, 0.15);
+      }
+
+      .option-card.selected {
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.26), rgba(6, 182, 212, 0.16));
+        border-color: rgba(167, 139, 250, 0.9);
+        box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 16px 32px rgba(117, 82, 255, 0.2);
+      }
+
+      .option-letter {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.34), rgba(6, 182, 212, 0.28));
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .option-text {
+        flex: 1;
+        line-height: 1.45;
+      }
+
+      .check-icon {
+        opacity: 0;
+        transform: scale(0.7);
+        color: var(--success);
+        transition: all 0.2s ease;
+      }
+
+      .option-card.selected .check-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .btn {
+        position: relative;
+        border: none;
+        border-radius: 999px;
+        padding: 13px 18px;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), #8b5cf6 50%, var(--secondary));
+        box-shadow: 0 12px 24px rgba(124, 58, 237, 0.28);
+      }
+
+      .btn-accent {
+        background: linear-gradient(135deg, #0ea5e9, #22c55e);
+        box-shadow: 0 12px 24px rgba(34, 197, 94, 0.2);
+      }
+
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.32);
+        transform: scale(0);
+        pointer-events: none;
+        animation: ripple 0.55s ease-out;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .sidebar-card {
+        padding: 18px;
+        animation: fadeUp 0.7s ease both;
+      }
+
+      .sidebar-card h3 {
+        margin: 0 0 14px;
+        font-size: 1rem;
+      }
+
+      .navigator-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .nav-dot {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        background: rgba(255,255,255,0.09);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .nav-dot:hover {
+        transform: scale(1.04);
+      }
+
+      .nav-dot.current {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.28);
+      }
+
+      .nav-dot.answered {
+        background: linear-gradient(135deg, #34d399, #10b981);
+      }
+
+      .nav-dot.unanswered {
+        background: rgba(255,255,255,0.09);
+      }
+
+      .info-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .info-row:last-child {
+        border-bottom: none;
+      }
+
+      .label {
+        color: var(--muted);
+      }
+
+      .value {
+        font-weight: 600;
+        text-align: right;
+      }
+
+      .progress-track {
+        margin-top: 10px;
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.35s ease;
+      }
+
+      .loading-card {
+        padding: 24px;
+        min-height: 500px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .skeleton {
+        border-radius: 18px;
+        background: linear-gradient(110deg, rgba(255,255,255,0.05) 8%, rgba(255,255,255,0.14) 18%, rgba(255,255,255,0.05) 33%);
+        background-size: 200% 100%;
+        animation: shimmer 1.1s linear infinite;
+      }
+
+      .skeleton.title {
+        height: 24px;
+        width: 70%;
+      }
+
+      .skeleton.line {
+        height: 14px;
+        width: 100%;
+      }
+
+      .skeleton.image {
+        height: 180px;
+      }
+
+      .skeleton.option {
+        height: 72px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        background: rgba(2, 6, 23, 0.75);
+        backdrop-filter: blur(14px);
+      }
+
+      .modal-card {
+        width: min(92vw, 520px);
+        padding: 24px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(24, 33, 54, 0.95));
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: var(--shadow);
+        text-align: center;
+        animation: fadeUp 0.35s ease both;
+      }
+
+      .modal-card h2 {
+        margin: 0 0 8px;
+        font-size: 1.7rem;
+      }
+
+      .modal-card p {
+        color: var(--muted);
+        margin: 6px 0;
+      }
+
+      .result-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 18px 0;
+      }
+
+      .result-pill {
+        padding: 12px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .result-pill strong {
+        display: block;
+        font-size: 1.15rem;
+        margin-top: 4px;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(18px) scale(1.04);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      @keyframes shimmer {
+        to {
+          background-position: -200% 0;
+        }
+      }
+
+      @keyframes ripple {
+        to {
+          transform: scale(2.7);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 1080px) {
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .app-shell {
+          padding: 14px;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 16px;
+        }
+
+        .brand-group,
+        .topbar-meta {
+          justify-content: space-between;
+          flex-wrap: wrap;
+        }
+
+        .quiz-title {
+          text-align: left;
+        }
+
+        .question-card {
+          padding: 20px;
+        }
+
+        .options-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .navigator-grid {
+          grid-template-columns: repeat(10, minmax(0, 1fr));
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-orb orb-1"></div>
+    <div class="background-orb orb-2"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-group">
+          <div class="logo"><i class="fa-solid fa-brain"></i></div>
+          <div>
+            <div class="brand-name">QuizVerse</div>
+            <div class="live-badge"><i class="fa-solid fa-circle"></i> Live Quiz</div>
+          </div>
+        </div>
+        <div class="quiz-title">Web Development Quiz 2026</div>
+        <div class="topbar-meta">
+          <div class="timer-pill"><i class="fa-regular fa-clock"></i> <span id="timer">02:30</span></div>
+          <div class="question-pill" id="headerQuestionCounter">Question 1 of 20</div>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="main-panel">
+          <div id="loadingState" class="loading-card">
+            <div class="skeleton title"></div>
+            <div class="skeleton line"></div>
+            <div class="skeleton line" style="width: 82%"></div>
+            <div class="skeleton image"></div>
+            <div class="skeleton option"></div>
+            <div class="skeleton option"></div>
+          </div>
+
+          <div id="quizCard" class="question-card hidden">
+            <div class="question-top">
+              <div class="question-badge" id="questionBadge">Question 01</div>
+              <div class="question-meta">Select the best answer</div>
+            </div>
+
+            <h2 class="question-title" id="questionText"></h2>
+
+            <div class="question-media">
+              <div class="placeholder-image">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+            </div>
+
+            <div class="options-grid" id="optionsContainer"></div>
+
+            <div class="controls">
+              <button class="btn btn-secondary" id="prevBtn"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" id="nextBtn">Next <i class="fa-solid fa-chevron-right"></i></button>
+              <button class="btn btn-accent" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Answer</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Question Navigator</h3>
+            <div class="navigator-grid" id="navigator"></div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Quiz Information</h3>
+            <div class="info-list">
+              <div class="info-row">
+                <span class="label">Participant</span>
+                <span class="value" id="participantName">Ava Chen</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Current Score</span>
+                <span class="value" id="scoreValue">0</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Answered</span>
+                <span class="value" id="answeredValue">0</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Remaining</span>
+                <span class="value" id="remainingValue">20</span>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="resultModal" class="modal hidden">
+      <div class="modal-card">
+        <h2><i class="fa-solid fa-circle-check"></i> Quiz Completed!</h2>
+        <p>Your live quiz has been submitted successfully.</p>
+        <div class="result-grid">
+          <div class="result-pill">
+            Score
+            <strong id="modalScore">0</strong>
+          </div>
+          <div class="result-pill">
+            Correct
+            <strong id="modalCorrect">0</strong>
+          </div>
+          <div class="result-pill">
+            Wrong
+            <strong id="modalWrong">0</strong>
+          </div>
+          <div class="result-pill">
+            Accuracy
+            <strong id="modalAccuracy">0%</strong>
+          </div>
+        </div>
+        <p>Leaderboard Position: <strong id="modalPosition">#1</strong></p>
+        <button class="btn btn-primary" id="leaderboardBtn"><i class="fa-solid fa-trophy"></i> View Leaderboard</button>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "Which HTML tag is used to define a hyperlink?",
+          options: ["<link>", "<a>", "<href>", "<url>"],
+          correct: 1,
+        },
+        {
+          question: "What does CSS stand for?",
+          options: ["Cascading Style Sheets", "Colorful Style Syntax", "Creative Style System", "Computer Style Setup"],
+          correct: 0,
+        },
+        {
+          question: "Which JavaScript keyword declares a block-scoped variable?",
+          options: ["var", "let", "const", "function"],
+          correct: 1,
+        },
+        {
+          question: "Which of these is a valid CSS unit for spacing?",
+          options: ["px", "m", "kg", "sec"],
+          correct: 0,
+        },
+        {
+          question: "What does the 'box-shadow' property add to an element?",
+          options: ["Padding", "Shadow effect", "Animation", "Outline"],
+          correct: 1,
+        },
+        {
+          question: "Which method is used to add an element to the end of an array?",
+          options: ["push()", "append()", "insert()", "add()"],
+          correct: 0,
+        },
+        {
+          question: "Which HTML5 element is used to define navigation links?",
+          options: ["<header>", "<section>", "<nav>", "<footer>"],
+          correct: 2,
+        },
+        {
+          question: "Which of these is a valid responsive unit?",
+          options: ["vh", "kg", "mb", "mph"],
+          correct: 0,
+        },
+        {
+          question: "What is the purpose of the 'display: flex' rule?",
+          options: ["Creates a grid", "Adds spacing", "Enables flexbox layout", "Changes color"],
+          correct: 2,
+        },
+        {
+          question: "Which symbol denotes an ID selector in CSS?",
+          options: [".", "#", "*", ":"],
+          correct: 1,
+        },
+        {
+          question: "Which of these is not a JavaScript data type?",
+          options: ["String", "Boolean", "Float", "Number"],
+          correct: 2,
+        },
+        {
+          question: "Which property changes the text color?",
+          options: ["background-color", "color", "font-size", "border"],
+          correct: 1,
+        },
+        {
+          question: "What does API stand for?",
+          options: ["Application Program Interface", "Advanced Programming Input", "Automated Program Integration", "Application Process Integration"],
+          correct: 0,
+        },
+        {
+          question: "Which method selects an HTML element by ID?",
+          options: ["querySelectorAll()", "getElementsByClassName()", "getElementById()", "select()"],
+          correct: 2,
+        },
+        {
+          question: "What does 'aria-label' improve?",
+          options: ["Image quality", "Accessibility", "Animation speed", "Memory usage"],
+          correct: 1,
+        },
+        {
+          question: "Which file extension is used for a stylesheet?",
+          options: [".js", ".html", ".css", ".json"],
+          correct: 2,
+        },
+        {
+          question: "What is the default display value of a div?",
+          options: ["inline", "block", "flex", "grid"],
+          correct: 1,
+        },
+        {
+          question: "Which operator compares both value and type?",
+          options: ["==", "=", "===", "!=="],
+          correct: 2,
+        },
+        {
+          question: "What does the 'transition' property control?",
+          options: ["Document title", "Animation smoothness", "Text alignment", "Image source"],
+          correct: 1,
+        },
+        {
+          question: "Which method is used to submit a form?",
+          options: ["submit()", "send()", "post()", "request()"],
+          correct: 0,
+        },
+      ];
+
+      const participantName = "Ava Chen";
+      const totalQuestions = questions.length;
+      let currentQuestion = 0;
+      let timeLeft = 150;
+      let selectedAnswers = Array(totalQuestions).fill(null);
+      let quizFinished = false;
+      let timer;
+
+      const loadingState = document.getElementById("loadingState");
+      const quizCard = document.getElementById("quizCard");
+      const questionText = document.getElementById("questionText");
+      const questionBadge = document.getElementById("questionBadge");
+      const optionsContainer = document.getElementById("optionsContainer");
+      const headerQuestionCounter = document.getElementById("headerQuestionCounter");
+      const timerElement = document.getElementById("timer");
+      const navigator = document.getElementById("navigator");
+      const participantLabel = document.getElementById("participantName");
+      const scoreValue = document.getElementById("scoreValue");
+      const answeredValue = document.getElementById("answeredValue");
+      const remainingValue = document.getElementById("remainingValue");
+      const progressBar = document.getElementById("progressBar");
+      const resultModal = document.getElementById("resultModal");
+      const modalScore = document.getElementById("modalScore");
+      const modalCorrect = document.getElementById("modalCorrect");
+      const modalWrong = document.getElementById("modalWrong");
+      const modalAccuracy = document.getElementById("modalAccuracy");
+      const modalPosition = document.getElementById("modalPosition");
+
+      function formatTime(seconds) {
+        const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+        const secs = String(seconds % 60).padStart(2, "0");
+        return `${mins}:${secs}`;
+      }
+
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const circle = document.createElement("span");
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        circle.className = "ripple";
+        circle.style.width = circle.style.height = `${size}px`;
+        circle.style.left = `${event.clientX - rect.left}px`;
+        circle.style.top = `${event.clientY - rect.top}px`;
+        button.appendChild(circle);
+        setTimeout(() => circle.remove(), 550);
+      }
+
+      function attachRipple(button) {
+        button.addEventListener("click", createRipple);
+      }
+
+      function updateStats() {
+        const answered = selectedAnswers.filter((answer) => answer !== null).length;
+        const remaining = totalQuestions - answered;
+        const correct = selectedAnswers.reduce((count, answer, index) => {
+          if (answer === null) return count;
+          return count + (answer === questions[index].correct ? 1 : 0);
+        }, 0);
+
+        scoreValue.textContent = `${correct}`;
+        answeredValue.textContent = `${answered}`;
+        remainingValue.textContent = `${remaining}`;
+        progressBar.style.width = `${(answered / totalQuestions) * 100}%`;
+        participantLabel.textContent = participantName;
+      }
+
+      function renderQuestion() {
+        if (quizFinished) return;
+
+        const question = questions[currentQuestion];
+        questionText.textContent = question.question;
+        questionBadge.textContent = `Question ${String(currentQuestion + 1).padStart(2, "0")}`;
+        headerQuestionCounter.textContent = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+
+        optionsContainer.innerHTML = "";
+        question.options.forEach((option, index) => {
+          const btn = document.createElement("button");
+          btn.className = "option-card";
+          if (selectedAnswers[currentQuestion] === index) btn.classList.add("selected");
+          btn.innerHTML = `
+            <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+            <span class="option-text">${option}</span>
+            <span class="check-icon"><i class="fa-solid fa-check"></i></span>
+          `;
+          btn.addEventListener("click", () => selectOption(index));
+          optionsContainer.appendChild(btn);
+        });
+
+        renderNavigator();
+        updateStats();
+      }
+
+      function renderNavigator() {
+        navigator.innerHTML = "";
+        questions.forEach((_, index) => {
+          const dot = document.createElement("button");
+          dot.className = "nav-dot";
+          if (index === currentQuestion) dot.classList.add("current");
+          else if (selectedAnswers[index] !== null) dot.classList.add("answered");
+          else dot.classList.add("unanswered");
+          dot.textContent = index + 1;
+          dot.addEventListener("click", () => jumpToQuestion(index));
+          navigator.appendChild(dot);
+        });
+      }
+
+      function selectOption(index) {
+        if (quizFinished) return;
+        selectedAnswers[currentQuestion] = index;
+        renderQuestion();
+      }
+
+      function jumpToQuestion(index) {
+        if (quizFinished) return;
+        currentQuestion = index;
+        renderQuestion();
+      }
+
+      function goToPrevious() {
+        if (quizFinished) return;
+        currentQuestion = currentQuestion === 0 ? 0 : currentQuestion - 1;
+        renderQuestion();
+      }
+
+      function goToNext() {
+        if (quizFinished) return;
+        currentQuestion = currentQuestion === totalQuestions - 1 ? totalQuestions - 1 : currentQuestion + 1;
+        renderQuestion();
+      }
+
+      function submitCurrentAnswer() {
+        if (quizFinished) return;
+        quizFinished = true;
+        clearInterval(timer);
+
+        const correct = selectedAnswers.reduce((count, answer, index) => {
+          return count + (answer === questions[index].correct ? 1 : 0);
+        }, 0);
+        const wrong = totalQuestions - correct;
+        const accuracy = Math.round((correct / totalQuestions) * 100);
+        const position = Math.max(1, Math.min(8, Math.floor(Math.random() * 8 + 1)));
+
+        modalScore.textContent = `${correct * 10}`;
+        modalCorrect.textContent = `${correct}`;
+        modalWrong.textContent = `${wrong}`;
+        modalAccuracy.textContent = `${accuracy}%`;
+        modalPosition.textContent = `#${position}`;
+        resultModal.classList.remove("hidden");
+      }
+
+      function updateTimer() {
+        if (timeLeft <= 0) {
+          timerElement.textContent = "00:00";
+          submitCurrentAnswer();
+          return;
+        }
+
+        timerElement.textContent = formatTime(timeLeft);
+        timeLeft -= 1;
+      }
+
+      function startTimer() {
+        timer = setInterval(updateTimer, 1000);
+        updateTimer();
+      }
+
+      document.getElementById("prevBtn").addEventListener("click", () => {
+        attachRipple(document.getElementById("prevBtn"));
+        goToPrevious();
+      });
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        attachRipple(document.getElementById("nextBtn"));
+        goToNext();
+      });
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        attachRipple(document.getElementById("submitBtn"));
+        submitCurrentAnswer();
+      });
+      document.getElementById("leaderboardBtn").addEventListener("click", () => {
+        attachRipple(document.getElementById("leaderboardBtn"));
+        resultModal.classList.add("hidden");
+        alert("Leaderboard view is ready for the next release.");
+      });
+
+      window.addEventListener("load", () => {
+        participantLabel.textContent = participantName;
+        setTimeout(() => {
+          loadingState.classList.add("hidden");
+          quizCard.classList.remove("hidden");
+          renderQuestion();
+          startTimer();
+        }, 900);
+      });
+    </script>
+  </body>
+</html>
