@@ -213,28 +213,127 @@
           <div class="panel-head">
             <h3>Create a New Question</h3>
           </div>
-          <form class="form-grid">
-            <label>
-              Question Title
-              <input type="text" placeholder="Enter the question" />
-            </label>
-            <label>
-              Category
-              <input type="text" placeholder="e.g. HTML, CSS" />
-            </label>
-            <label>
-              Correct Answer
-              <input type="text" placeholder="Type the answer" />
-            </label>
-            <label>
-              Difficulty
-              <select>
-                <option>Easy</option>
-                <option>Medium</option>
-                <option>Hard</option>
-              </select>
-            </label>
-            <button class="primary-btn" type="button">Publish Question</button>
+          
+          <form id="addQuestionForm" class="question-form" novalidate>
+            <!-- Question Description -->
+            <div class="form-section">
+              <label class="form-label full-width">
+                <span>Question Description <span class="required">*</span></span>
+                <textarea id="questionDesc" placeholder="Enter the question text" required></textarea>
+                <span class="field-error" id="questionDescError"></span>
+              </label>
+            </div>
+
+            <!-- Answer Options -->
+            <div class="form-section">
+              <h4 class="section-title">Answer Options</h4>
+              <div class="options-grid">
+                <label class="form-label">
+                  <span>Option A <span class="required">*</span></span>
+                  <input type="text" id="optionA" placeholder="Enter option A" required />
+                  <span class="field-error" id="optionAError"></span>
+                </label>
+                <label class="form-label">
+                  <span>Option B <span class="required">*</span></span>
+                  <input type="text" id="optionB" placeholder="Enter option B" required />
+                  <span class="field-error" id="optionBError"></span>
+                </label>
+                <label class="form-label">
+                  <span>Option C <span class="required">*</span></span>
+                  <input type="text" id="optionC" placeholder="Enter option C" required />
+                  <span class="field-error" id="optionCError"></span>
+                </label>
+                <label class="form-label">
+                  <span>Option D <span class="required">*</span></span>
+                  <input type="text" id="optionD" placeholder="Enter option D" required />
+                  <span class="field-error" id="optionDError"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Correct Answer & Category & Difficulty -->
+            <div class="form-grid-3col">
+              <label class="form-label">
+                <span>Correct Answer <span class="required">*</span></span>
+                <select id="correctAnswer" required>
+                  <option value="">Select correct answer</option>
+                  <option>Option A</option>
+                  <option>Option B</option>
+                  <option>Option C</option>
+                  <option>Option D</option>
+                </select>
+                <span class="field-error" id="correctAnswerError"></span>
+              </label>
+              <label class="form-label">
+                <span>Category <span class="required">*</span></span>
+                <select id="category" required>
+                  <option value="">Select category</option>
+                  <option>Programming</option>
+                  <option>HTML</option>
+                  <option>CSS</option>
+                  <option>JavaScript</option>
+                  <option>React</option>
+                  <option>Node.js</option>
+                  <option>Java</option>
+                  <option>Python</option>
+                  <option>C</option>
+                  <option>C++</option>
+                  <option>DBMS</option>
+                  <option>Operating System</option>
+                  <option>Networking</option>
+                  <option>Aptitude</option>
+                  <option>General Knowledge</option>
+                  <option>Others</option>
+                </select>
+                <span class="field-error" id="categoryError"></span>
+              </label>
+              <label class="form-label">
+                <span>Difficulty <span class="required">*</span></span>
+                <select id="difficulty" required>
+                  <option value="">Select difficulty</option>
+                  <option>Easy</option>
+                  <option>Medium</option>
+                  <option>Hard</option>
+                </select>
+                <span class="field-error" id="difficultyError"></span>
+              </label>
+            </div>
+
+            <!-- Award Points -->
+            <div class="form-grid-3col">
+              <label class="form-label">
+                <span>Award Points (Marks) <span class="required">*</span></span>
+                <input type="number" id="marks" placeholder="5" value="5" min="1" required />
+                <span class="field-error" id="marksError"></span>
+              </label>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-section">
+              <label class="form-label full-width">
+                <span>Upload Question Image (Optional)</span>
+                <div class="upload-area" id="uploadArea">
+                  <i class="bx bxs-cloud-upload"></i>
+                  <p>Drag and drop an image here or click to browse</p>
+                  <input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+                </div>
+                <div id="imagePreview" class="image-preview hidden"></div>
+              </label>
+            </div>
+
+            <!-- Explanation -->
+            <div class="form-section">
+              <label class="form-label full-width">
+                <span>Explanation (Optional)</span>
+                <textarea id="explanation" placeholder="Explain why the selected option is correct."></textarea>
+              </label>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Add Question</button>
+              <button type="button" id="finishBtn" class="secondary-btn">Finish & Continue</button>
+            </div>
           </form>
         </div>
       </section>
