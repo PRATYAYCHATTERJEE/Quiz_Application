@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Form submission
-    form.addEventListener('submit', (e) => {
+    finishBtn.addEventListener("click", async (e) => {
       e.preventDefault();
 
       if (!validateForm()) {
@@ -201,26 +201,66 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const questionData = {
-        description: document.getElementById('questionDesc').value,
-        optionA: document.getElementById('optionA').value,
-        optionB: document.getElementById('optionB').value,
-        optionC: document.getElementById('optionC').value,
-        optionD: document.getElementById('optionD').value,
-        correctAnswer: document.getElementById('correctAnswer').value,
+        question: document.getElementById('questionDesc').value.trim(),
+        options: [
+    document.getElementById('optionA').value.trim(),
+    document.getElementById('optionB').value.trim(),
+    document.getElementById('optionC').value.trim(),
+    document.getElementById('optionD').value.trim()
+],
+        correctAnswer: {
+    "Option A": 0,
+    "Option B": 1,
+    "Option C": 2,
+    "Option D": 3
+}[document.getElementById("correctAnswer").value],
         category: document.getElementById('category').value,
         difficulty: document.getElementById('difficulty').value,
         marks: document.getElementById('marks').value,
-        explanation: document.getElementById('explanation').value,
         image: imageUpload.files.length > 0 ? imageUpload.files[0].name : null
       };
 
-      console.log('Question added:', questionData);
-      alert('Question added successfully! You can add more questions or click "Finish & Continue".');
+      try {
 
-      // Reset form
-      form.reset();
-      imagePreview.classList.add('hidden');
-      clearErrors();
+    const response = await fetch("http://localhost:5000/api/questions", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(questionData)
+
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+
+        alert("✅ Question saved successfully!");
+
+        form.reset();
+
+        imagePreview.classList.add("hidden");
+
+        clearErrors();
+
+        renderPage("questions");
+
+    }else{
+
+        alert(result.message);
+
+    }
+
+}catch(error){
+
+    console.error(error);
+
+    alert("Something went wrong.");
+
+}
     });
 
     // Finish & Continue button

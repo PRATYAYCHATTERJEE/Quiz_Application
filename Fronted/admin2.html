@@ -183,29 +183,33 @@
     </template>
 
     <template id="template-questions">
-      <section class="page-section">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Question Bank</h3>
-            <button class="primary-btn small" type="button">Add Set</button>
-          </div>
-          <div class="question-list">
-            <article class="question-card">
-              <strong>JavaScript Basics</strong>
-              <p>10 questions • Mixed difficulty</p>
-            </article>
-            <article class="question-card">
-              <strong>Frontend Logic</strong>
-              <p>8 questions • Advanced</p>
-            </article>
-            <article class="question-card">
-              <strong>General Knowledge</strong>
-              <p>12 questions • Beginner</p>
-            </article>
-          </div>
+  <section class="page-section">
+    <div class="panel">
+
+      <div class="panel-head">
+        <h3>Question Bank</h3>
+
+        <div class="question-actions">
+          <input
+            type="text"
+            id="searchQuestion"
+            placeholder="Search questions..."
+          />
+
+          <button class="primary-btn small" type="button">
+            + Add Question
+          </button>
         </div>
-      </section>
-    </template>
+      </div>
+
+      <!-- Dynamic cards -->
+      <div class="questions-grid" id="questionsContainer">
+
+      </div>
+
+    </div>
+  </section>
+</template>
 
     <template id="template-create-question">
       <section class="page-section">
@@ -326,7 +330,7 @@
 
             <!-- Buttons -->
             <div class="form-actions">
-              <button type="submit" class="primary-btn">Add Question</button>
+              
               <button type="button" id="finishBtn" class="secondary-btn">Finish & Continue</button>
             </div>
           </form>

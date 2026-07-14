@@ -344,23 +344,150 @@ button {
   color: #ffd36b;
 }
 
-.question-list {
-  display: grid;
-  gap: 12px;
+.questions-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
+    gap:28px;
+    margin-top:30px;
 }
 
-.question-card {
-  padding: 14px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
+.question-card{
+    background:#171924;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:22px;
+    transition:.3s;
 }
 
-.question-card p {
-  margin: 4px 0 0;
-  color: var(--muted);
+.question-card:hover{
+    transform:translateY(-5px);
+    border-color:#35c7ff;
 }
 
+.question-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.badges{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.badge{
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:.78rem;
+    font-weight:600;
+}
+
+.badge.easy{
+    background:rgba(0,255,170,.15);
+    color:#28e0a3;
+}
+
+.badge.medium{
+    background:rgba(255,170,0,.12);
+    color:#ffb629;
+}
+
+.badge.hard{
+    background:rgba(255,60,100,.15);
+    color:#ff4f75;
+}
+
+.badge.category{
+    background:rgba(53,128,255,.15);
+    color:#5ca2ff;
+}
+
+.points{
+    background:#242635;
+    color:#d8d8d8;
+    padding:6px 14px;
+    border-radius:999px;
+    font-weight:600;
+}
+
+.question-title{
+    font-size:1.45rem;
+    line-height:1.6;
+    font-weight:700;
+    margin:22px 0;
+}
+
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.option{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#202331;
+    border:1px solid rgba(255,255,255,.05);
+    padding:15px 18px;
+    border-radius:16px;
+}
+
+.option.correct{
+    border-color:#14d59b;
+    background:rgba(20,213,155,.10);
+}
+
+.option-letter{
+    width:32px;
+    height:32px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:8px;
+    background:#343747;
+    font-weight:700;
+}
+
+.option.correct .option-letter{
+    background:#14d59b;
+    color:#111;
+}
+
+.card-footer{
+    margin-top:28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:20px;
+}
+
+.card-actions{
+    display:flex;
+    gap:10px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:#242737;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.icon-btn:hover{
+    background:#3b82f6;
+}
+
+.delete-btn:hover{
+    background:#ff4b5c;
+}
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
