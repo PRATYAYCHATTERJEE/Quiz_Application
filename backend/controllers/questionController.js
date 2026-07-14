@@ -1,6 +1,8 @@
 const Question = require("../models/Question");
 
-// Create a new question
+// ===============================
+// Create Question
+// ===============================
 const createQuestion = async (req, res) => {
   try {
     const {
@@ -13,7 +15,6 @@ const createQuestion = async (req, res) => {
       image,
     } = req.body;
 
-    // Create question
     const newQuestion = new Question({
       question,
       options,
@@ -24,7 +25,6 @@ const createQuestion = async (req, res) => {
       image,
     });
 
-    // Save to MongoDB
     const savedQuestion = await newQuestion.save();
 
     res.status(201).json({
@@ -41,6 +41,40 @@ const createQuestion = async (req, res) => {
   }
 };
 
+// ===============================
+// Get All Questions
+// ===============================
+const getQuestions = async (req, res) => {
+
+  try {
+
+    const questions = await Question.find().sort({ createdAt: -1 });
+
+    res.status(200).json({
+
+      success: true,
+
+      count: questions.length,
+
+      data: questions
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message
+
+    });
+
+  }
+
+};
+
 module.exports = {
   createQuestion,
+  getQuestions
 };
