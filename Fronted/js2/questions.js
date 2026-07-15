@@ -82,21 +82,13 @@ async function loadQuestions() {
 
                     <div class="question-footer">
 
-    <div class="footer-left">
+    <button class="icon-btn edit-btn" data-id="${question._id}">
+        ✏️
+    </button>
 
-        <button class="icon-btn edit-btn" data-id="${question._id}">
-            ✏️
-        </button>
-
-    </div>
-
-    <div class="footer-right">
-
-        <button class="icon-btn delete-btn" data-id="${question._id}">
-            🗑️
-        </button>
-
-    </div>
+    <button class="icon-btn delete-btn" data-id="${question._id}">
+        🗑️
+    </button>
 
 </div>
 
