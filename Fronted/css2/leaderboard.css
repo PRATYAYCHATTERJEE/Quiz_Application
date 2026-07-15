@@ -1,0 +1,55 @@
+.list-stack li,
+.leaderboard-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.list-stack li:last-child,
+.leaderboard-list li:last-child {
+  border-bottom: 0;
+}
+
+.focus-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.focus-pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(35, 213, 255, 0.14);
+  color: var(--accent-2);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.badge.success {
+  background: rgba(41, 208, 121, 0.16);
+  color: #6af0ad;
+}
+
+.badge.warning {
+  background: rgba(255, 190, 47, 0.16);
+  color: #ffd36b;
+}
