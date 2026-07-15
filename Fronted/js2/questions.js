@@ -56,22 +56,22 @@ async function loadQuestions() {
 
                 <div class="question-options">
 
-                    <div class="option">
+                    <div class="option ${question.correctAnswer === 0 ? "correct" : ""}">
                         <span class="option-letter">A</span>
                         <span>${question.options[0]}</span>
                     </div>
 
-                    <div class="option">
+                    <div class="option ${question.correctAnswer === 1 ? "correct" : ""}">
                         <span class="option-letter">B</span>
                         <span>${question.options[1]}</span>
                     </div>
 
-                    <div class="option">
+                    <div class="option ${question.correctAnswer === 2 ? "correct" : ""}">
                         <span class="option-letter">C</span>
                         <span>${question.options[2]}</span>
                     </div>
 
-                    <div class="option">
+                    <div class="option ${question.correctAnswer === 3 ? "correct" : ""}">
                         <span class="option-letter">D</span>
                         <span>${question.options[3]}</span>
                     </div>
