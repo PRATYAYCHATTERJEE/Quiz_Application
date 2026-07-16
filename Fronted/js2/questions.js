@@ -99,7 +99,52 @@ async function loadQuestions() {
             `;
 
         });
+// Attach Delete Events
+document.querySelectorAll(".delete-btn").forEach(button => {
 
+    button.addEventListener("click", async () => {
+
+        const id = button.dataset.id;
+
+        const confirmDelete = confirm("Delete this question?");
+
+        if (!confirmDelete) return;
+
+        try {
+
+            const response = await fetch(`http://localhost:5000/api/questions/${id}`, {
+
+                method: "DELETE"
+
+            });
+
+            const result = await response.json();
+
+            console.log(result);
+
+            if (result.success) {
+
+                alert("Question Deleted Successfully");
+
+                loadQuestions();
+
+            } else {
+
+                alert(result.message);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Server Error");
+
+        }
+
+    });
+
+});
     } catch (error) {
 
         console.error(error);

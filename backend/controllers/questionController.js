@@ -4,41 +4,46 @@ const Question = require("../models/Question");
 // Create Question
 // ===============================
 const createQuestion = async (req, res) => {
-  try {
-    const {
-      question,
-      options,
-      correctAnswer,
-      category,
-      difficulty,
-      marks,
-      image,
-    } = req.body;
 
-    const newQuestion = new Question({
-      question,
-      options,
-      correctAnswer,
-      category,
-      difficulty,
-      marks,
-      image,
-    });
+    try {
 
-    const savedQuestion = await newQuestion.save();
+        const {
+            question,
+            options,
+            correctAnswer,
+            category,
+            difficulty,
+            marks,
+            image
+        } = req.body;
 
-    res.status(201).json({
-      success: true,
-      message: "Question created successfully",
-      data: savedQuestion,
-    });
+        const newQuestion = new Question({
+            question,
+            options,
+            correctAnswer,
+            category,
+            difficulty,
+            marks,
+            image
+        });
 
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+        const savedQuestion = await newQuestion.save();
+
+        res.status(201).json({
+            success: true,
+            message: "Question created successfully",
+            data: savedQuestion
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
 };
 
 // ===============================
@@ -46,35 +51,66 @@ const createQuestion = async (req, res) => {
 // ===============================
 const getQuestions = async (req, res) => {
 
-  try {
+    try {
 
-    const questions = await Question.find().sort({ createdAt: -1 });
+        const questions = await Question.find().sort({ createdAt: -1 });
 
-    res.status(200).json({
+        res.status(200).json({
+            success: true,
+            count: questions.length,
+            data: questions
+        });
 
-      success: true,
+    } catch (error) {
 
-      count: questions.length,
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
 
-      data: questions
-
-    });
-
-  } catch (error) {
-
-    res.status(500).json({
-
-      success: false,
-
-      message: error.message
-
-    });
-
-  }
+    }
 
 };
 
+// ===============================
+// Delete Question
+// ===============================
+const deleteQuestion = async (req, res) => {
+
+    try {
+
+        const deletedQuestion = await Question.findByIdAndDelete(req.params.id);
+
+        if (!deletedQuestion) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Question not found."
+            });
+
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Question deleted successfully."
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};
+
+// ===============================
+// Export Controllers
+// ===============================
 module.exports = {
-  createQuestion,
-  getQuestions
+    createQuestion,
+    getQuestions,
+    deleteQuestion
 };
