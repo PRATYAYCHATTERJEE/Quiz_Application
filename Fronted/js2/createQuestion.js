@@ -94,8 +94,6 @@ function initializeFinishButton() {
 
     const finishBtn = document.getElementById("finishBtn");
 
-    console.log(finishBtn);
-
     if (!finishBtn) {
         console.log("Button not found");
         return;
@@ -105,16 +103,20 @@ function initializeFinishButton() {
 
     finishBtn.addEventListener("click", async (e) => {
 
-        console.log("Button clicked");
+    e.preventDefault();
 
-        e.preventDefault();
+    if (!validateForm()) return;
 
-        // I want to see EVERYTHING below this line
+    const questionData = getQuestionData();
 
-    });
+    console.log(questionData);
 
+    await saveQuestion(questionData);
+
+    console.log("Save Finished");
+
+});
 }
-
 // =========================
 // Validation
 // =========================
