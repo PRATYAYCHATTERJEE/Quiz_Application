@@ -35,6 +35,7 @@ function initializeImageUpload() {
 
     uploadArea.addEventListener("dragover", (e) => {
         e.preventDefault();
+        
         uploadArea.classList.add("dragging");
     });
 
@@ -89,33 +90,26 @@ function initializeImageUpload() {
 // =========================
 function initializeFinishButton() {
 
+    console.log("Initializing Finish Button");
+
     const finishBtn = document.getElementById("finishBtn");
 
+    console.log(finishBtn);
+
     if (!finishBtn) {
-        console.log("❌ Finish button not found");
+        console.log("Button not found");
         return;
     }
 
-    console.log("✅ Finish button initialized");
+    console.log("Button found");
 
     finishBtn.addEventListener("click", async (e) => {
 
-        console.log("🔥 Finish button clicked");
+        console.log("Button clicked");
 
         e.preventDefault();
 
-        if (!validateForm()) {
-            console.log("❌ Validation failed");
-            return;
-        }
-
-        console.log("✅ Validation passed");
-
-        const questionData = getQuestionData();
-
-        console.log("📦 Question Data:", questionData);
-
-        await saveQuestion(questionData);
+        // I want to see EVERYTHING below this line
 
     });
 

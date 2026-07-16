@@ -1,19 +1,17 @@
 .questions-grid{
     display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:28px;
-
-    margin-top:30px;
+    grid-template-columns:repeat(3,minmax(340px,1fr));
+    gap:22px;
 }
 
 .question-card{
     background:#171924;
     border:1px solid rgba(255,255,255,.08);
     border-radius:24px;
-
     padding:18px;
+
+    display:flex;
+    flex-direction:column;
 
     transition:.3s;
 }
@@ -46,15 +44,6 @@
     white-space:nowrap;
 }
 
-
-
-
-
-
-
-
-
-
 .question-badges{
     display:flex;
     gap:10px;
@@ -63,10 +52,15 @@
 }
 
 .badge{
-    padding:6px 14px;
-    border-radius:999px;
-    font-size:.78rem;
+    padding:5px 12px;
+    font-size:13px;
     font-weight:600;
+    border-radius:999px;
+}
+
+.points{
+    padding:5px 12px;
+    font-size:13px;
 }
 
 .badge.easy{
@@ -124,8 +118,8 @@
 }
 
 .option.correct{
-    border-color:#14d59b;
-    background:rgba(20,213,155,.10);
+    background:rgba(16,185,129,.12);
+    border:1px solid rgba(16,185,129,.55);
 }
 
 .option-letter{
@@ -145,14 +139,14 @@
 }
 
 .question-footer{
+    margin-top:16px;
+
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
+    gap:12px;
 
-    margin-top:24px;
-    padding-top:20px;
-
-    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:0;
 }
 
 .card-actions{
