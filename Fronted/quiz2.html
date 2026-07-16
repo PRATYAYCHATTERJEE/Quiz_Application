@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizVerse Live Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css2/quiz.css" />
+  </head>
+  <body>
+    <div class="background-orb orb-1"></div>
+    <div class="background-orb orb-2"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-group">
+          <div class="logo"><i class="fa-solid fa-brain"></i></div>
+          <div>
+            <div class="brand-name">QuizVerse</div>
+            <div class="live-badge"><i class="fa-solid fa-circle"></i> Live Quiz</div>
+          </div>
+        </div>
+        <div class="quiz-title">Web Development Quiz 2026</div>
+        <div class="topbar-meta">
+          <div class="timer-pill"><i class="fa-regular fa-clock"></i> <span id="timer">02:30</span></div>
+          <div class="question-pill" id="headerQuestionCounter">Question 1 of 20</div>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="main-panel">
+          <div id="loadingState" class="loading-card">
+            <div class="skeleton title"></div>
+            <div class="skeleton line"></div>
+            <div class="skeleton line" style="width: 82%"></div>
+            <div class="skeleton image"></div>
+            <div class="skeleton option"></div>
+            <div class="skeleton option"></div>
+          </div>
+
+          <div id="quizCard" class="question-card hidden">
+            <div class="question-top">
+              <div class="question-badge" id="questionBadge">Question 01</div>
+              <div class="question-meta">Select the best answer</div>
+            </div>
+
+            <h2 class="question-title" id="questionText"></h2>
+
+            <div class="question-media">
+              <div class="placeholder-image">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+            </div>
+
+            <div class="options-grid" id="optionsContainer"></div>
+
+            <div class="controls">
+              <button class="btn btn-secondary" id="prevBtn"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" id="nextBtn">Next <i class="fa-solid fa-chevron-right"></i></button>
+              <button class="btn btn-accent" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Answer</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Question Navigator</h3>
+            <div class="navigator-grid" id="navigator"></div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Quiz Information</h3>
+            <div class="info-list">
+              <div class="info-row">
+                <span class="label">Participant</span>
+                <span class="value" id="participantName">Ava Chen</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Current Score</span>
+                <span class="value" id="scoreValue">0</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Answered</span>
+                <span class="value" id="answeredValue">0</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Remaining</span>
+                <span class="value" id="remainingValue">20</span>
+              </div>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="resultModal" class="modal hidden">
+      <div class="modal-card">
+        <h2><i class="fa-solid fa-circle-check"></i> Quiz Completed!</h2>
+        <p>Your live quiz has been submitted successfully.</p>
+        <div class="result-grid">
+          <div class="result-pill">
+            Score
+            <strong id="modalScore">0</strong>
+          </div>
+          <div class="result-pill">
+            Correct
+            <strong id="modalCorrect">0</strong>
+          </div>
+          <div class="result-pill">
+            Wrong
+            <strong id="modalWrong">0</strong>
+          </div>
+          <div class="result-pill">
+            Accuracy
+            <strong id="modalAccuracy">0%</strong>
+          </div>
+        </div>
+        <p>Leaderboard Position: <strong id="modalPosition">#1</strong></p>
+        <button class="btn btn-primary" id="leaderboardBtn"><i class="fa-solid fa-trophy"></i> View Leaderboard</button>
+      </div>
+    </div>
+
+    <script src="js2/quiz.js"></script>
+  </body>
+</html>

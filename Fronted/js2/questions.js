@@ -152,3 +152,5 @@ document.querySelectorAll(".delete-btn").forEach(button => {
     }
 
 }
+
+window.initializeQuestions = initializeQuestions;

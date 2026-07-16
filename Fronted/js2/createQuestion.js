@@ -283,3 +283,5 @@ function clearForm() {
     }
 
 }
+
+window.initializeCreateQuestion = initializeCreateQuestion;

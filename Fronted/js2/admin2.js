@@ -59,7 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (template)
             pageContent.appendChild(template.content.cloneNode(true));
+// Initialize page specific JS
+if (page === "create-question") {
+    initializeCreateQuestion();
+}
 
+if (page === "questions") {
+    initializeQuestions();
+}
         setActiveNav(page);
 
         history.replaceState(null, "", "#" + page);
