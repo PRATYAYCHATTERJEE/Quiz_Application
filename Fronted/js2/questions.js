@@ -1,3 +1,51 @@
+// =========================
+// Publish Quiz
+// =========================
+
+function initializePublishQuiz() {
+
+    const publishBtn = document.getElementById("publishQuizBtn");
+
+    if (!publishBtn) return;
+
+    publishBtn.addEventListener("click", publishQuiz);
+
+}
+
+async function publishQuiz() {
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/quiz/publish", {
+
+            method: "POST"
+
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            alert("✅ Quiz Published Successfully");
+
+        } else {
+
+            alert(result.message);
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to publish quiz.");
+
+    }
+
+}
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     initializeQuestions();
@@ -7,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function initializeQuestions() {
 
     loadQuestions();
+
+    initializePublishQuiz();
 
 }
 
