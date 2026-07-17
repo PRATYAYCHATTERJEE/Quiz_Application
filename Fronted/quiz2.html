@@ -1,139 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QuizVerse Live Quiz</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="css2/quiz.css" />
-  </head>
-  <body>
-    <div class="background-orb orb-1"></div>
-    <div class="background-orb orb-2"></div>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="QuizVerse — A premium, interactive participant quiz interface for modern assessments." />
+  <title>QuizVerse — Live Quiz</title>
+  <link rel="stylesheet" href="css2/quiz.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
 
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand-group">
-          <div class="logo"><i class="fa-solid fa-brain"></i></div>
-          <div>
-            <div class="brand-name">QuizVerse</div>
-            <div class="live-badge"><i class="fa-solid fa-circle"></i> Live Quiz</div>
-          </div>
+  <!-- ═══ Floating Ambient Orbs ═══ -->
+  <div class="floating-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ═══ APP ═══ -->
+  <div class="app" id="app">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header" role="banner">
+      <div class="header-left">
+        <a class="logo" href="#" aria-label="QuizVerse Home">
+          <div class="logo-icon">Q</div>
+          <span class="logo-text">QuizVerse</span>
+        </a>
+        <div class="live-badge" aria-label="Live quiz indicator">
+          <span class="live-dot"></span>
+          Live Quiz
         </div>
-        <div class="quiz-title">Web Development Quiz 2026</div>
-        <div class="topbar-meta">
-          <div class="timer-pill"><i class="fa-regular fa-clock"></i> <span id="timer">02:30</span></div>
-          <div class="question-pill" id="headerQuestionCounter">Question 1 of 20</div>
-        </div>
-      </header>
-
-      <main class="dashboard">
-        <section class="main-panel">
-          <div id="loadingState" class="loading-card">
-            <div class="skeleton title"></div>
-            <div class="skeleton line"></div>
-            <div class="skeleton line" style="width: 82%"></div>
-            <div class="skeleton image"></div>
-            <div class="skeleton option"></div>
-            <div class="skeleton option"></div>
-          </div>
-
-          <div id="quizCard" class="question-card hidden">
-            <div class="question-top">
-              <div class="question-badge" id="questionBadge">Question 01</div>
-              <div class="question-meta">Select the best answer</div>
-            </div>
-
-            <h2 class="question-title" id="questionText"></h2>
-
-            <div class="question-media">
-              <div class="placeholder-image">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-              </div>
-            </div>
-
-            <div class="options-grid" id="optionsContainer"></div>
-
-            <div class="controls">
-              <button class="btn btn-secondary" id="prevBtn"><i class="fa-solid fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" id="nextBtn">Next <i class="fa-solid fa-chevron-right"></i></button>
-              <button class="btn btn-accent" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Answer</button>
-            </div>
-          </div>
-        </section>
-
-        <aside class="sidebar">
-          <div class="sidebar-card">
-            <h3>Question Navigator</h3>
-            <div class="navigator-grid" id="navigator"></div>
-          </div>
-
-          <div class="sidebar-card">
-            <h3>Quiz Information</h3>
-            <div class="info-list">
-              <div class="info-row">
-                <span class="label">Participant</span>
-                <span class="value" id="participantName">Ava Chen</span>
-              </div>
-              <div class="info-row">
-                <span class="label">Current Score</span>
-                <span class="value" id="scoreValue">0</span>
-              </div>
-              <div class="info-row">
-                <span class="label">Answered</span>
-                <span class="value" id="answeredValue">0</span>
-              </div>
-              <div class="info-row">
-                <span class="label">Remaining</span>
-                <span class="value" id="remainingValue">20</span>
-              </div>
-            </div>
-            <div class="progress-track">
-              <div class="progress-bar" id="progressBar"></div>
-            </div>
-          </div>
-        </aside>
-      </main>
-    </div>
-
-    <div id="resultModal" class="modal hidden">
-      <div class="modal-card">
-        <h2><i class="fa-solid fa-circle-check"></i> Quiz Completed!</h2>
-        <p>Your live quiz has been submitted successfully.</p>
-        <div class="result-grid">
-          <div class="result-pill">
-            Score
-            <strong id="modalScore">0</strong>
-          </div>
-          <div class="result-pill">
-            Correct
-            <strong id="modalCorrect">0</strong>
-          </div>
-          <div class="result-pill">
-            Wrong
-            <strong id="modalWrong">0</strong>
-          </div>
-          <div class="result-pill">
-            Accuracy
-            <strong id="modalAccuracy">0%</strong>
-          </div>
-        </div>
-        <p>Leaderboard Position: <strong id="modalPosition">#1</strong></p>
-        <button class="btn btn-primary" id="leaderboardBtn"><i class="fa-solid fa-trophy"></i> View Leaderboard</button>
+        <div class="header-divider" aria-hidden="true"></div>
+        <span class="quiz-title-header" id="quizTitleHeader">Advanced Web Technologies</span>
       </div>
-    </div>
 
-    <script src="js2/quiz.js"></script>
-  </body>
+      <div class="header-center">
+        <div class="timer-display" id="timerDisplay" role="timer" aria-live="polite" aria-label="Time remaining">
+          <span class="timer-icon">⏱</span>
+          <span id="timerText">30:00</span>
+        </div>
+        <div class="question-progress">
+          <span id="progressText">5 / 20</span>
+          <div class="progress-bar-mini" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar-mini-fill" id="progressBarFill" style="width: 25%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="user-avatar" title="Prithwish Das" aria-label="User avatar">PD</div>
+        <button class="header-btn" id="fullscreenBtn" title="Toggle Fullscreen (F11)" aria-label="Toggle fullscreen">⛶</button>
+        <button class="header-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle dark/light theme">🌙</button>
+        <button class="exit-btn" id="exitQuizBtn" aria-label="Exit quiz">
+          <span>✕</span> Exit
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="main-content" role="main">
+
+      <!-- ═══ LEFT PANEL ═══ -->
+      <section class="left-panel" id="leftPanel" aria-label="Quiz questions area">
+
+        <!-- Question Card -->
+        <div class="question-card" id="questionCard">
+          <div class="question-header">
+            <div class="question-number">
+              Question <span id="questionNum">05</span>
+            </div>
+            <div class="question-badges" id="questionBadges">
+              <span class="badge badge-category" id="badgeCategory">📚 JavaScript</span>
+              <span class="badge badge-difficulty-medium" id="badgeDifficulty">🔥 Medium</span>
+              <span class="badge badge-marks" id="badgeMarks">⭐ 4 Marks</span>
+              <span class="badge badge-time" id="badgeTime">⏳ 90s</span>
+            </div>
+          </div>
+
+          <p class="question-text" id="questionText">
+            Which of the following methods is used to create a shallow copy of an array in JavaScript?
+          </p>
+
+          <!-- Question Image (hidden by default) -->
+          <div class="question-image-container" id="questionImageContainer">
+            <div class="image-loading" id="imageLoading">
+              <div class="image-shimmer"></div>
+            </div>
+            <img id="questionImage" src="" alt="Question illustration" loading="lazy" />
+            <div class="image-overlay">
+              <button class="image-zoom-btn" aria-label="Zoom image" id="imageZoomBtn">🔍</button>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="options-grid" id="optionsGrid" role="radiogroup" aria-label="Answer options">
+            <!-- Options rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="bottom-controls" id="bottomControls">
+          <div class="control-group">
+            <button class="btn btn-ghost" id="prevBtn" aria-label="Previous question">
+              <span class="btn-icon">←</span>
+              <span class="btn-text">Previous</span>
+              <span class="kbd-hint">P</span>
+            </button>
+            <button class="btn btn-ghost" id="nextBtn" aria-label="Next question">
+              <span class="btn-text">Next</span>
+              <span class="btn-icon">→</span>
+              <span class="kbd-hint">N</span>
+            </button>
+          </div>
+          <div class="control-group">
+            <button class="btn btn-warning" id="markReviewBtn" aria-label="Mark for review">
+              <span class="btn-icon">🔖</span>
+              <span class="btn-text">Review</span>
+              <span class="kbd-hint">M</span>
+            </button>
+            <button class="btn btn-ghost" id="clearBtn" aria-label="Clear selection">
+              <span class="btn-icon">↺</span>
+              <span class="btn-text">Clear</span>
+              <span class="kbd-hint">C</span>
+            </button>
+            <button class="btn btn-danger" id="skipBtn" aria-label="Skip question">
+              <span class="btn-icon">⏭</span>
+              <span class="btn-text">Skip</span>
+            </button>
+          </div>
+          <div class="control-group">
+            <button class="btn btn-success" id="submitAnswerBtn" aria-label="Submit answer">
+              <span class="btn-icon">✓</span>
+              <span class="btn-text">Submit</span>
+              <span class="kbd-hint">Enter</span>
+            </button>
+            <button class="btn btn-primary" id="submitQuizBtn" aria-label="Submit entire quiz">
+              <span class="btn-icon">🏁</span>
+              <span class="btn-text">Finish Quiz</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ RIGHT SIDEBAR ═══ -->
+      <aside class="right-sidebar" id="rightSidebar" aria-label="Quiz sidebar">
+
+        <!-- Question Navigator -->
+        <div class="sidebar-section" id="navSection">
+          <div class="sidebar-title">📋 Question Navigator</div>
+          <div class="question-nav-grid" id="questionNavGrid" role="navigation" aria-label="Question navigation">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="nav-legend">
+            <div class="legend-item"><div class="legend-dot gray"></div>Not Visited</div>
+            <div class="legend-item"><div class="legend-dot blue"></div>Visited</div>
+            <div class="legend-item"><div class="legend-dot purple"></div>Current</div>
+            <div class="legend-item"><div class="legend-dot green"></div>Answered</div>
+            <div class="legend-item"><div class="legend-dot yellow"></div>Review</div>
+            <div class="legend-item"><div class="legend-dot red"></div>Skipped</div>
+          </div>
+        </div>
+
+        <!-- Progress Ring -->
+        <div class="sidebar-section" id="progressSection">
+          <div class="sidebar-title">📊 Quiz Progress</div>
+          <div class="progress-ring-container">
+            <div class="progress-ring">
+              <svg viewBox="0 0 140 140">
+                <defs>
+                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#6366f1"/>
+                    <stop offset="100%" stop-color="#22d3ee"/>
+                  </linearGradient>
+                </defs>
+                <circle class="bg-ring" cx="70" cy="70" r="63"/>
+                <circle class="fg-ring" id="progressRing" cx="70" cy="70" r="63"/>
+              </svg>
+              <div class="progress-center">
+                <div class="progress-percentage" id="progressPercent">0%</div>
+                <div class="progress-label">Completed</div>
+              </div>
+            </div>
+          </div>
+          <div class="progress-stats" id="progressStats">
+            <div class="progress-stat">
+              <div class="progress-stat-dot" style="background:var(--neon-green)"></div>
+              <span class="progress-stat-label">Answered</span>
+              <span class="progress-stat-value" id="statAnswered">0</span>
+            </div>
+            <div class="progress-stat">
+              <div class="progress-stat-dot" style="background:var(--neon-cyan)"></div>
+              <span class="progress-stat-label">Remaining</span>
+              <span class="progress-stat-value" id="statRemaining">20</span>
+            </div>
+            <div class="progress-stat">
+              <div class="progress-stat-dot" style="background:var(--neon-red)"></div>
+              <span class="progress-stat-label">Skipped</span>
+              <span class="progress-stat-value" id="statSkipped">0</span>
+            </div>
+            <div class="progress-stat">
+              <div class="progress-stat-dot" style="background:var(--neon-yellow)"></div>
+              <span class="progress-stat-label">Review</span>
+              <span class="progress-stat-value" id="statReview">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Info -->
+        <div class="sidebar-section">
+          <div class="sidebar-title">👤 Quiz Information</div>
+          <div class="info-grid" id="infoGrid">
+            <div class="info-row"><span class="info-label">👤 Participant</span><span class="info-value" id="infoName">Prithwish Das</span></div>
+            <div class="info-row"><span class="info-label">🏢 Department</span><span class="info-value" id="infoDept">CSE</span></div>
+            <div class="info-row"><span class="info-label">📅 Year</span><span class="info-value" id="infoYear">3rd</span></div>
+            <div class="info-row"><span class="info-label">📝 Quiz</span><span class="info-value" id="infoQuiz">Web Tech</span></div>
+            <div class="info-row"><span class="info-label">🏆 Score</span><span class="info-value" id="infoScore">0</span></div>
+            <div class="info-row"><span class="info-label">✅ Answered</span><span class="info-value" id="infoAnswered">0/20</span></div>
+            <div class="info-row"><span class="info-label">📉 Negative</span><span class="info-value" id="infoNegative">0</span></div>
+            <div class="info-row"><span class="info-label">🏅 Rank</span><span class="info-value" id="infoRank">#12</span></div>
+          </div>
+        </div>
+
+        <!-- Live Statistics -->
+        <div class="sidebar-section">
+          <div class="sidebar-title">📈 Live Statistics</div>
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAccuracy">0%</div>
+              <div class="stat-label">Accuracy</div>
+              <div class="stat-bar"><div class="stat-bar-fill" id="barAccuracy" style="width:0%"></div></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempt">0%</div>
+              <div class="stat-label">Attempt Rate</div>
+              <div class="stat-bar"><div class="stat-bar-fill" id="barAttempt" style="width:0%"></div></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statSpeed">—</div>
+              <div class="stat-label">Avg Time</div>
+              <div class="stat-bar"><div class="stat-bar-fill" id="barSpeed" style="width:0%"></div></div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statProgress">0%</div>
+              <div class="stat-label">Progress</div>
+              <div class="stat-bar"><div class="stat-bar-fill" id="barProgress" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="sidebar-section">
+          <div class="sidebar-title">🏆 Achievements</div>
+          <div class="achievements-grid" id="achievementsGrid">
+            <div class="achievement" id="achFast" data-name="fast">
+              <div class="achievement-icon">🔥</div>
+              <div class="achievement-name">Fast Learner</div>
+              <div class="achievement-desc">Answer 3 in &lt;30s</div>
+            </div>
+            <div class="achievement" id="achSpeed" data-name="speed">
+              <div class="achievement-icon">⚡</div>
+              <div class="achievement-name">Speed Master</div>
+              <div class="achievement-desc">Answer 5 in &lt;20s</div>
+            </div>
+            <div class="achievement" id="achAccurate" data-name="accurate">
+              <div class="achievement-icon">🎯</div>
+              <div class="achievement-name">Accurate</div>
+              <div class="achievement-desc">80%+ accuracy</div>
+            </div>
+            <div class="achievement" id="achTop" data-name="top">
+              <div class="achievement-icon">🏆</div>
+              <div class="achievement-name">Top Performer</div>
+              <div class="achievement-desc">Score &gt;75%</div>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </main>
+  </div>
+
+  <!-- ═══ Sidebar Toggle (mobile) ═══ -->
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">📋</button>
+  <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+  <!-- ═══ Modal Overlay ═══ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" id="modal">
+      <div class="modal-icon" id="modalIcon">⚠️</div>
+      <h2 class="modal-title" id="modalTitle">Confirm Action</h2>
+      <p class="modal-desc" id="modalDesc">Are you sure?</p>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <!-- ═══ Time Warning Overlay ═══ -->
+  <div class="time-warning-overlay" id="timeWarningOverlay" aria-hidden="true">
+    <div class="time-warning-text" id="timeWarningText"></div>
+  </div>
+
+  <!-- ═══ Image Lightbox ═══ -->
+  <div class="lightbox" id="lightbox" aria-label="Image preview" role="dialog">
+    <img id="lightboxImage" src="" alt="Zoomed question image" />
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">✕</button>
+  </div>
+
+  <!-- ═══ Toast Container ═══ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="js2/quiz.js"></script>
+</body>
 </html>
