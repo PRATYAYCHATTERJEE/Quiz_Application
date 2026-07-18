@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizVerse | Live Quiz</title>
+    <link rel="stylesheet" href="quiz3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="quiz-page">
+        <!-- Header -->
+        <header class="quiz-header">
+    <!-- Left -->
+    <div class="header-left">
+        <div class="logo">
+            <div class="logo-icon">
+                Q
+            </div>
+            <h2>QuizVerse</h2>
+        </div>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            LIVE QUIZ
+        </div>
+        <div class="quiz-title">
+            Advanced Web Technologies
+        </div>
+    </div>
+    <!-- Center -->
+    <div class="header-center">
+        <div class="timer-box">
+            <i class="fa-regular fa-clock"></i>
+            <span id="quizTimer">
+                20:00
+            </span>
+        </div>
+        <div class="question-progress">
+            <span id="currentQuestion">
+                1
+            </span>
+            /
+            <span id="totalQuestions">
+                20
+            </span>
+        </div>
+        <div class="progress-line">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+    <!-- Right -->
+    <div class="header-right">
+        <button class="header-btn">
+            <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="header-btn">
+            <i class="fa-solid fa-sun"></i>
+        </button>
+        <button class="exit-btn">
+            <i class="fa-solid fa-xmark"></i>
+            Exit
+        </button>
+    </div>
+</header>
+
+        <!-- Main Layout -->
+        <main class="quiz-layout">
+
+            <!-- Left -->
+            <section class="quiz-section">
+    <div class="question-card">
+        <div class="question-top">
+            <div class="question-number">
+                QUESTION <span id="questionNo">01</span>
+            </div>
+
+            <div class="question-tags">
+                <span class="tag category"><i class="fa-solid fa-book"></i> JavaScript</span>
+                <span class="tag difficulty"><i class="fa-solid fa-circle"></i> Easy</span>
+                <span class="tag marks"><i class="fa-solid fa-star"></i> 2 Marks</span>
+                <span class="tag time"><i class="fa-solid fa-hourglass-half"></i> 60s</span>
+            </div>
+        </div>
+
+        <h1 class="question-text" id="questionText">
+            Which of the following methods is used to create a shallow copy of an array in JavaScript?
+        </h1>
+
+        <div class="options-grid">
+            <button class="option-card">
+                <div class="option-letter">A</div>
+                <span>Array.prototype.deepCopy()</span>
+            </button>
+
+            <button class="option-card">
+                <div class="option-letter">B</div>
+                <span>Array.prototype.slice()</span>
+            </button>
+
+            <button class="option-card">
+                <div class="option-letter">C</div>
+                <span>Array.prototype.clone()</span>
+            </button>
+
+            <button class="option-card">
+                <div class="option-letter">D</div>
+                <span>Array.prototype.duplicate()</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+            <!-- Right -->
+            <aside class="sidebar">
+
+            </aside>
+
+        </main>
+
+    </div>
+
+    <script src="quiz3.js"></script>
+
+</body>
+
+</html>
