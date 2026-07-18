@@ -1,0 +1,123 @@
+/* =========================
+   FOOTER
+========================= */
+.quiz-footer{
+    margin-top:28px;
+    padding-top:22px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+/* =========================
+   FOOTER BUTTONS
+========================= */
+.footer-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 22px;
+    border:none;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s ease;
+    cursor:pointer;
+    box-shadow:var(--shadow-sm);
+}
+
+/* =========================
+   PREVIOUS
+========================= */
+.previous{
+    background:#eef2ff;
+    color:var(--primary);
+}
+
+.previous:hover{
+    background:var(--primary);
+    color:#fff;
+}
+
+/* =========================
+   NEXT
+========================= */
+.next{
+    background:var(--primary);
+    color:#fff;
+}
+
+.next:hover{
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+}
+
+/* =========================
+   REVIEW
+========================= */
+.review{
+    background:#fff7ed;
+    color:#f59e0b;
+}
+
+.review:hover{
+    background:#f59e0b;
+    color:#fff;
+}
+
+/* =========================
+   CLEAR
+========================= */
+.clear{
+    background:#f3f4f6;
+    color:#6b7280;
+}
+
+.clear:hover{
+    background:#6b7280;
+    color:#fff;
+}
+
+/* =========================
+   SKIP
+========================= */
+.skip{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+.skip:hover{
+    background:#7c3aed;
+    color:#fff;
+}
+
+/* =========================
+   SUBMIT
+========================= */
+.submit{
+    background:#ecfdf5;
+    color:#10b981;
+}
+
+.submit:hover{
+    background:#10b981;
+    color:#fff;
+}
+
+/* =========================
+   FINISH
+========================= */
+.finish{
+    background:#fee2e2;
+    color:#ef4444;
+}
+
+.finish:hover{
+    background:#ef4444;
+    color:#fff;
+    transform:translateY(-2px);
+}

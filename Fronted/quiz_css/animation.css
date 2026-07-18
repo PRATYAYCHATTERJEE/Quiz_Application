@@ -1,0 +1,138 @@
+/* =========================
+   TRANSITIONS
+========================= */
+*{
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease,box-shadow .3s ease;
+}
+
+/* =========================
+   HOVER LIFT
+========================= */
+.question-card:hover,
+.sidebar-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 45px rgba(15,23,42,.12);
+}
+
+/* =========================
+   BUTTON HOVER
+========================= */
+.footer-btn:hover,
+.header-btn:hover,
+.exit-btn:hover{
+    transform:translateY(-3px);
+}
+
+.nav-btn:hover{
+    transform:scale(1.08);
+}
+
+/* =========================
+   OPTION CLICK
+========================= */
+.option-card:active{
+    transform:scale(.98);
+}
+
+/* =========================
+   RIPPLE EFFECT
+========================= */
+.option-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.option-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(37,99,235,.08);
+    opacity:0;
+    transition:.3s;
+}
+
+.option-card:hover::after{
+    opacity:1;
+}
+
+/* =========================
+   LIVE DOT
+========================= */
+.live-dot{
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+    50%{
+        transform:scale(1.6);
+        opacity:.4;
+    }
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* =========================
+   FADE
+========================= */
+.fade-in{
+    animation:fade .5s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   SCALE
+========================= */
+.scale-in{
+    animation:scale .35s ease;
+}
+
+@keyframes scale{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* =========================
+   FLOAT
+========================= */
+.float{
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+/* =========================
+   LOADING
+========================= */
+.loading{
+    pointer-events:none;
+    opacity:.7;
+}

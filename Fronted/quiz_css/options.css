@@ -1,0 +1,115 @@
+/* =========================
+   OPTIONS
+========================= */
+.options-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    flex:1;
+}
+
+.option-card{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:#fff;
+    border:2px solid #edf2f7;
+    border-radius:18px;
+    padding:22px;
+    min-height:95px;
+    cursor:pointer;
+    transition:all .3s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.option-card:hover{
+    border-color:var(--primary);
+    transform:translateY(-4px);
+    box-shadow:0 12px 30px rgba(37,99,235,.15);
+}
+
+.option-card.active{
+    border-color:var(--primary);
+    background:#eef4ff;
+    box-shadow:0 10px 25px rgba(37,99,235,.18);
+}
+
+.option-card.correct{
+    border-color:#10b981;
+    background:#ecfdf5;
+}
+
+.option-card.wrong{
+    border-color:#ef4444;
+    background:#fef2f2;
+}
+
+/* =========================
+   OPTION LETTER
+========================= */
+.option-letter{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    background:#edf2f7;
+    color:#374151;
+    font-size:20px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    transition:.3s;
+}
+
+.option-card:hover .option-letter{
+    background:var(--primary);
+    color:#fff;
+}
+
+.option-card.active .option-letter{
+    background:var(--primary);
+    color:#fff;
+}
+
+.option-card.correct .option-letter{
+    background:#10b981;
+    color:#fff;
+}
+
+.option-card.wrong .option-letter{
+    background:#ef4444;
+    color:#fff;
+}
+
+/* =========================
+   OPTION TEXT
+========================= */
+.option-card span{
+    font-size:17px;
+    font-weight:500;
+    color:#1f2937;
+    line-height:1.5;
+    text-align:left;
+}
+
+/* =========================
+   HOVER EFFECT
+========================= */
+.option-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:5px;
+    height:100%;
+    background:var(--primary);
+    transform:scaleY(0);
+    transition:.3s;
+}
+
+.option-card:hover::before,
+.option-card.active::before{
+    transform:scaleY(1);
+}

@@ -1,0 +1,203 @@
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* =========================
+   SIDEBAR CARD
+========================= */
+.sidebar-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow-md);
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.card-header h3{
+    font-size:18px;
+    font-weight:700;
+    color:var(--text);
+}
+
+.card-header span{
+    font-size:13px;
+    color:var(--text-light);
+    font-weight:600;
+}
+
+/* =========================
+   NAVIGATOR
+========================= */
+.navigator-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-bottom:24px;
+}
+
+.nav-btn{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:#f8fafc;
+    border:2px solid #e5e7eb;
+    font-size:15px;
+    font-weight:700;
+    color:#374151;
+    transition:.3s ease;
+}
+
+.nav-btn:hover{
+    border-color:var(--primary);
+    background:#eef4ff;
+    color:var(--primary);
+}
+
+.nav-btn.current{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+}
+
+.nav-btn.answered{
+    background:#10b981;
+    border-color:#10b981;
+    color:#fff;
+}
+
+.nav-btn.review{
+    background:#f59e0b;
+    border-color:#f59e0b;
+    color:#fff;
+}
+
+.nav-btn.skipped{
+    background:#ef4444;
+    border-color:#ef4444;
+    color:#fff;
+}
+
+/* =========================
+   LEGEND
+========================= */
+.navigator-legend{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.legend-color{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+}
+
+.legend-color.answered{
+    background:#10b981;
+}
+
+.legend-color.current{
+    background:#2563eb;
+}
+
+.legend-color.review{
+    background:#f59e0b;
+}
+
+.legend-color.not-visited{
+    background:#d1d5db;
+}
+
+.legend-item p{
+    font-size:14px;
+    color:var(--text-light);
+}
+
+/* =========================
+   PROGRESS CARD
+========================= */
+.progress-card{
+    display:flex;
+    flex-direction:column;
+}
+
+.progress-circle{
+    width:170px;
+    height:170px;
+    margin:20px auto;
+    border-radius:50%;
+    background:conic-gradient(var(--primary) 0%, #e5e7eb 0%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.circle-value{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    box-shadow:var(--shadow-sm);
+}
+
+.circle-value h2{
+    font-size:34px;
+    color:var(--primary);
+    font-weight:800;
+}
+
+.circle-value span{
+    font-size:14px;
+    color:var(--text-light);
+}
+
+/* =========================
+   PROGRESS INFO
+========================= */
+.progress-info{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:12px;
+}
+
+.progress-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    background:#f8fafc;
+    border-radius:14px;
+}
+
+.progress-item span{
+    color:var(--text-light);
+    font-size:14px;
+}
+
+.progress-item strong{
+    color:var(--primary);
+    font-size:18px;
+}

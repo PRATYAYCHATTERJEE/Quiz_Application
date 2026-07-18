@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizVerse | Live Quiz</title>
-    <link rel="stylesheet" href="quiz3.css">
+    <link rel="stylesheet" href="quiz_css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -114,12 +114,116 @@
             </button>
         </div>
     </div>
+
+    <div class="quiz-footer">
+
+        <button class="footer-btn previous">
+            <i class="fa-solid fa-arrow-left"></i>
+            Previous
+        </button>
+
+        <button class="footer-btn next">
+            Next
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <button class="footer-btn review">
+            <i class="fa-solid fa-flag"></i>
+            Review
+        </button>
+
+        <button class="footer-btn clear">
+            <i class="fa-solid fa-rotate-left"></i>
+            Clear
+        </button>
+
+        <button class="footer-btn skip">
+            <i class="fa-solid fa-forward"></i>
+            Skip
+        </button>
+
+        <button class="footer-btn submit">
+            <i class="fa-solid fa-check"></i>
+            Submit
+        </button>
+
+        <button class="footer-btn finish">
+            <i class="fa-solid fa-flag-checkered"></i>
+            Finish Quiz
+        </button>
+
+    </div>
 </section>
 
             <!-- Right -->
             <aside class="sidebar">
 
-            </aside>
+    <!-- Question Navigator -->
+
+    <div class="sidebar-card">
+
+        <div class="card-header">
+            <h3>Question Navigator</h3>
+            <span>20 Questions</span>
+        </div>
+
+        <div class="navigator-grid">
+
+            <button class="nav-btn current">1</button>
+            <button class="nav-btn">2</button>
+            <button class="nav-btn">3</button>
+            <button class="nav-btn">4</button>
+            <button class="nav-btn">5</button>
+            <button class="nav-btn">6</button>
+            <button class="nav-btn">7</button>
+            <button class="nav-btn">8</button>
+            <button class="nav-btn">9</button>
+            <button class="nav-btn">10</button>
+            <button class="nav-btn">11</button>
+            <button class="nav-btn">12</button>
+            <button class="nav-btn">13</button>
+            <button class="nav-btn">14</button>
+            <button class="nav-btn">15</button>
+            <button class="nav-btn">16</button>
+            <button class="nav-btn">17</button>
+            <button class="nav-btn">18</button>
+            <button class="nav-btn">19</button>
+            <button class="nav-btn">20</button>
+            <button class="nav-btn">21</button>
+            <button class="nav-btn">22</button>
+            <button class="nav-btn">23</button>
+            <button class="nav-btn">24</button>
+            <button class="nav-btn">25</button>
+            <button class="nav-btn">26</button>
+            <button class="nav-btn">27</button>
+            <button class="nav-btn">28</button>
+            <button class="nav-btn">29</button>
+            <button class="nav-btn">30</button>
+    
+            
+        </div>
+        <div class="navigator-legend">
+            <div class="legend-item">
+                <span class="legend-color answered"></span>
+                <p>Answered</p>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color current"></span>
+                <p>Current</p>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color review"></span>
+                <p>Review</p>
+            </div>
+            <div class="legend-item">
+                <span class="legend-color not-visited"></span>
+                <p>Not Visited</p>
+            </div>
+        </div>
+    </div>
+    <!-- Progress -->
+    
+</aside>
 
         </main>
 
