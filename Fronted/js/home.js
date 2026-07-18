@@ -179,3 +179,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (el) el.textContent = value;
   }
 });
+
+
+
+
+
+
+const playBtn = document.getElementById("playNowBtn");
+
+if (playBtn) {
+
+    playBtn.addEventListener("click", async (e) => {
+
+        e.preventDefault();
+
+        try {
+
+            const response = await fetch("http://localhost:5000/api/quiz/status");
+
+            const result = await response.json();
+
+            if (result.isPublished) {
+
+                window.location.href = "join.html";
+
+            } else {
+
+                alert("Quiz has not started yet. Please wait for the admin to publish the quiz.");
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Cannot connect to server.");
+
+        }
+
+    });
+
+}

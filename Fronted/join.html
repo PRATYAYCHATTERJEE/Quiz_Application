@@ -548,14 +548,7 @@
                 <div class="field-error" id="phoneError"></div>
               </div>
 
-              <div class="field-group">
-                <label for="quizCode">Quiz Code</label>
-                <div class="input-wrap">
-                  <i class="fa-solid fa-key"></i>
-                  <input id="quizCode" name="quizCode" type="text" placeholder="QUIZ-2026" />
-                </div>
-                <div class="field-error" id="quizCodeError"></div>
-              </div>
+              
             </div>
 
             <button class="submit-btn" id="joinBtn" type="submit">
@@ -581,7 +574,7 @@
         department: document.getElementById('department'),
         year: document.getElementById('year'),
         phone: document.getElementById('phone'),
-        quizCode: document.getElementById('quizCode')
+        
       };
 
       const errors = {
@@ -589,7 +582,7 @@
         department: document.getElementById('departmentError'),
         year: document.getElementById('yearError'),
         phone: document.getElementById('phoneError'),
-        quizCode: document.getElementById('quizCodeError')
+       
       };
 
       function setError(fieldName, message) {
@@ -627,10 +620,7 @@
           isValid = false;
         }
 
-        if (!fields.quizCode.value.trim()) {
-          setError('quizCode', 'Quiz code is required.');
-          isValid = false;
-        }
+        
 
         return isValid;
       }
