@@ -72,3 +72,18 @@ questions = [
 }
 
 ];
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    totalQuestionText.textContent = questions.length;
+
+    loadQuestion();
+
+    startTimer();
+
+});
+
