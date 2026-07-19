@@ -87,3 +87,98 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 
+/* ==========================================================
+   TIMER
+========================================================== */
+
+function startTimer(){
+
+    timerInterval = setInterval(()=>{
+
+        if(totalTime<=0){
+
+            clearInterval(timerInterval);
+
+            finishQuiz();
+
+            return;
+
+        }
+
+        totalTime--;
+
+        const minutes = String(Math.floor(totalTime/60)).padStart(2,"0");
+
+        const seconds = String(totalTime%60).padStart(2,"0");
+
+        timer.textContent = `${minutes}:${seconds}`;
+
+    },1000);
+
+}
+
+/* ==========================================================
+   LOAD QUESTION
+========================================================== */
+
+function loadQuestion(){
+
+    const q = questions[currentQuestion];
+
+    questionNumber.textContent = String(currentQuestion+1).padStart(2,"0");
+
+    currentQuestionText.textContent = currentQuestion+1;
+
+    questionText.textContent = q.question;
+
+    optionCards.forEach((card,index)=>{
+
+        card.querySelector("span").textContent = q.options[index];
+
+        card.classList.remove("active");
+
+    });
+
+    updateProgress();
+
+}
+
+/* ==========================================================
+   OPTION SELECT
+========================================================== */
+
+optionCards.forEach((card,index)=>{
+
+    card.addEventListener("click",()=>{
+
+        optionCards.forEach(c=>c.classList.remove("active"));
+
+        card.classList.add("active");
+
+        selectedAnswers[currentQuestion]=index;
+
+    });
+
+});
+
+/* ==========================================================
+   PROGRESS
+========================================================== */
+
+function updateProgress(){
+
+    const percent=((currentQuestion+1)/questions.length)*100;
+
+    progressFill.style.width=percent+"%";
+
+}
+
+/* ==========================================================
+   FINISH
+========================================================== */
+
+function finishQuiz(){
+
+    alert("Quiz Finished");
+
+}
