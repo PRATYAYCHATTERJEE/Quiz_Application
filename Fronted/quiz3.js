@@ -33,3 +33,42 @@ const progressFill = document.querySelector(".progress-fill");
 const timer = document.getElementById("quizTimer");
 
 const navigatorButtons = document.querySelectorAll(".nav-btn");
+
+
+/* ==========================================================
+   TEMP QUESTIONS
+========================================================== */
+
+questions = [
+
+{
+    question:"Which method creates a shallow copy of an array?",
+    options:[
+        "Array.prototype.deepCopy()",
+        "Array.prototype.slice()",
+        "Array.prototype.clone()",
+        "Array.prototype.duplicate()"
+    ],
+    answer:1,
+    category:"JavaScript",
+    difficulty:"Easy",
+    marks:2,
+    time:60
+},
+
+{
+    question:"Which keyword declares a constant variable?",
+    options:[
+        "let",
+        "const",
+        "var",
+        "static"
+    ],
+    answer:1,
+    category:"JavaScript",
+    difficulty:"Easy",
+    marks:2,
+    time:60
+}
+
+];
