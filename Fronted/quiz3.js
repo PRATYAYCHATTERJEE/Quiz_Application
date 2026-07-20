@@ -230,3 +230,21 @@ previousBtn.addEventListener("click",()=>{
     }
 
 });
+
+/* ==========================================================
+   NAVIGATOR
+========================================================== */
+
+navigatorButtons.forEach((button,index)=>{
+
+    button.addEventListener("click",()=>{
+
+        currentQuestion=index;
+
+        loadQuestion();
+
+        updateNavigator();
+
+    });
+
+});
