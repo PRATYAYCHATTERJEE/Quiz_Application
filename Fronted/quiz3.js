@@ -182,3 +182,15 @@ function finishQuiz(){
     alert("Quiz Finished");
 
 }
+
+/* ==========================================================
+   FOOTER BUTTONS
+========================================================== */
+
+const previousBtn=document.querySelector(".previous");
+const nextBtn=document.querySelector(".next");
+const reviewBtn=document.querySelector(".review");
+const clearBtn=document.querySelector(".clear");
+const skipBtn=document.querySelector(".skip");
+const submitBtn=document.querySelector(".submit");
+const finishBtn=document.querySelector(".finish");
