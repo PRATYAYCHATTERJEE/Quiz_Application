@@ -264,3 +264,33 @@ function updateNavigator(){
     navigatorButtons[currentQuestion].classList.add("current");
 
 }
+
+function loadQuestion(){
+
+    const q=questions[currentQuestion];
+
+    questionNumber.textContent=
+    String(currentQuestion+1).padStart(2,"0");
+
+    currentQuestionText.textContent=
+    currentQuestion+1;
+
+    questionText.textContent=q.question;
+
+    optionCards.forEach((card,index)=>{
+
+        card.querySelector("span").textContent=q.options[index];
+
+        card.classList.remove("active");
+
+        if(selectedAnswers[currentQuestion]===index){
+
+            card.classList.add("active");
+
+        }
+
+    });
+
+    updateProgress();
+
+}
