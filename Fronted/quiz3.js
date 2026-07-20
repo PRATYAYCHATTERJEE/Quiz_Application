@@ -194,3 +194,21 @@ const clearBtn=document.querySelector(".clear");
 const skipBtn=document.querySelector(".skip");
 const submitBtn=document.querySelector(".submit");
 const finishBtn=document.querySelector(".finish");
+
+/* ==========================================================
+   NEXT QUESTION
+========================================================== */
+
+nextBtn.addEventListener("click",()=>{
+
+    if(currentQuestion<questions.length-1){
+
+        currentQuestion++;
+
+        loadQuestion();
+
+        updateNavigator();
+
+    }
+
+});
