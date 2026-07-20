@@ -248,3 +248,19 @@ navigatorButtons.forEach((button,index)=>{
     });
 
 });
+
+/* ==========================================================
+   UPDATE NAVIGATOR
+========================================================== */
+
+function updateNavigator(){
+
+    navigatorButtons.forEach(btn=>{
+
+        btn.classList.remove("current");
+
+    });
+
+    navigatorButtons[currentQuestion].classList.add("current");
+
+}
