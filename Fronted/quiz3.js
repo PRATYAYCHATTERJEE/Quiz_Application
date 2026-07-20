@@ -123,19 +123,27 @@ function startTimer(){
 
 function loadQuestion(){
 
-    const q = questions[currentQuestion];
+    const q=questions[currentQuestion];
 
-    questionNumber.textContent = String(currentQuestion+1).padStart(2,"0");
+    questionNumber.textContent=
+    String(currentQuestion+1).padStart(2,"0");
 
-    currentQuestionText.textContent = currentQuestion+1;
+    currentQuestionText.textContent=
+    currentQuestion+1;
 
-    questionText.textContent = q.question;
+    questionText.textContent=q.question;
 
     optionCards.forEach((card,index)=>{
 
-        card.querySelector("span").textContent = q.options[index];
+        card.querySelector("span").textContent=q.options[index];
 
         card.classList.remove("active");
+
+        if(selectedAnswers[currentQuestion]===index){
+
+            card.classList.add("active");
+
+        }
 
     });
 
@@ -265,32 +273,3 @@ function updateNavigator(){
 
 }
 
-function loadQuestion(){
-
-    const q=questions[currentQuestion];
-
-    questionNumber.textContent=
-    String(currentQuestion+1).padStart(2,"0");
-
-    currentQuestionText.textContent=
-    currentQuestion+1;
-
-    questionText.textContent=q.question;
-
-    optionCards.forEach((card,index)=>{
-
-        card.querySelector("span").textContent=q.options[index];
-
-        card.classList.remove("active");
-
-        if(selectedAnswers[currentQuestion]===index){
-
-            card.classList.add("active");
-
-        }
-
-    });
-
-    updateProgress();
-
-}
