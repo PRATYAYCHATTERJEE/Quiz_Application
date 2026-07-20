@@ -273,3 +273,104 @@ function updateNavigator(){
 
 }
 
+/* ==========================================================
+   CLEAR ANSWER
+========================================================== */
+
+clearBtn.addEventListener("click",()=>{
+
+    selectedAnswers[currentQuestion]=undefined;
+
+    optionCards.forEach(card=>{
+
+        card.classList.remove("active");
+
+    });
+
+});
+
+/* ==========================================================
+   REVIEW QUESTION
+========================================================== */
+
+reviewBtn.addEventListener("click",()=>{
+
+    if(!reviewQuestions.includes(currentQuestion)){
+
+        reviewQuestions.push(currentQuestion);
+
+    }
+
+    navigatorButtons[currentQuestion].classList.add("review");
+
+    alert("Question marked for review.");
+
+});
+
+/* ==========================================================
+   SKIP QUESTION
+========================================================== */
+
+skipBtn.addEventListener("click",()=>{
+
+    if(!skippedQuestions.includes(currentQuestion)){
+
+        skippedQuestions.push(currentQuestion);
+
+    }
+
+    navigatorButtons[currentQuestion].classList.add("skipped");
+
+    if(currentQuestion<questions.length-1){
+
+        currentQuestion++;
+
+        loadQuestion();
+
+        updateNavigator();
+
+    }
+
+});
+
+/* ==========================================================
+   SUBMIT CURRENT
+========================================================== */
+
+submitBtn.addEventListener("click",()=>{
+
+    if(selectedAnswers[currentQuestion]===undefined){
+
+        alert("Please select an option.");
+
+        return;
+
+    }
+
+    navigatorButtons[currentQuestion].classList.remove("current");
+
+    navigatorButtons[currentQuestion].classList.add("answered");
+
+    alert("Answer Submitted.");
+
+});
+
+/* ==========================================================
+   FINISH QUIZ
+========================================================== */
+
+finishBtn.addEventListener("click",finishQuiz);
+
+function finishQuiz(){
+
+    const confirmFinish=confirm(
+        "Are you sure you want to finish the quiz?"
+    );
+
+    if(!confirmFinish) return;
+
+    clearInterval(timerInterval);
+
+    alert("Quiz Finished Successfully.");
+
+}
