@@ -212,3 +212,21 @@ nextBtn.addEventListener("click",()=>{
     }
 
 });
+
+/* ==========================================================
+   PREVIOUS QUESTION
+========================================================== */
+
+previousBtn.addEventListener("click",()=>{
+
+    if(currentQuestion>0){
+
+        currentQuestion--;
+
+        loadQuestion();
+
+        updateNavigator();
+
+    }
+
+});
