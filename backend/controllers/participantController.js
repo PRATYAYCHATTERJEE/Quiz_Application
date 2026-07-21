@@ -16,16 +16,23 @@ const registerParticipant = async (req, res) => {
 
         } = req.body;
 
-        const participant = new Participant({
+        const existingParticipant = await Participant.findOne({ phone });
 
-            name,
-            department,
-            year,
-            phone
+if (existingParticipant) {
+    return res.status(400).json({
+        success: false,
+        message: "Phone number already registered."
+    });
+}
 
-        });
+const participant = new Participant({
+    name,
+    department,
+    year,
+    phone
+});
 
-        const savedParticipant = await participant.save();
+const savedParticipant = await participant.save();
 
         res.status(201).json({
 

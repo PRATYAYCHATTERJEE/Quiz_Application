@@ -22,7 +22,28 @@ const participantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    answers: [
+    {
+        questionId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Question"
+        },
 
+        selectedOption: {
+            type: Number
+        },
+
+        isCorrect: {
+            type: Boolean,
+            default: false
+        },
+
+        marks: {
+            type: Number,
+            default: 0
+        }
+    }
+],
     status: {
         type: String,
         default: "In Progress"

@@ -120,7 +120,7 @@ function startTimer(){
         }
 
         totalTime--;
-
+        saveQuizState();
         const minutes = String(Math.floor(totalTime/60)).padStart(2,"0");
 
         const seconds = String(totalTime%60).padStart(2,"0");
@@ -169,6 +169,8 @@ const questionCategory=document.getElementById("questionCategory");
 const questionDifficulty=document.getElementById("questionDifficulty");
 
 const questionMarks=document.getElementById("questionMarks");
+
+
 /* ==========================================================
    OPTION SELECT
 ========================================================== */
@@ -182,7 +184,7 @@ optionCards.forEach((card,index)=>{
         card.classList.add("active");
 
         selectedAnswers[currentQuestion]=index;
-
+        saveQuizState();
     });
 
 });
@@ -228,7 +230,7 @@ const finishBtn=document.querySelector(".finish");
 nextBtn.addEventListener("click",()=>{
 
     if(currentQuestion<questions.length-1){
-
+        saveQuizState();
         currentQuestion++;
 
         loadQuestion();
@@ -250,7 +252,7 @@ questionMarks.textContent=q.marks+" Marks";
 previousBtn.addEventListener("click",()=>{
 
     if(currentQuestion>0){
-
+        saveQuizState();
         currentQuestion--;
 
         loadQuestion();
@@ -302,7 +304,7 @@ function updateNavigator(){
 clearBtn.addEventListener("click",()=>{
 
     selectedAnswers[currentQuestion]=undefined;
-
+    saveQuizState();
     optionCards.forEach(card=>{
 
         card.classList.remove("active");
@@ -320,7 +322,7 @@ reviewBtn.addEventListener("click",()=>{
     if(!reviewQuestions.includes(currentQuestion)){
 
         reviewQuestions.push(currentQuestion);
-
+        saveQuizState();
     }
 
     navigatorButtons[currentQuestion].classList.add("review");
@@ -338,7 +340,7 @@ skipBtn.addEventListener("click",()=>{
     if(!skippedQuestions.includes(currentQuestion)){
 
         skippedQuestions.push(currentQuestion);
-
+        saveQuizState();
     }
 
     navigatorButtons[currentQuestion].classList.add("skipped");
