@@ -54,7 +54,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await fetchQuestions();
 
-    startTimer();
+restoreQuizState();
+
+loadQuestion();
+
+updateNavigator();
+
+startTimer();
 
 });
 
