@@ -58,6 +58,43 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
+
+/* ==========================================================
+   FETCH QUESTIONS
+========================================================== */
+
+async function fetchQuestions(){
+
+    try{
+
+        const response = await fetch(API_URL);
+
+        const result = await response.json();
+
+        if(result.success){
+
+            questions = result.data;
+
+            totalQuestionText.textContent = questions.length;
+
+            loadQuestion();
+
+            updateNavigator();
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        alert("Unable to load quiz.");
+
+    }
+
+}
+
+
+
 /* ==========================================================
    TIMER
 ========================================================== */
@@ -121,7 +158,11 @@ function loadQuestion(){
     updateProgress();
 
 }
+const questionCategory=document.getElementById("questionCategory");
 
+const questionDifficulty=document.getElementById("questionDifficulty");
+
+const questionMarks=document.getElementById("questionMarks");
 /* ==========================================================
    OPTION SELECT
 ========================================================== */
@@ -185,7 +226,11 @@ nextBtn.addEventListener("click",()=>{
         currentQuestion++;
 
         loadQuestion();
+        questionCategory.textContent=q.category;
 
+questionDifficulty.textContent=q.difficulty;
+
+questionMarks.textContent=q.marks+" Marks";
         updateNavigator();
 
     }
