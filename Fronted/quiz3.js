@@ -390,3 +390,31 @@ function finishQuiz(){
     alert("Quiz Finished Successfully.");
 
 }
+
+
+/* ==========================================================
+   SAVE QUIZ STATE
+========================================================== */
+
+function saveQuizState(){
+
+    const quizState={
+
+        currentQuestion,
+
+        selectedAnswers,
+
+        reviewQuestions,
+
+        skippedQuestions,
+
+        totalTime
+
+    };
+
+    localStorage.setItem(
+        "quizverseQuizState",
+        JSON.stringify(quizState)
+    );
+
+}
