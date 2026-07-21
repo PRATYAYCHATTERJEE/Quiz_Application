@@ -15,6 +15,11 @@ let quizFinished = false;
 let totalTime = 20 * 60;
 let timerInterval = null;
 
+/* ==========================================================
+   API URL
+========================================================== */
+
+const API_URL = "http://localhost:5000/api/questions";
 
 /* ==========================================================
    DOM ELEMENTS
@@ -39,49 +44,15 @@ const navigatorButtons = document.querySelectorAll(".nav-btn");
    TEMP QUESTIONS
 ========================================================== */
 
-questions = [
 
-{
-    question:"Which method creates a shallow copy of an array?",
-    options:[
-        "Array.prototype.deepCopy()",
-        "Array.prototype.slice()",
-        "Array.prototype.clone()",
-        "Array.prototype.duplicate()"
-    ],
-    answer:1,
-    category:"JavaScript",
-    difficulty:"Easy",
-    marks:2,
-    time:60
-},
-
-{
-    question:"Which keyword declares a constant variable?",
-    options:[
-        "let",
-        "const",
-        "var",
-        "static"
-    ],
-    answer:1,
-    category:"JavaScript",
-    difficulty:"Easy",
-    marks:2,
-    time:60
-}
-
-];
 
 /* ==========================================================
    INITIALIZE
 ========================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", async () => {
 
-    totalQuestionText.textContent = questions.length;
-
-    loadQuestion();
+    await fetchQuestions();
 
     startTimer();
 
