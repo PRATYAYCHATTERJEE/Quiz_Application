@@ -418,3 +418,28 @@ function saveQuizState(){
     );
 
 }
+
+
+/* ==========================================================
+   RESTORE QUIZ STATE
+========================================================== */
+
+function restoreQuizState(){
+
+    const savedQuiz=localStorage.getItem("quizverseQuizState");
+
+    if(!savedQuiz) return;
+
+    const quizState=JSON.parse(savedQuiz);
+
+    currentQuestion=quizState.currentQuestion ?? 0;
+
+    selectedAnswers=quizState.selectedAnswers ?? [];
+
+    reviewQuestions=quizState.reviewQuestions ?? [];
+
+    skippedQuestions=quizState.skippedQuestions ?? [];
+
+    totalTime=quizState.totalTime ?? totalTime;
+
+}
