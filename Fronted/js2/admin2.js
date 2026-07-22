@@ -70,6 +70,18 @@ if (page === "questions") {
 
 if (page === "participants") {
     loadParticipants();
+    setTimeout(() => {
+
+    const exportBtn =
+        document.getElementById("exportCSVBtn");
+
+    if(exportBtn){
+
+        exportBtn.onclick = exportParticipantsCSV;
+
+    }
+
+},0);
 }
 
         setActiveNav(page);
