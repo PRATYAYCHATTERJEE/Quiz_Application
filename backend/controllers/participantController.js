@@ -1,5 +1,5 @@
 const Participant = require("../models/Participant");
-
+const Question = require("../models/Question");
 // ==========================
 // Register Participant
 // ==========================
@@ -69,14 +69,35 @@ const saveAnswer = async (req, res) => {
             selectedOption
         } = req.body;
 
-console.log("=================================");
-        console.log("Participant ID:", participantId);
-        console.log("Question ID:", questionId);
-        console.log("Selected Option:", selectedOption);
+        // console.log("=================================");
+        // console.log("Participant ID:", participantId);
+        // console.log("Question ID:", questionId);
+        // console.log("Selected Option:", selectedOption);
 
 
         const participant = await Participant.findById(participantId);
+        if (participant.completed) {
 
+    return res.status(400).json({
+
+        success: false,
+        message: "Quiz has already been submitted."
+
+    });
+
+}
+       // console.log("==================================");
+       // console.log("FINISH QUIZ");
+       // console.log("Participant ID:", participantId);
+       // console.log("Total Answers:", participant.answers.length);
+
+//        participant.answers.forEach((answer, index) => {
+//           console.log(
+//         index,
+//         answer.questionId.toString(),
+//         answer.selectedOption
+//     );
+// });
         if (!participant) {
 
             return res.status(404).json({
@@ -104,18 +125,18 @@ console.log("=================================");
             });
 
         }
-        console.log("Answers Before Save:", participant.answers.length);
+       // console.log("Answers Before Save:", participant.answers.length);
 
-participant.answers.forEach((answer, index) => {
-    console.log(
-        index,
-        answer.questionId.toString(),
-        answer.selectedOption
-    );
-});
+// participant.answers.forEach((answer, index) => {
+//     console.log(
+//         index,
+//         answer.questionId.toString(),
+//         answer.selectedOption
+//     );
+// });
         await participant.save();
-console.log("Saved Successfully");
-console.log("Answers After Save:", participant.answers.length);
+//console.log("Saved Successfully");
+//console.log("Answers After Save:", participant.answers.length);
         res.json({
 
             success: true,
@@ -154,7 +175,6 @@ const finishQuiz = async (req, res) => {
             });
         }
 
-        const Question = require("../models/Question");
 
         const questions = await Question.find();
 
@@ -191,17 +211,17 @@ const finishQuiz = async (req, res) => {
             }
 
         }
+        
+        // if (answered < 5) {
 
-        if (answered < 5) {
+        //     return res.status(400).json({
 
-            return res.status(400).json({
+        //         success: false,
+        //         message: "You must answer at least 5 questions."
 
-                success: false,
-                message: "You must answer at least 5 questions."
+        //     });
 
-            });
-
-        }
+        // }
 
         participant.answered = answered;
         participant.correct = correct;
@@ -243,13 +263,43 @@ const finishQuiz = async (req, res) => {
 };
 
 
+// ==========================
+// Get All Participants
+// ==========================
+const getParticipants = async (req, res) => {
 
+    try {
+
+        const participants = await Participant.find()
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({
+
+            success: true,
+            count: participants.length,
+            data: participants
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+            message: error.message
+
+        });
+
+    }
+
+};
 
 module.exports = {
 
     registerParticipant,
     saveAnswer,
-    finishQuiz
+    finishQuiz,
+    getParticipants
 };
 
 

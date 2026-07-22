@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Submitted | QuizVerse</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="quiz_css/result.css">
+
+</head>
+
+<body>
+
+<div class="result-page">
+
+    <div class="result-card">
+
+        <div class="success-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h1>Thank You!</h1>
+
+        <p class="message">
+            Your quiz has been submitted successfully.
+        </p>
+
+        <p class="sub-message">
+            Thank you for participating in the QuizVerse Live Quiz.
+            <br>
+            We appreciate your time and wish you the very best.
+        </p>
+
+        <div class="participant-box">
+
+            <div class="info-row">
+                <span>Name</span>
+                <strong id="participantName">Participant</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Department</span>
+                <strong id="participantDepartment">---</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Year</span>
+                <strong id="participantYear">---</strong>
+            </div>
+
+        </div>
+
+        <p class="footer-text">
+            Results will be announced by the organizers.
+        </p>
+
+        <button class="home-btn" onclick="goHome()">
+
+            <i class="fa-solid fa-house"></i>
+
+            Back To Home
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="js2/result.js"></script>
+
+</body>
+</html>

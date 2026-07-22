@@ -1,0 +1,167 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e293b,#312e81);
+overflow:hidden;
+}
+
+.result-page{
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:30px;
+}
+
+.result-card{
+width:100%;
+max-width:650px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:25px;
+padding:45px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+animation:fadeUp .7s ease;
+}
+
+.success-icon{
+width:95px;
+height:95px;
+margin:auto;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+font-size:40px;
+color:#fff;
+box-shadow:0 0 30px rgba(34,197,94,.45);
+margin-bottom:25px;
+}
+
+.result-card h1{
+font-size:42px;
+font-weight:800;
+color:#fff;
+margin-bottom:10px;
+}
+
+.message{
+font-size:19px;
+color:#dbeafe;
+margin-bottom:12px;
+}
+
+.sub-message{
+font-size:15px;
+line-height:28px;
+color:#cbd5e1;
+margin-bottom:35px;
+}
+
+.participant-box{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.12);
+border-radius:18px;
+padding:25px;
+margin-bottom:30px;
+}
+
+.info-row{
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.info-row:last-child{
+border-bottom:none;
+}
+
+.info-row span{
+color:#94a3b8;
+font-size:15px;
+}
+
+.info-row strong{
+color:#fff;
+font-size:16px;
+font-weight:600;
+}
+
+.footer-text{
+color:#cbd5e1;
+font-size:15px;
+margin-bottom:30px;
+}
+
+.home-btn{
+border:none;
+outline:none;
+cursor:pointer;
+padding:15px 35px;
+border-radius:14px;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:#fff;
+font-size:16px;
+font-weight:600;
+transition:.3s;
+}
+
+.home-btn:hover{
+transform:translateY(-4px);
+box-shadow:0 15px 30px rgba(37,99,235,.35);
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@media(max-width:768px){
+
+.result-card{
+padding:30px 22px;
+}
+
+.result-card h1{
+font-size:32px;
+}
+
+.success-icon{
+width:80px;
+height:80px;
+font-size:32px;
+}
+
+.info-row{
+flex-direction:column;
+gap:5px;
+text-align:left;
+}
+
+.home-btn{
+width:100%;
+}
+
+}
