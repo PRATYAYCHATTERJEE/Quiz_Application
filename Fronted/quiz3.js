@@ -230,7 +230,7 @@ const reviewBtn=document.querySelector(".review");
 const clearBtn=document.querySelector(".clear");
 const skipBtn=document.querySelector(".skip");
 const submitBtn=document.querySelector(".submit");
-const finishBtn=document.querySelector(".finish");
+const finishBtn = document.getElementById("finishBtn");
 
 /* ==========================================================
    NEXT QUESTION
@@ -243,7 +243,7 @@ nextBtn.addEventListener("click",()=>{
         currentQuestion++;
 
         loadQuestion();
-        questionCategory.textContent=q.category;
+       questionCategory.textContent = current.category;
 
 questionDifficulty.textContent=q.difficulty;
 
@@ -397,7 +397,9 @@ async function saveAnswer(selectedOption) {
     try {
 
         const current = questions[currentQuestion];
-
+        console.log("Current Question Index:", currentQuestion);
+console.log("Question ID:", current._id);
+console.log("Selected Option:", selectedOption);
         const response = await fetch(
             "http://localhost:5000/api/participants/save-answer",
             {
@@ -440,20 +442,60 @@ async function saveAnswer(selectedOption) {
 
 finishBtn.addEventListener("click",finishQuiz);
 
-function finishQuiz(){
+async function finishQuiz() {
 
-    const confirmFinish=confirm(
+    const confirmFinish = confirm(
         "Are you sure you want to finish the quiz?"
     );
 
-    if(!confirmFinish) return;
+    if (!confirmFinish) return;
 
-    clearInterval(timerInterval);
+    try {
 
-    alert("Quiz Finished Successfully.");
+        const participantId = localStorage.getItem("participantId");
+
+        const response = await fetch(
+            "http://localhost:5000/api/participants/finish",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    participantId
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+
+            alert(result.message);
+            return;
+
+        }
+
+        clearInterval(timerInterval);
+
+        localStorage.setItem(
+            "quizResult",
+            JSON.stringify(result.result)
+        );
+
+        alert("Quiz Submitted Successfully!");
+
+        window.location.href = "result.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to submit quiz.");
+
+    }
 
 }
-
 
 /* ==========================================================
    SAVE QUIZ STATE
