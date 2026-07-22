@@ -55,8 +55,75 @@ const savedParticipant = await participant.save();
 
 };
 
+
+// ==========================
+// Save Answer
+// ==========================
+const saveAnswer = async (req, res) => {
+
+    try {
+
+        const {
+            participantId,
+            questionId,
+            selectedOption
+        } = req.body;
+
+        const participant = await Participant.findById(participantId);
+
+        if (!participant) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Participant not found"
+            });
+
+        }
+
+        const existingAnswer = participant.answers.find(
+            answer => answer.questionId.toString() === questionId
+        );
+
+        if (existingAnswer) {
+
+            existingAnswer.selectedOption = selectedOption;
+
+        } else {
+
+            participant.answers.push({
+
+                questionId,
+                selectedOption
+
+            });
+
+        }
+
+        await participant.save();
+
+        res.json({
+
+            success: true,
+            message: "Answer Saved"
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
 module.exports = {
 
-    registerParticipant
-
+    registerParticipant,
+    saveAnswer
 };

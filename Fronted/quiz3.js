@@ -15,6 +15,14 @@ let quizFinished = false;
 let totalTime = 20 * 60;
 let timerInterval = null;
 
+
+/* ==========================================================
+   PARTICIPANT
+========================================================== */
+
+const participantId = localStorage.getItem("participantId");
+
+
 /* ==========================================================
    API URL
 ========================================================== */
@@ -177,7 +185,7 @@ const questionMarks=document.getElementById("questionMarks");
 
 optionCards.forEach((card,index)=>{
 
-    card.addEventListener("click",()=>{
+    card.addEventListener("click", async ()=>{
 
         optionCards.forEach(c=>c.classList.remove("active"));
 
@@ -185,6 +193,7 @@ optionCards.forEach((card,index)=>{
 
         selectedAnswers[currentQuestion]=index;
         saveQuizState();
+        await saveAnswer(index);
     });
 
 });
@@ -378,6 +387,52 @@ submitBtn.addEventListener("click",()=>{
     alert("Answer Submitted.");
 
 });
+
+/* ==========================================================
+   SAVE ANSWER
+========================================================== */
+
+async function saveAnswer(selectedOption) {
+
+    try {
+
+        const current = questions[currentQuestion];
+
+        const response = await fetch(
+            "http://localhost:5000/api/participants/save-answer",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+
+                    participantId,
+
+                    questionId: current._id,
+
+                    selectedOption
+
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+
+            console.error(result.message);
+
+        }
+
+    } catch (error) {
+
+        console.error("Save Answer Error:", error);
+
+    }
+
+}
+
 
 /* ==========================================================
    FINISH QUIZ

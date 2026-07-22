@@ -146,7 +146,7 @@ form.addEventListener('submit', async function (event) {
 
       setTimeout(() => {
 
-        window.location.href = "quiz2.html";
+        window.location.href = "quiz3.html";
 
       }, 1100);
 
