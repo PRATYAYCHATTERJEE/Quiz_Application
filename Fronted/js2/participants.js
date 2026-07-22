@@ -31,14 +31,18 @@ async function loadParticipants() {
 
 <td>${participant.year}</td>
 
-<td>${participant.score}</td>
+<td>${participant.phone}</td>
 
 <td>
-<span class="badge ${
-participant.completed ? "success" : "warning"
-}">
-${participant.completed ? "Completed" : "In Progress"}
-</span>
+    <span class="badge ${
+        participant.completed ? "success" : "warning"
+    }">
+        ${
+            participant.completed
+            ? "Completed"
+            : "In Progress"
+        }
+    </span>
 </td>
 
 `;
