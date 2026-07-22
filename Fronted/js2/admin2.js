@@ -67,6 +67,11 @@ if (page === "create-question") {
 if (page === "questions") {
     initializeQuestions();
 }
+
+if (page === "participants") {
+    loadParticipants();
+}
+
         setActiveNav(page);
 
         history.replaceState(null, "", "#" + page);
@@ -94,3 +99,68 @@ if (page === "questions") {
     renderPage(location.hash.replace("#", "") || "dashboard");
 
 });
+
+
+async function loadParticipants() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/participants"
+        );
+
+        const result = await response.json();
+
+        if (!result.success) return;
+
+        const tableBody = document.getElementById(
+            "participantsTableBody"
+        );
+
+        if (!tableBody) return;
+
+        tableBody.innerHTML = "";
+
+        result.data.forEach(participant => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+
+                <td>${participant.name}</td>
+
+                <td>${participant.department}</td>
+
+                <td>${participant.year}</td>
+
+                <td>${participant.score}</td>
+
+                <td>
+                    <span class="badge ${
+                        participant.completed
+                        ? "success"
+                        : "warning"
+                    }">
+                        ${
+                            participant.completed
+                            ? "Completed"
+                            : "In Progress"
+                        }
+                    </span>
+                </td>
+
+            `;
+
+            tableBody.appendChild(row);
+
+        });
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
