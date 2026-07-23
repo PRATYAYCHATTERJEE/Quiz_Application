@@ -63,7 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
 if (page === "create-question") {
     initializeCreateQuestion();
 }
-
+if(page==="leaderboard"){
+    initializeLeaderboard();
+}
 if (page === "questions") {
     initializeQuestions();
 }

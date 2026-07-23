@@ -294,12 +294,134 @@ const getParticipants = async (req, res) => {
 
 };
 
+
+// ==========================
+// Leaderboard
+// ==========================
+const getLeaderboard = async (req, res) => {
+
+    try {
+
+        const Question = require("../models/Question");
+
+        // Get total quiz marks
+        const questions = await Question.find();
+
+        const totalMarks = questions.reduce(
+            (sum, question) => sum + question.marks,
+            0
+        );
+
+        // Get completed participants
+        const participants = await Participant.find({
+
+            completed: true
+
+        });
+
+        const leaderboard = participants.map(participant => {
+
+            const timeTakenMs =
+                new Date(participant.endTime) -
+                new Date(participant.startTime);
+
+            const minutes = Math.floor(timeTakenMs / 60000);
+
+            const seconds = Math.floor((timeTakenMs % 60000) / 1000);
+
+            return {
+
+                _id: participant._id,
+
+                name: participant.name,
+
+                department: participant.department,
+
+                image: participant.image || "",
+
+                score: participant.score,
+
+                totalMarks,
+
+                correct: participant.correct,
+
+                wrong: participant.wrong,
+
+                timeTakenMs,
+
+                timeTaken:
+                    `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`,
+
+                endTime: participant.endTime
+
+            };
+
+        });
+
+        // Ranking Logic
+        leaderboard.sort((a, b) => {
+
+            // 1. Highest Score
+            if (b.score !== a.score)
+                return b.score - a.score;
+
+            // 2. Highest Correct
+            if (b.correct !== a.correct)
+                return b.correct - a.correct;
+
+            // 3. Lowest Time
+            if (a.timeTakenMs !== b.timeTakenMs)
+                return a.timeTakenMs - b.timeTakenMs;
+
+            // 4. Earliest Finish
+            return new Date(a.endTime) - new Date(b.endTime);
+
+        });
+
+        leaderboard.forEach((participant, index) => {
+
+            participant.rank = index + 1;
+
+            delete participant.timeTakenMs;
+
+            delete participant.endTime;
+
+        });
+
+        res.json({
+
+            success: true,
+
+            count: leaderboard.length,
+
+            data: leaderboard
+
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
+
 module.exports = {
 
     registerParticipant,
     saveAnswer,
     finishQuiz,
-    getParticipants
+    getParticipants,
+    getLeaderboard
 };
 
 
