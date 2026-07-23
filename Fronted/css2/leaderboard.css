@@ -53,3 +53,226 @@
   background: rgba(255, 190, 47, 0.16);
   color: #ffd36b;
 }
+
+
+
+/* ==========================================================
+   PODIUM
+========================================================== */
+
+.leaderboard-podium{
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+
+    gap:36px;
+
+    margin:35px 0 45px;
+
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.podium-card{
+
+    width:250px;
+    height:300px;
+
+    background:#171a25;
+
+    border-radius:28px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    padding:18px;
+
+    position:relative;
+
+    transition:.35s;
+
+}
+
+.podium-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+/* ==========================================================
+   FIRST
+========================================================== */
+
+.podium-card.first{
+
+    width:275px;
+    height:340px;
+
+    transform:translateY(-35px);
+
+    border:1px solid rgba(255,210,0,.45);
+
+}
+
+/* ==========================================================
+   SECOND
+========================================================== */
+
+.podium-card.second{
+
+    border:1px solid rgba(210,210,210,.20);
+
+}
+
+/* ==========================================================
+   THIRD
+========================================================== */
+
+.podium-card.third{
+
+    border:1px solid rgba(210,140,70,.30);
+
+}
+
+/* ==========================================================
+   MEDAL
+========================================================== */
+
+.podium-rank{
+
+    font-size:28px;
+
+    margin-bottom:12px;
+
+}
+
+/* ==========================================================
+   AVATAR
+========================================================== */
+
+.podium-avatar{
+
+    width:95px;
+    height:95px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    margin-bottom:18px;
+
+    border:4px solid rgba(255,255,255,.10);
+
+}
+
+.first .podium-avatar{
+
+    width:110px;
+    height:110px;
+
+    border-color:#FFD54A;
+
+}
+
+.second .podium-avatar{
+
+    border-color:#d9d9d9;
+
+}
+
+.third .podium-avatar{
+
+    border-color:#d48c47;
+
+}
+
+.podium-avatar img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+/* ==========================================================
+   NAME
+========================================================== */
+
+.podium-card h2{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    text-align:center;
+
+}
+
+.first h2{
+
+    font-size:34px;
+
+}
+
+/* ==========================================================
+   DEPARTMENT
+========================================================== */
+
+.podium-card p{
+
+    margin:12px 0;
+
+    color:#bfc6d8;
+
+    font-size:18px;
+
+}
+
+/* ==========================================================
+   SCORE
+========================================================== */
+
+.podium-score{
+
+    margin-top:8px;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+}
+
+.first .podium-score{
+
+    color:#FFD54A;
+
+}
+
+/* ==========================================================
+   TIME
+========================================================== */
+
+.podium-time{
+
+    margin-top:12px;
+
+    color:#bfc6d8;
+
+    font-size:18px;
+
+}
