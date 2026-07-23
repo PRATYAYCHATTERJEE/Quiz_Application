@@ -15,7 +15,7 @@ async function initializeLeaderboard(){
         if(!result.success) return;
 
         renderPodium(result.data);
-
+        
         renderLeaderboardTable(result.data);
 
     }

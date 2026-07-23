@@ -57,19 +57,16 @@
 
 
 /* ==========================================================
-   PODIUM
+   LEADERBOARD PODIUM
 ========================================================== */
 
 .leaderboard-podium{
-
     display:flex;
     justify-content:center;
     align-items:flex-end;
-
-    gap:36px;
-
-    margin:35px 0 45px;
-
+    gap:42px;
+    margin:45px 0 60px;
+    flex-wrap:wrap;
 }
 
 /* ==========================================================
@@ -78,12 +75,11 @@
 
 .podium-card{
 
-    width:250px;
-    height:300px;
+    width:270px;
+    min-height:360px;
 
-    background:#171a25;
-
-    border-radius:28px;
+    background:linear-gradient(180deg,#1b1f2b 0%,#171a25 100%);
+    border-radius:30px;
 
     border:1px solid rgba(255,255,255,.08);
 
@@ -91,17 +87,21 @@
     flex-direction:column;
     align-items:center;
 
-    padding:18px;
+    padding:28px 22px;
 
     position:relative;
 
-    transition:.35s;
+    transition:.35s ease;
 
+    overflow:hidden;
 }
 
 .podium-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-10px) scale(1.02);
+
+    box-shadow:
+    0 18px 40px rgba(0,0,0,.45);
 
 }
 
@@ -111,12 +111,21 @@
 
 .podium-card.first{
 
-    width:275px;
-    height:340px;
+    width:300px;
+    min-height:400px;
 
-    transform:translateY(-35px);
+    transform:translateY(-40px);
 
-    border:1px solid rgba(255,210,0,.45);
+    border:1px solid rgba(255,213,74,.65);
+
+    box-shadow:
+    0 0 35px rgba(255,213,74,.12);
+
+}
+
+.podium-card.first:hover{
+
+    transform:translateY(-50px) scale(1.03);
 
 }
 
@@ -126,7 +135,7 @@
 
 .podium-card.second{
 
-    border:1px solid rgba(210,210,210,.20);
+    border:1px solid rgba(220,220,220,.18);
 
 }
 
@@ -136,7 +145,7 @@
 
 .podium-card.third{
 
-    border:1px solid rgba(210,140,70,.30);
+    border:1px solid rgba(212,140,71,.35);
 
 }
 
@@ -146,9 +155,11 @@
 
 .podium-rank{
 
-    font-size:28px;
+    font-size:34px;
 
-    margin-bottom:12px;
+    margin-bottom:16px;
+
+    filter:drop-shadow(0 0 10px rgba(255,255,255,.25));
 
 }
 
@@ -158,23 +169,29 @@
 
 .podium-avatar{
 
-    width:95px;
-    height:95px;
+    width:105px;
+    height:105px;
 
     border-radius:50%;
 
     overflow:hidden;
 
-    margin-bottom:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    border:4px solid rgba(255,255,255,.10);
+    margin-bottom:22px;
+
+    border:4px solid rgba(255,255,255,.12);
+
+    background:#242838;
 
 }
 
 .first .podium-avatar{
 
-    width:110px;
-    height:110px;
+    width:120px;
+    height:120px;
 
     border-color:#FFD54A;
 
@@ -196,10 +213,34 @@
 
     width:100%;
     height:100%;
-
     object-fit:cover;
-
     display:block;
+
+}
+
+/* ==========================================================
+   AVATAR LETTERS
+========================================================== */
+
+.podium-avatar span{
+
+    font-size:48px;
+
+    font-weight:800;
+
+    line-height:1;
+
+    letter-spacing:-1px;
+
+    color:#111;
+
+    font-family:"Inter",sans-serif;
+
+}
+
+.first .podium-avatar span{
+
+    font-size:56px;
 
 }
 
@@ -213,9 +254,13 @@
 
     color:#fff;
 
-    font-size:30px;
+    font-size:12px;
 
     font-weight:700;
+
+    line-height:1.15;
+
+    letter-spacing:-0.7px;
 
     text-align:center;
 
@@ -223,7 +268,7 @@
 
 .first h2{
 
-    font-size:34px;
+    font-size:2.25rem;
 
 }
 
@@ -233,11 +278,13 @@
 
 .podium-card p{
 
-    margin:12px 0;
+    margin:12px 0 0;
 
     color:#bfc6d8;
 
-    font-size:18px;
+    font-size:1.15rem;
+
+    font-weight:500;
 
 }
 
@@ -247,13 +294,15 @@
 
 .podium-score{
 
-    margin-top:8px;
+    margin-top:20px;
 
-    font-size:30px;
+    font-size:2.6rem;
 
-    font-weight:700;
+    font-weight:800;
 
-    color:#ffffff;
+    letter-spacing:-1px;
+
+    color:#fff;
 
 }
 
@@ -269,10 +318,92 @@
 
 .podium-time{
 
-    margin-top:12px;
+    margin-top:16px;
 
-    color:#bfc6d8;
+    color:#9fb0c9;
 
-    font-size:18px;
+    font-size:1.2rem;
+
+    font-weight:500;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:900px){
+
+.leaderboard-podium{
+
+    gap:24px;
+
+}
+
+.podium-card{
+
+    width:230px;
+    min-height:330px;
+
+}
+
+.podium-card.first{
+
+    width:250px;
+    min-height:360px;
+
+    transform:none;
+
+}
+
+.podium-card.first:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.podium-avatar{
+
+    width:90px;
+    height:90px;
+
+}
+
+.first .podium-avatar{
+
+    width:105px;
+    height:105px;
+
+}
+
+.podium-avatar span{
+
+    font-size:42px;
+
+}
+
+.first .podium-avatar span{
+
+    font-size:50px;
+
+}
+
+.podium-card h2{
+
+    font-size:1.8rem;
+
+}
+
+.first h2{
+
+    font-size:2rem;
+
+}
+
+.podium-score{
+
+    font-size:2.2rem;
+
+}
 
 }
