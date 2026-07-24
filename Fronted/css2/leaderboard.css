@@ -87,7 +87,7 @@
     flex-direction:column;
     align-items:center;
 
-    padding:28px 22px;
+    padding:12px 22px;
 
     position:relative;
 
@@ -119,12 +119,12 @@
     border:1px solid rgba(255,213,74,.65);
  
     box-shadow:
-    0 0 35px rgba(255,213,74,.12);
+    0 0 35px rgba(25, 210, 8, 0.12);
 
 }
  
 .podium-card.first:hover{
-
+    
     transform:translateY(-50px) scale(1.03);
 
 }
@@ -169,8 +169,8 @@
 
 .podium-avatar{
 
-    width:105px;
-    height:105px;
+    width:85px;
+    height:85px;
 
     border-radius:50%;
 
@@ -180,44 +180,56 @@
     justify-content:center;
     align-items:center;
 
-    margin-bottom:22px;
-
-    border:4px solid rgba(255,255,255,.12);
+    margin-bottom:20px;
 
     background:#242838;
 
+    border:1px solid rgba(255,255,255,.15);
+
+    flex-shrink:0;
+
 }
+
+/* ---------------- FIRST ---------------- */
 
 .first .podium-avatar{
 
-    width:120px;
-    height:120px;
+    width:85px;
+    height:85px;
 
-    border-color:#FFD54A;
+    border:1px solid #FFD54A;
 
 }
+
+/* ---------------- SECOND ---------------- */
 
 .second .podium-avatar{
 
-    border-color:#d9d9d9;
+    border:1px solid #d9d9d9;
 
 }
+
+/* ---------------- THIRD ---------------- */
 
 .third .podium-avatar{
 
-    border-color:#d48c47;
+    border:1px solid #d48c47;
 
 }
+
+/* ---------------- IMAGE ---------------- */
 
 .podium-avatar img{
 
     width:100%;
     height:100%;
+
     object-fit:cover;
+    object-position:center;
+
     display:block;
 
 }
-
 /* ==========================================================
    AVATAR LETTERS
 ========================================================== */
@@ -251,7 +263,7 @@
 .podium-card h2{
     margin:0;
     color:#fff;
-    font-size:12px;
+    font-size:17px;
     font-weight:700;
     line-height:1.15;
     letter-spacing:-0.7px;
@@ -266,7 +278,7 @@
 ========================================================== */
 
 .podium-card p{
-    margin:12px 0 0;
+    margin:14px 0 0;
     color:#bfc6d8;
     font-size:12px;
     font-weight:500;
@@ -277,8 +289,8 @@
 ========================================================== */
 
 .podium-score{
-    margin-top:20px;
-    font-size:12px;
+    margin-top:10px;
+    font-size:15px;
     font-weight:800;
     letter-spacing:-1px;
     color:#fff;
@@ -298,7 +310,7 @@
 
     margin-top:16px;
     color:#9fb0c9;
-    font-size:12px;
+    font-size:14px;
     font-weight:500;
 
 }
