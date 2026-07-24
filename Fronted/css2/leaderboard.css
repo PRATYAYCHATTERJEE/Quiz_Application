@@ -75,8 +75,8 @@
 
 .podium-card{
 
-    width:270px;
-    min-height:360px;
+    width:250px;
+    height:250px;
 
     background:linear-gradient(180deg,#1b1f2b 0%,#171a25 100%);
     border-radius:30px;
@@ -111,18 +111,18 @@
 
 .podium-card.first{
 
-    width:300px;
-    min-height:400px;
+    width:250px;
+    height:250px;
 
     transform:translateY(-40px);
 
     border:1px solid rgba(255,213,74,.65);
-
+ 
     box-shadow:
     0 0 35px rgba(255,213,74,.12);
 
 }
-
+ 
 .podium-card.first:hover{
 
     transform:translateY(-50px) scale(1.03);
@@ -249,27 +249,16 @@
 ========================================================== */
 
 .podium-card h2{
-
     margin:0;
-
     color:#fff;
-
     font-size:12px;
-
     font-weight:700;
-
     line-height:1.15;
-
     letter-spacing:-0.7px;
-
     text-align:center;
-
 }
-
 .first h2{
-
-    font-size:2.25rem;
-
+    font-size:12px;
 }
 
 /* ==========================================================
@@ -277,15 +266,10 @@
 ========================================================== */
 
 .podium-card p{
-
     margin:12px 0 0;
-
     color:#bfc6d8;
-
-    font-size:1.15rem;
-
+    font-size:12px;
     font-weight:500;
-
 }
 
 /* ==========================================================
@@ -293,17 +277,11 @@
 ========================================================== */
 
 .podium-score{
-
     margin-top:20px;
-
-    font-size:2.6rem;
-
+    font-size:12px;
     font-weight:800;
-
     letter-spacing:-1px;
-
     color:#fff;
-
 }
 
 .first .podium-score{
@@ -319,11 +297,8 @@
 .podium-time{
 
     margin-top:16px;
-
     color:#9fb0c9;
-
-    font-size:1.2rem;
-
+    font-size:12px;
     font-weight:500;
 
 }
