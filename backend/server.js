@@ -28,3 +28,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+const sessionRoutes = require("./routes/sessionRoutes");
+
+app.use("/api/session", sessionRoutes);
