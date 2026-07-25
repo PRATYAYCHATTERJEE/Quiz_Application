@@ -66,6 +66,10 @@ if (page === "create-question") {
 if(page==="leaderboard"){
     initializeLeaderboard();
 }
+
+if (page === "dashboard") {
+    initializeDashboard();
+}
 if (page === "questions") {
     initializeQuestions();
 }
