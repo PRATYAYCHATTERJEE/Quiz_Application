@@ -99,90 +99,247 @@
   gap: 10px;
 }
 
-/* ==========================
-   LIVE SESSION
-========================== */
+/* ==========================================================
+   LIVE SESSION CARD
+========================================================== */
 
-.hero-card.live-session{
+.live-session-card{
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:28px;
+    padding:24px 30px;
 
-    border-radius:24px;
+    margin-bottom:24px;
 
     background:linear-gradient(
         135deg,
-        #1d2233,
-        #11151f
+        #1b1f2c 0%,
+        #171b27 100%
     );
 
     border:1px solid rgba(255,255,255,.08);
 
+    border-radius:24px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
 }
 
-.live-left{
+/* ==========================================================
+   LEFT SIDE
+========================================================== */
+
+.live-session-left{
 
     display:flex;
     flex-direction:column;
-
-    gap:10px;
+    gap:12px;
 
 }
+
+/* ==========================================================
+   LIVE BADGE
+========================================================== */
 
 .live-badge{
 
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
     width:max-content;
 
-    padding:8px 14px;
+    padding:8px 16px;
 
     border-radius:999px;
 
-    background:#ff3d3d22;
+    background:rgba(255,77,77,.12);
 
-    color:#ff5757;
+    color:#ff6464;
 
-    font-size:.85rem;
+    font-size:.82rem;
 
     font-weight:700;
 
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
 }
+
+.live-badge::before{
+
+    content:"";
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#ff4545;
+
+    box-shadow:
+        0 0 10px #ff4545,
+        0 0 20px #ff4545;
+
+    animation:pulse 1.6s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:scale(1.35);
+
+        opacity:.6;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================================
+   TITLE
+========================================================== */
+
+.live-title{
+
+    margin:0;
+
+    color:#fff;
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+}
+
+/* ==========================================================
+   INFO ROW
+========================================================== */
 
 .live-info{
 
     display:flex;
 
-    gap:25px;
+    align-items:center;
 
-    color:#bfc6d8;
+    gap:26px;
+
+    color:#9fb0c9;
+
+    font-size:.98rem;
+
+    font-weight:500;
 
 }
 
+.live-info span{
 
-.danger-btn{
+    display:flex;
 
-    background:#ff4b4b;
+    align-items:center;
 
-    color:white;
+    gap:8px;
+
+}
+
+/* ==========================================================
+   END QUIZ BUTTON
+========================================================== */
+
+.end-quiz-btn{
+
+    width:170px;
+
+    height:54px;
 
     border:none;
 
-    padding:12px 24px;
-
-    border-radius:12px;
+    border-radius:16px;
 
     cursor:pointer;
 
-    font-weight:600;
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:linear-gradient(
+        135deg,
+        #ff5555,
+        #ff3030
+    );
 
     transition:.3s;
 
 }
 
-.danger-btn:hover{
+.end-quiz-btn:hover{
 
-    background:#ff3030;
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(255,60,60,.35);
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:900px){
+
+.live-session-card{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+}
+
+.end-quiz-btn{
+
+    width:100%;
+
+}
+
+.live-info{
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.live-title{
+
+    font-size:1.7rem;
+
+}
 
 }

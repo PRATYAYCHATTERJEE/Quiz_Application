@@ -80,41 +80,45 @@ function renderDashboard(session) {
 
     banner.innerHTML = `
 
-    <div class="live-banner">
+<div class="live-session-card">
 
-        <div>
+    <div class="live-session-left">
 
-            <div class="banner-tag">
+        <span class="live-badge">
 
-                LIVE SESSION
+            🔴 LIVE SESSION
 
-            </div>
+        </span>
 
-            <h2>
+        <h2 class="live-title">
 
-                ${session.quizTitle}
+            ${session.quizTitle}
 
-            </h2>
+        </h2>
 
-            <p>
+        <div class="live-info">
 
-                ${session.totalQuestions} Questions
+            <span>📝 ${session.totalQuestions} Questions</span>
 
-            </p>
+            <span>👥 <span id="liveParticipants">0</span> Participants</span>
+
+            <span>⏱ ${new Date(session.startedAt).toLocaleTimeString()}</span>
 
         </div>
 
-        <button
-            id="endQuizBtn"
-            class="danger-btn">
-
-            End Quiz
-
-        </button>
-
     </div>
 
-    `;
+    <button
+        id="endQuizBtn"
+        class="end-quiz-btn">
+
+        🛑 End Quiz
+
+    </button>
+
+</div>
+
+`;
 
 }
 

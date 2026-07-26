@@ -36,3 +36,7 @@ app.use("/api/session", sessionRoutes);
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
 app.use("/api/dashboard", dashboardRoutes);
+
+const historyRoutes = require("./routes/historyRoutes");
+
+app.use("/api/history", historyRoutes);
