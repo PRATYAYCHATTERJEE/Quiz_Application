@@ -32,3 +32,7 @@ app.listen(PORT, () => {
 const sessionRoutes = require("./routes/sessionRoutes");
 
 app.use("/api/session", sessionRoutes);
+
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
+app.use("/api/dashboard", dashboardRoutes);
