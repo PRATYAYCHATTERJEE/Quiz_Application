@@ -51,11 +51,11 @@ function renderDashboard(session) {
 
             </div>
 
-            <button id="openQuizBtn" class="primary-btn">
+            <div class="banner-note">
 
-                Open Live Quiz
+    Publish a quiz from the Participants page to start a live session.
 
-            </button>
+</div>
 
         </div>
 
@@ -86,6 +86,81 @@ function renderDashboard(session) {
             <p>
 
                 ${session.totalQuestions} Questions
+
+            </p>
+
+        </div>
+
+        <button
+            id="endQuizBtn"
+            class="danger-btn">
+
+            End Quiz
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+
+
+async function loadDashboardBanner() {
+
+    const banner = document.getElementById("dashboardBanner");
+
+    if (!banner) return;
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/session/status");
+
+        const result = await response.json();
+
+        if (!result.success || !result.data.isActive) {
+
+            banner.innerHTML = noQuizBanner();
+
+            return;
+
+        }
+
+        banner.innerHTML = liveQuizBanner(result.data);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        banner.innerHTML = noQuizBanner();
+
+    }
+
+}
+
+function liveQuizBanner(session) {
+
+    return `
+
+    <div class="hero-card live-session">
+
+        <div>
+
+            <p class="eyebrow">🔴 LIVE SESSION</p>
+
+            <h2>${session.quizTitle}</h2>
+
+            <p>
+
+                ${session.totalQuestions} Questions
+
+                &nbsp;&nbsp;&nbsp;
+
+                Started :
+                ${new Date(session.startedAt).toLocaleTimeString()}
 
             </p>
 

@@ -98,3 +98,91 @@
   display: grid;
   gap: 10px;
 }
+
+/* ==========================
+   LIVE SESSION
+========================== */
+
+.hero-card.live-session{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:linear-gradient(
+        135deg,
+        #1d2233,
+        #11151f
+    );
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.live-left{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.live-badge{
+
+    width:max-content;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:#ff3d3d22;
+
+    color:#ff5757;
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+}
+
+.live-info{
+
+    display:flex;
+
+    gap:25px;
+
+    color:#bfc6d8;
+
+}
+
+
+.danger-btn{
+
+    background:#ff4b4b;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.danger-btn:hover{
+
+    background:#ff3030;
+
+}
