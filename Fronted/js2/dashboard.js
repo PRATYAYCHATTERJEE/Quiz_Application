@@ -1,5 +1,20 @@
 async function initializeDashboard() {
 
+    // Load Statistics
+    loadDashboardStats();
+
+    // Load Banner
+    await refreshBanner();
+
+    // Auto Refresh Every 5 Seconds
+    setInterval(loadDashboardStats, 5000);
+
+    setInterval(refreshBanner, 5000);
+
+}
+
+async function refreshBanner() {
+
     try {
 
         const response = await fetch(
@@ -7,7 +22,7 @@ async function initializeDashboard() {
         );
 
         const result = await response.json();
-        
+
         if (result.success) {
 
             renderDashboard(result.data);
@@ -23,8 +38,6 @@ async function initializeDashboard() {
     }
 
 }
-
-
 function renderDashboard(session) {
 
     const banner = document.getElementById("dashboardBanner");
@@ -107,75 +120,39 @@ function renderDashboard(session) {
 
 
 
-async function loadDashboardBanner() {
 
-    const banner = document.getElementById("dashboardBanner");
 
-    if (!banner) return;
+
+
+async function loadDashboardStats() {
 
     try {
 
-        const response = await fetch("http://localhost:5000/api/session/status");
+        const response = await fetch("http://localhost:5000/api/dashboard/stats");
 
         const result = await response.json();
 
-        if (!result.success || !result.data.isActive) {
+        if (!result.success) return;
 
-            banner.innerHTML = noQuizBanner();
+        document.getElementById("totalParticipants").textContent =
+            result.data.participants;
 
-            return;
+        document.getElementById("totalQuestions").textContent =
+            result.data.questions;
 
-        }
+        document.getElementById("averageScore").textContent =
+            result.data.averageScore;
 
-        banner.innerHTML = liveQuizBanner(result.data);
+        document.getElementById("completedParticipants").textContent =
+            result.data.completed;
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
-        banner.innerHTML = noQuizBanner();
-
     }
 
 }
 
-function liveQuizBanner(session) {
-
-    return `
-
-    <div class="hero-card live-session">
-
-        <div>
-
-            <p class="eyebrow">🔴 LIVE SESSION</p>
-
-            <h2>${session.quizTitle}</h2>
-
-            <p>
-
-                ${session.totalQuestions} Questions
-
-                &nbsp;&nbsp;&nbsp;
-
-                Started :
-                ${new Date(session.startedAt).toLocaleTimeString()}
-
-            </p>
-
-        </div>
-
-        <button
-            id="endQuizBtn"
-            class="danger-btn">
-
-            End Quiz
-
-        </button>
-
-    </div>
-
-    `;
-
-}
