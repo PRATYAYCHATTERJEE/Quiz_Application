@@ -1,5 +1,6 @@
 const QuizStatus = require("../models/QuizStatus");
-
+const QuizSession = require("../models/QuizSession");
+const Question = require("../models/Question");
 // =========================
 // Publish Quiz
 // =========================
@@ -20,18 +21,46 @@ const publishQuiz = async (req, res) => {
 
         await quiz.save();
 
-        res.status(200).json({
+        // Close any previous live session
+        await QuizSession.updateMany(
+            { isActive: true },
+            { isActive: false }
+        );
 
-            success: true,
-            message: "Quiz Published Successfully"
+        // Count questions
+        const totalQuestions = await Question.countDocuments();
+
+        // Create new live session
+        const session = await QuizSession.create({
+
+            quizTitle: "C Programming Quiz", // we'll improve this later
+
+            totalQuestions,
+
+            isActive: true,
+
+            startedAt: new Date()
 
         });
 
-    } catch (error) {
+        res.status(200).json({
+
+            success: true,
+
+            message: "Quiz Published Successfully",
+
+            data: session
+
+        });
+
+    }
+
+    catch (error) {
 
         res.status(500).json({
 
             success: false,
+
             message: error.message
 
         });
@@ -39,7 +68,6 @@ const publishQuiz = async (req, res) => {
     }
 
 };
-
 // =========================
 // Get Quiz Status
 // =========================

@@ -7,7 +7,7 @@ async function initializeDashboard() {
         );
 
         const result = await response.json();
-
+        
         if (result.success) {
 
             renderDashboard(result.data);

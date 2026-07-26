@@ -26,9 +26,27 @@ async function publishQuiz() {
 
         if (result.success) {
 
-            alert("✅ Quiz Published Successfully");
+    // Start Live Session
+    await fetch("http://localhost:5000/api/session/start", {
 
-        } else {
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            quizTitle: result.data.quizTitle,
+            totalQuestions: result.data.totalQuestions
+
+        })
+
+    });
+
+    alert("✅ Quiz Published Successfully");
+
+} else {
 
             alert(result.message);
 
