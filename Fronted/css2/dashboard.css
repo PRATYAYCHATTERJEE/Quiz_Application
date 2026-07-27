@@ -343,3 +343,46 @@
 }
 
 }
+
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(8px);
+
+    z-index:9999;
+
+}
+
+.modal-overlay.show{
+
+    display:flex;
+
+}
+
+.modal-box{
+
+    width:420px;
+
+    background:#1b1f2b;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+}

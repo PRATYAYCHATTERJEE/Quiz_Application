@@ -1,4 +1,6 @@
 async function initializeDashboard() {
+    
+    initializeEndQuiz();
 
     // Load Statistics
     loadDashboardStats();
