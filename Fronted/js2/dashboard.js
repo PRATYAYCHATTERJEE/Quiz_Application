@@ -160,3 +160,115 @@ async function loadDashboardStats() {
 
 }
 
+// =========================
+// END QUIZ MODAL
+// =========================
+
+function initializeEndQuiz() {
+
+    document.addEventListener("click", async (e) => {
+
+        // Open Modal
+        if (e.target.id === "endQuizBtn") {
+
+            document
+                .getElementById("endQuizModal")
+                .classList.add("show");
+
+        }
+
+        // Close Without Saving
+        if (e.target.id === "notNowBtn") {
+
+            await endQuizOnly();
+
+            document
+                .getElementById("endQuizModal")
+                .classList.remove("show");
+
+        }
+
+        // Save History
+        if (e.target.id === "saveQuizBtn") {
+
+            await saveQuizHistory();
+
+            await endQuizOnly();
+
+            document
+                .getElementById("endQuizModal")
+                .classList.remove("show");
+
+        }
+
+    });
+
+}
+
+// =========================
+// SAVE HISTORY
+// =========================
+
+async function saveQuizHistory(){
+
+    try{
+
+        const response = await fetch(
+
+            "http://localhost:5000/api/history/save",
+
+            {
+
+                method:"POST"
+
+            }
+
+        );
+
+        const result = await response.json();
+
+        console.log(result);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+
+// =========================
+// END QUIZ
+// =========================
+
+async function endQuizOnly(){
+
+    try{
+
+        await fetch(
+
+            "http://localhost:5000/api/session/end",
+
+            {
+
+                method:"POST"
+
+            }
+
+        );
+
+        initializeDashboard();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
