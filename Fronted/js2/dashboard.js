@@ -1,6 +1,6 @@
 async function initializeDashboard() {
     
-    initializeEndQuiz();
+    
 
     // Load Statistics
     loadDashboardStats();
@@ -169,6 +169,7 @@ async function loadDashboardStats() {
 function initializeEndQuiz() {
 
     document.addEventListener("click", async (e) => {
+        console.log("Clicked:", e.target.id);
 
         // Open Modal
         if (e.target.id === "endQuizBtn") {
@@ -181,6 +182,7 @@ function initializeEndQuiz() {
 
         // Close Without Saving
         if (e.target.id === "notNowBtn") {
+            console.log("Not Now Clicked");
 
             await endQuizOnly();
 
@@ -191,17 +193,29 @@ function initializeEndQuiz() {
         }
 
         // Save History
-        if (e.target.id === "saveQuizBtn") {
+       if (e.target.id === "saveQuizBtn") {
 
-            await saveQuizHistory();
+    const saved = await saveQuizHistory();
 
-            await endQuizOnly();
+    if(saved){
 
-            document
-                .getElementById("endQuizModal")
-                .classList.remove("show");
+        await endQuizOnly();
 
-        }
+        document
+            .getElementById("endQuizModal")
+            .classList.remove("show");
+
+        alert("Quiz Saved Successfully");
+
+    }
+
+    else{
+
+        alert("Unable to Save Quiz");
+
+    }
+
+}
 
     });
 
@@ -211,9 +225,9 @@ function initializeEndQuiz() {
 // SAVE HISTORY
 // =========================
 
-async function saveQuizHistory(){
+async function saveQuizHistory() {
 
-    try{
+    try {
 
         const response = await fetch(
 
@@ -221,7 +235,7 @@ async function saveQuizHistory(){
 
             {
 
-                method:"POST"
+                method: "POST"
 
             }
 
@@ -229,7 +243,15 @@ async function saveQuizHistory(){
 
         const result = await response.json();
 
-        console.log(result);
+        if(result.success){
+
+            console.log("Quiz History Saved");
+
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -237,10 +259,11 @@ async function saveQuizHistory(){
 
         console.error(error);
 
+        return false;
+
     }
 
 }
-
 
 
 // =========================
@@ -263,7 +286,10 @@ async function endQuizOnly(){
 
         );
 
-        initializeDashboard();
+        await refreshBanner();
+
+await loadDashboardStats();
+        
 
     }
 

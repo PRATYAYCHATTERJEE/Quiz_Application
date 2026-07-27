@@ -68,6 +68,7 @@ if(page==="leaderboard"){
 }
 
 if (page === "dashboard") {
+    initializeEndQuiz();
     initializeDashboard();
 }
 if (page === "questions") {
