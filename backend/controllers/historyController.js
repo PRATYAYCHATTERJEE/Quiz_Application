@@ -100,3 +100,36 @@ exports.saveQuizHistory = async (req, res) => {
     }
 
 };
+
+
+exports.getQuizHistory = async (req, res) => {
+
+    try {
+
+        const history = await QuizHistory
+            .find()
+            .sort({ endedAt: -1 });
+
+        res.json({
+
+            success: true,
+
+            data: history
+
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            success: false,
+
+            message: error.message
+
+        });
+
+    }
+
+};
