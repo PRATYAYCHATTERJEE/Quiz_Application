@@ -386,3 +386,124 @@
     text-align:center;
 
 }
+
+/* ==========================================================
+   PREVIOUS QUIZ HISTORY
+========================================================== */
+
+.previous-history{
+
+    margin-top:35px;
+
+}
+
+.history-card{
+
+    background:linear-gradient(
+        135deg,
+        #1a1d29,
+        #161923
+    );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    margin-top:20px;
+
+    transition:.3s;
+
+}
+
+.history-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.history-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:22px;
+
+}
+
+.history-top h3{
+
+    color:#fff;
+
+    font-size:1.35rem;
+
+    margin:0;
+
+}
+
+.history-date{
+
+    color:#93a6c5;
+
+    font-size:.9rem;
+
+}
+
+.history-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:18px;
+
+    margin-bottom:24px;
+
+}
+
+.history-grid div{
+
+    background:#232735;
+
+    border-radius:14px;
+
+    padding:16px;
+
+    text-align:center;
+
+    color:#9fb0c9;
+
+}
+
+.history-grid strong{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:#fff;
+
+    font-size:1.4rem;
+
+}
+
+.history-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:#FFD54A;
+
+    font-weight:600;
+
+}

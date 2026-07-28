@@ -1,6 +1,6 @@
 async function initializeDashboard() {
     
-    
+    loadQuizHistory();
 
     // Load Statistics
     loadDashboardStats();
@@ -290,6 +290,108 @@ async function endQuizOnly(){
 
 await loadDashboardStats();
         
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+async function loadQuizHistory() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/history"
+        );
+
+        const result = await response.json();
+
+        if (!result.success) return;
+
+        const container =
+            document.getElementById("historyContainer");
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        result.data.forEach(history => {
+
+            container.innerHTML += `
+
+<div class="history-card">
+
+    <div class="history-top">
+
+        <h3>${history.quizTitle}</h3>
+
+        <span class="history-date">
+
+            ${new Date(history.endedAt).toLocaleDateString()}
+
+        </span>
+
+    </div>
+
+    <div class="history-grid">
+
+        <div>
+
+            👥 Participants
+
+            <strong>${history.totalParticipants}</strong>
+
+        </div>
+
+        <div>
+
+            ✅ Completed
+
+            <strong>${history.completedParticipants}</strong>
+
+        </div>
+
+        <div>
+
+            📝 Questions
+
+            <strong>${history.totalQuestions}</strong>
+
+        </div>
+
+        <div>
+
+            📊 Average
+
+            <strong>${history.averageScore}</strong>
+
+        </div>
+
+    </div>
+
+    <div class="history-footer">
+
+    <div>
+
+        🏆 Winner :
+        <strong>${history.winner}</strong>
+
+    </div>
+
+    
+
+</div>
+
+</div>
+
+`;
+
+        });
 
     }
 
