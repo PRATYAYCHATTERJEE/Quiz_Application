@@ -58,7 +58,7 @@ function renderDashboard(session) {
             NO ACTIVE QUIZ
         </span>
 
-        <h2>No Quiz Running</h2>
+        
 
         <p>
             Publish a quiz to begin a live session.
@@ -168,7 +168,11 @@ function initializeEndQuiz() {
 
     document.addEventListener("click", async (e) => {
         console.log("Clicked:", e.target.id);
+        if(e.target.id === "restoreDashboardBtn"){
 
+    await restoreDashboard();
+
+}
         // Open Modal
         if (e.target.id === "endQuizBtn") {
 
@@ -505,3 +509,70 @@ function initializeHistoryToggle(){
 
 }
 
+async function restoreDashboard(){
+
+    try{
+
+        console.log("Restore Started");
+
+        const response = await fetch(
+
+            "http://localhost:5000/api/dashboard/restore",
+
+            {
+
+                method:"POST"
+
+            }
+
+        );
+
+        console.log("Response:", response.status);
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if(result.success){
+
+            console.log("Success");
+
+            await refreshBanner();
+
+            await loadDashboardStats();
+
+            showToast("Dashboard Restored Successfully ✅");
+
+        }
+
+        else{
+
+            console.log("Backend returned success = false");
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}

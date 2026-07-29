@@ -1,3 +1,4 @@
+const QuizSession = require("../models/QuizSession");
 const Participant = require("../models/Participant");
 const Question = require("../models/Question");
 
@@ -60,6 +61,40 @@ exports.getDashboardStats = async (req, res) => {
             success: false,
 
             message: error.message
+
+        });
+
+    }
+
+};
+
+
+exports.restoreDashboard = async (req, res) => {
+
+    try {
+
+        // Remove active quiz session
+        await QuizSession.deleteMany({});
+
+        res.json({
+
+            success: true,
+
+            message: "Dashboard Restored Successfully"
+
+        });
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Server Error"
 
         });
 

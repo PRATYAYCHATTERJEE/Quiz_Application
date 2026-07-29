@@ -585,26 +585,28 @@
         rgba(18,20,34,.98)
     );
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 
-    border-radius: 24px;
+    border-radius:22px;
 
-    padding: 14px 22px;
+    width:100%;
 
-    display: flex;
+    height:150px;      /* Fixed Height */
 
-    align-items: center;
+    padding:0 30px;    /* Only left-right padding */
 
-    justify-content: space-between;
+    display:flex;
 
-    overflow: hidden;
+    align-items:center;
 
-    position: relative;
+    position:relative;
 
-    margin-bottom: 30px;
+    overflow:hidden;
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.35);
+    margin-bottom:24px;
+
+    box-sizing:border-box;
+
 }
 
 .empty-session-card::before{
@@ -639,7 +641,7 @@
 
     display:inline-block;
 
-    font-size:.78rem;
+    font-size:25px;
 
     font-weight:700;
 
@@ -649,25 +651,17 @@
 
     text-transform:uppercase;
 
-    margin-bottom:12px;
+   
 
 }
 
-.empty-session-card h2{
 
-    color:#fff;
-
-    font-size:2rem;
-
-    margin-bottom:12px;
-
-}
 
 .empty-session-card p{
 
-    color:#9ea8c7;
+    color:#ffffff;
 
-    font-size:1.02rem;
+    font-size:12px;
 
     line-height:1.6;
 
@@ -679,4 +673,78 @@
 
     color:#7f8bb3;
 
+}
+
+
+/* ==========================================
+   DASHBOARD TOP ACTION
+========================================== */
+
+.dashboard-top-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-bottom:20px;
+
+}
+
+.restore-dashboard-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background: #0a831f;
+
+    color:#fff;
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 10px 24px rgb(99, 79, 79);
+
+}
+
+.restore-dashboard-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 16px 30px rgba(255,87,34,.35);
+
+}
+.toast{
+    position:fixed;
+    top:25px;
+    right:25px;
+    background:#22c55e;
+    color:#fff;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:600;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-20px);
+    transition:.35s;
+    z-index:9999;
+}
+
+.toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
 }
