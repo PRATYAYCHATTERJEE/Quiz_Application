@@ -507,3 +507,67 @@
     font-weight:600;
 
 }
+
+
+/* ==========================================
+   HISTORY TOGGLE BUTTON
+========================================== */
+
+.history-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.history-toggle-btn{
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:999px;
+
+    background:#252a3a;
+
+    color:#fff;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.history-toggle-btn:hover{
+
+    background:#32384d;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* =====================================
+   HISTORY LIST
+===================================== */
+
+.history-list{
+
+    display:none;
+
+    margin-top:18px;
+
+}
+
+.history-list.show{
+
+    display:block;
+
+}

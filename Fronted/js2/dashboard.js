@@ -320,9 +320,106 @@ async function loadQuizHistory() {
 
         container.innerHTML = "";
 
-        result.data.forEach(history => {
+       const latest = result.data[0];
+
+if(latest){
 
             container.innerHTML += `
+
+<div class="history-card">
+
+    <div class="history-top">
+
+        <h3>${latest.quizTitle}</h3>
+
+        <span class="history-date">
+
+            ${new Date(latest.endedAt).toLocaleDateString()}
+
+        </span>
+
+    </div>
+
+    <div class="history-grid">
+
+        <div>
+
+            👥 Participants
+
+            <strong>${latest.totalParticipants}</strong>
+
+        </div>
+
+        <div>
+
+            ✅ Completed
+
+            <strong>${latest.completedParticipants}</strong>
+
+        </div>
+
+        <div>
+
+            📝 Questions
+
+            <strong>${latest.totalQuestions}</strong>
+
+        </div>
+
+        <div>
+
+            📊 Average
+
+            <strong>${latest.averageScore}</strong>
+
+        </div>
+
+    </div>
+
+    <div class="history-footer">
+
+    <div>
+
+        🏆 Winner :
+        <strong>${latest.winner}</strong>
+
+    </div>
+
+    
+
+</div>
+
+</div>
+
+`;
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+if(result.data.length > 1){
+
+    container.innerHTML += `
+
+        <div id="historyList" class="history-list">
+
+        </div>
+
+    `;
+
+    const historyList = document.getElementById("historyList");
+
+    result.data.slice(1).forEach(history=>{
+
+        historyList.innerHTML += `
 
 <div class="history-card">
 
@@ -341,64 +438,69 @@ async function loadQuizHistory() {
     <div class="history-grid">
 
         <div>
-
             👥 Participants
-
             <strong>${history.totalParticipants}</strong>
-
         </div>
 
         <div>
-
             ✅ Completed
-
             <strong>${history.completedParticipants}</strong>
-
         </div>
 
         <div>
-
             📝 Questions
-
             <strong>${history.totalQuestions}</strong>
-
         </div>
 
         <div>
-
             📊 Average
-
             <strong>${history.averageScore}</strong>
-
         </div>
 
     </div>
 
     <div class="history-footer">
 
-    <div>
-
         🏆 Winner :
         <strong>${history.winner}</strong>
 
     </div>
 
-    
-
-</div>
-
 </div>
 
 `;
 
-        });
+    });
+initializeHistoryToggle();
+}
 
-    }
+function initializeHistoryToggle(){
 
-    catch(error){
+    const btn = document.getElementById("historyToggle");
 
-        console.error(error);
+    if(!btn) return;
 
-    }
+    btn.onclick = ()=>{
+
+        const list = document.getElementById("historyList");
+
+        if(!list) return;
+
+        list.classList.toggle("show");
+
+        if(list.classList.contains("show")){
+
+            btn.innerHTML = "Less ▲";
+
+        }
+
+        else{
+
+            btn.innerHTML = "More ▼";
+
+        }
+
+    };
 
 }
+
