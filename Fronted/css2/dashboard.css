@@ -571,3 +571,112 @@
     display:block;
 
 }
+
+
+/* ==========================================
+   EMPTY SESSION CARD
+========================================== */
+
+.empty-session-card{
+
+    background: linear-gradient(
+        135deg,
+        rgba(26,28,45,.95),
+        rgba(18,20,34,.98)
+    );
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 24px;
+
+    padding: 34px 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    position: relative;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
+}
+
+.empty-session-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:5px;
+
+    height:100%;
+
+    background:linear-gradient(
+        180deg,
+        #7b61ff,
+        #27d8ff
+    );
+
+}
+
+.empty-session-content{
+
+    padding-left:18px;
+
+}
+
+.empty-tag{
+
+    display:inline-block;
+
+    font-size:.78rem;
+
+    font-weight:700;
+
+    letter-spacing:4px;
+
+    color:#4dd7ff;
+
+    text-transform:uppercase;
+
+    margin-bottom:12px;
+
+}
+
+.empty-session-card h2{
+
+    color:#fff;
+
+    font-size:2rem;
+
+    margin-bottom:12px;
+
+}
+
+.empty-session-card p{
+
+    color:#9ea8c7;
+
+    font-size:1.02rem;
+
+    line-height:1.6;
+
+}
+
+.empty-note{
+
+    margin-top:10px;
+
+    color:#7f8bb3;
+
+}

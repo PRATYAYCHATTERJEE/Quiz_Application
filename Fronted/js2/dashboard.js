@@ -50,29 +50,27 @@ function renderDashboard(session) {
 
         banner.innerHTML = `
 
-        <div class="live-banner">
+        <div class="empty-session-card">
 
-            <div>
+    <div class="empty-session-content">
 
-                <div class="banner-tag">
-                    NO ACTIVE QUIZ
-                </div>
+        <span class="empty-tag">
+            NO ACTIVE QUIZ
+        </span>
 
-                <h2>No Quiz Running</h2>
+        <h2>No Quiz Running</h2>
 
-                <p>
-                    Publish a quiz to begin a live session.
-                </p>
+        <p>
+            Publish a quiz to begin a live session.
+        </p>
 
-            </div>
+        <p class="empty-note">
+            Publish a quiz from the Participants page to start a live session.
+        </p>
 
-            <div class="banner-note">
-
-    Publish a quiz from the Participants page to start a live session.
+    </div>
 
 </div>
-
-        </div>
 
         `;
 
@@ -395,16 +393,6 @@ if(latest){
 
         }
 
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
 if(result.data.length > 1){
 
     container.innerHTML += `
@@ -461,6 +449,8 @@ if(result.data.length > 1){
 
     <div class="history-footer">
 
+    <div>
+
         🏆 Winner :
         <strong>${history.winner}</strong>
 
@@ -473,6 +463,17 @@ if(result.data.length > 1){
     });
 initializeHistoryToggle();
 }
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
 
 function initializeHistoryToggle(){
 
