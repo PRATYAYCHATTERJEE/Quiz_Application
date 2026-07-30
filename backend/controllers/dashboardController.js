@@ -73,8 +73,11 @@ exports.restoreDashboard = async (req, res) => {
 
     try {
 
-        // Remove active quiz session
+        // Remove active session
         await QuizSession.deleteMany({});
+
+        // Remove all participants
+        await Participant.deleteMany({});
 
         res.json({
 
