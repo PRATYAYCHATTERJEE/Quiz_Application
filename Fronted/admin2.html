@@ -517,26 +517,62 @@
 </template>
 
     <template id="template-analytics">
-      <section class="page-section">
-        <div class="stats-grid">
-          <article class="stat-card">
-            <span class="stat-label">Completion Rate</span>
-            <strong>91%</strong>
-            <small>Steady growth</small>
-          </article>
-          <article class="stat-card">
-            <span class="stat-label">Retention</span>
-            <strong>67%</strong>
-            <small>Top cohort</small>
-          </article>
-          <article class="stat-card">
-            <span class="stat-label">Average Time</span>
-            <strong>4.2m</strong>
-            <small>Per quiz</small>
-          </article>
+
+<section class="page-section analytics-page">
+
+    <div class="analytics-header">
+
+        <h1>📊 Analytics Visual Reports</h1>
+
+        <p>
+            Comprehensive participation insights and year-wise statistics.
+        </p>
+
+    </div>
+
+    <!-- Department Chart -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-card-header">
+
+            <h3>🏫 Department-wise Participants</h3>
+
+            <span>BAR CHART</span>
+
         </div>
-      </section>
-    </template>
+
+        <div class="chart-container">
+
+            <canvas id="departmentChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- Year Chart -->
+
+    <div class="analytics-card">
+
+        <div class="analytics-card-header">
+
+            <h3>🎓 Year-wise Participants</h3>
+
+            <span>PIE CHART</span>
+
+        </div>
+
+        <div class="chart-container pie-container">
+
+            <canvas id="yearChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+</template>
 
     <template id="template-settings">
       <section class="page-section">
@@ -572,7 +608,8 @@
     <script src="js2/questions.js" ></script>
     <script src="js2/participants.js"></script>
     <script src="js2/leaderboard.js"></script>
-    
+    <script src="js2/analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div id="toast" class="toast"></div>
   </body>
 </html>

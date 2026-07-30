@@ -66,7 +66,9 @@ if (page === "create-question") {
 if(page==="leaderboard"){
     initializeLeaderboard();
 }
-
+if(page === "analytics"){
+    loadAnalytics();
+}
 if (page === "dashboard") {
     initializeEndQuiz();
     initializeDashboard();
