@@ -6,7 +6,7 @@ const connectDB = require("./config/db");
 const questionRoutes = require("./routes/questionRoutes");
 const quizRoutes = require("./routes/quizRoutes");
 const participantRoutes = require("./routes/participantRoutes");
-
+const analyticsRoutes = require("./routes/analyticsRoutes");
 const app = express();
 
 connectDB();
@@ -40,3 +40,4 @@ app.use("/api/dashboard", dashboardRoutes);
 const historyRoutes = require("./routes/historyRoutes");
 
 app.use("/api/history", historyRoutes);
+app.use("/api/analytics", analyticsRoutes);
