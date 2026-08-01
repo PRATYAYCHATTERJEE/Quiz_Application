@@ -14,8 +14,6 @@ updateSummaryCards(result.departmentStats);
 createDepartmentChart(result.departmentStats);
 
 createYearChart(result.yearStats);
-        createDepartmentChart(result.departmentStats);
-        createYearChart(result.yearStats);
 
     }
 
@@ -89,12 +87,17 @@ function createDepartmentChart(data) {
             maintainAspectRatio: false,
 
             animation: {
+    duration: 1800,
+    easing: "easeOutQuart"
+},
 
-                duration: 1800,
-
-                easing: "easeOutQuart"
-
-            },
+animations: {
+    y: {
+        from: 0,
+        duration: 1800,
+        easing: "easeOutQuart"
+    }
+},
 
             plugins: {
 
@@ -184,17 +187,19 @@ function createDepartmentChart(data) {
 
 function createYearChart(data) {
 
+    const canvas = document.getElementById("yearChart");
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
     const labels = data.map(item => item._id);
     const counts = data.map(item => item.count);
 
-    const ctx = document
-        .getElementById("yearChart")
-        .getContext("2d");
-
+    // Destroy old chart
     if (yearChart) {
-
         yearChart.destroy();
-
+        yearChart = null;
     }
 
     yearChart = new Chart(ctx, {
@@ -203,26 +208,24 @@ function createYearChart(data) {
 
         data: {
 
-            labels,
+            labels: labels,
 
             datasets: [{
 
                 data: counts,
 
                 backgroundColor: [
-
                     "#22d3ee",
                     "#3b82f6",
                     "#8b5cf6",
                     "#ec4899"
-
                 ],
-
-                hoverOffset: 18,
 
                 borderColor: "#121523",
 
-                borderWidth: 5
+                borderWidth: 4,
+
+                hoverOffset: 12
 
             }]
 
@@ -238,11 +241,13 @@ function createYearChart(data) {
 
             animation: {
 
+                duration: 2000,
+
+                easing: "easeOutQuart",
+
                 animateRotate: true,
 
-                animateScale: true,
-
-                duration: 1800
+                animateScale: true
 
             },
 
@@ -256,18 +261,15 @@ function createYearChart(data) {
 
                         color: "#ffffff",
 
-                        padding: 22,
+                        padding: 18,
 
                         usePointStyle: true,
 
                         pointStyle: "circle",
 
                         font: {
-
-                            size: 14,
-
+                            size: 13,
                             weight: "600"
-
                         }
 
                     }

@@ -66,8 +66,18 @@ if (page === "create-question") {
 if(page==="leaderboard"){
     initializeLeaderboard();
 }
-if(page === "analytics"){
-    loadAnalytics();
+if (page === "analytics") {
+
+    requestAnimationFrame(() => {
+
+        requestAnimationFrame(() => {
+
+            loadAnalytics();
+
+        });
+
+    });
+
 }
 if (page === "dashboard") {
     initializeEndQuiz();
