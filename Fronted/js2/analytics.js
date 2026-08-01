@@ -199,7 +199,7 @@ function createYearChart(data) {
 
     yearChart = new Chart(ctx, {
 
-        type: "pie",
+        type: "doughnut",
 
         data: {
 
@@ -211,12 +211,18 @@ function createYearChart(data) {
 
                 backgroundColor: [
 
-                    "#06b6d4",
+                    "#22d3ee",
                     "#3b82f6",
                     "#8b5cf6",
                     "#ec4899"
 
-                ]
+                ],
+
+                hoverOffset: 18,
+
+                borderColor: "#121523",
+
+                borderWidth: 5
 
             }]
 
@@ -228,25 +234,61 @@ function createYearChart(data) {
 
             maintainAspectRatio: false,
 
+            cutout: "68%",
+
+            animation: {
+
+                animateRotate: true,
+
+                animateScale: true,
+
+                duration: 1800
+
+            },
+
             plugins: {
 
                 legend: {
 
-                    position: "bottom",
+                    position: "right",
 
                     labels: {
 
                         color: "#ffffff",
 
-                        padding: 20,
+                        padding: 22,
+
+                        usePointStyle: true,
+
+                        pointStyle: "circle",
 
                         font: {
 
-                            size: 14
+                            size: 14,
+
+                            weight: "600"
 
                         }
 
                     }
+
+                },
+
+                tooltip: {
+
+                    backgroundColor: "#161b29",
+
+                    titleColor: "#ffffff",
+
+                    bodyColor: "#22d3ee",
+
+                    borderColor: "#22d3ee",
+
+                    borderWidth: 1,
+
+                    cornerRadius: 12,
+
+                    padding: 14
 
                 }
 
@@ -257,7 +299,6 @@ function createYearChart(data) {
     });
 
 }
-
 function updateSummaryCards(departmentStats){
 
     // Total Departments
