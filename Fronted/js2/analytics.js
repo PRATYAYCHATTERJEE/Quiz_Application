@@ -9,7 +9,11 @@ async function loadAnalytics() {
         const result = await response.json();
 
         if (!result.success) return;
+updateSummaryCards(result.departmentStats);
 
+createDepartmentChart(result.departmentStats);
+
+createYearChart(result.yearStats);
         createDepartmentChart(result.departmentStats);
         createYearChart(result.yearStats);
 
@@ -36,11 +40,19 @@ function createDepartmentChart(data) {
         .getElementById("departmentChart")
         .getContext("2d");
 
+    // Destroy previous chart
     if (departmentChart) {
 
         departmentChart.destroy();
 
     }
+
+    // Gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+
+    gradient.addColorStop(0, "#22d3ee");
+    gradient.addColorStop(.5, "#3b82f6");
+    gradient.addColorStop(1, "#8b5cf6");
 
     departmentChart = new Chart(ctx, {
 
@@ -56,22 +68,15 @@ function createDepartmentChart(data) {
 
                 data: counts,
 
-                borderRadius: 10,
+                backgroundColor: gradient,
 
-                backgroundColor: [
-                    "#06b6d4",
-                    "#3b82f6",
-                    "#8b5cf6",
-                    "#ec4899",
-                    "#22c55e",
-                    "#f59e0b",
-                    "#ef4444",
-                    "#14b8a6",
-                    "#6366f1",
-                    "#84cc16",
-                    "#0ea5e9",
-                    "#d946ef"
-                ]
+                borderRadius: 14,
+
+                borderSkipped: false,
+
+                hoverBackgroundColor: "#60a5fa",
+
+                maxBarThickness: 45
 
             }]
 
@@ -83,11 +88,37 @@ function createDepartmentChart(data) {
 
             maintainAspectRatio: false,
 
+            animation: {
+
+                duration: 1800,
+
+                easing: "easeOutQuart"
+
+            },
+
             plugins: {
 
                 legend: {
 
                     display: false
+
+                },
+
+                tooltip: {
+
+                    backgroundColor: "#161b29",
+
+                    titleColor: "#ffffff",
+
+                    bodyColor: "#22d3ee",
+
+                    borderColor: "#22d3ee",
+
+                    borderWidth: 1,
+
+                    cornerRadius: 12,
+
+                    padding: 14
 
                 }
 
@@ -95,35 +126,45 @@ function createDepartmentChart(data) {
 
             scales: {
 
-                y: {
-
-                    beginAtZero: true,
-
-                    ticks: {
-
-                        color: "#ffffff"
-
-                    },
-
-                    grid: {
-
-                        color: "rgba(255,255,255,.08)"
-
-                    }
-
-                },
-
                 x: {
 
                     ticks: {
 
-                        color: "#ffffff"
+                        color: "#d1d5db",
+
+                        font: {
+
+                            size: 13,
+
+                            weight: "600"
+
+                        }
 
                     },
 
                     grid: {
 
                         display: false
+
+                    }
+
+                },
+
+                y: {
+
+                    beginAtZero: true,
+
+                    ticks: {
+
+                        color: "#d1d5db",
+
+                        precision: 0
+
+                    },
+
+                    grid: {
+
+                        color: "rgba(255,255,255,.08)"
 
                     }
 
@@ -214,5 +255,52 @@ function createYearChart(data) {
         }
 
     });
+
+}
+
+function updateSummaryCards(departmentStats){
+
+    // Total Departments
+    document.getElementById("totalDepartments").textContent =
+        departmentStats.length;
+
+    // Total Participants
+    const totalParticipants = departmentStats.reduce((sum, dept)=>{
+
+        return sum + dept.count;
+
+    },0);
+
+    document.getElementById("totalParticipants").textContent =
+        totalParticipants;
+
+    // Top Department
+    let topDepartment = "-";
+
+    let highest = 0;
+
+    departmentStats.forEach(dept=>{
+
+        if(dept.count > highest){
+
+            highest = dept.count;
+
+            topDepartment = dept._id;
+
+        }
+
+    });
+
+    document.getElementById("topDepartment").textContent =
+        topDepartment;
+
+    // Average
+    const average =
+        departmentStats.length
+        ? (totalParticipants / departmentStats.length).toFixed(1)
+        : 0;
+
+    document.getElementById("averageDepartment").textContent =
+        average;
 
 }
