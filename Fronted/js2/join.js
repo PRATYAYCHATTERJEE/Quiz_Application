@@ -94,6 +94,13 @@ form.addEventListener('submit', async function (event) {
 
   event.preventDefault();
 
+  // Check if quiz is still active
+  const quizActive = await checkQuizSession();
+
+  if (!quizActive) {
+    return;
+  }
+
   if (!validateForm()) {
     return;
   }
@@ -204,3 +211,60 @@ participantCount.textContent = String(245 + Math.floor(Math.random() * 18));
 updateClock();
 
 setInterval(updateClock, 1000);
+
+// Check quiz when page opens
+checkQuizSession();
+
+
+// ======================================
+// Check Active Quiz Session
+// ======================================
+
+async function checkQuizSession() {
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/api/session/status"
+    );
+
+    const result = await response.json();
+
+    if (!result.success || !result.data) {
+
+      showQuizEnded();
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
+  catch (error) {
+
+    console.error("Session Check Error:", error);
+
+    return false;
+
+  }
+
+}
+
+
+function showQuizEnded() {
+
+  // Disable form
+  fields.name.disabled = true;
+  fields.department.disabled = true;
+  fields.year.disabled = true;
+  fields.phone.disabled = true;
+
+  joinBtn.disabled = true;
+
+  joinBtn.classList.remove("loading");
+
+  joinBtn.querySelector(".text").textContent = "Quiz Has Ended";
+
+}
