@@ -30,6 +30,93 @@ const participantId = localStorage.getItem("participantId");
 const API_URL = "http://localhost:5000/api/questions";
 
 /* ==========================================================
+   LIVE QUIZ SESSION CHECK
+========================================================== */
+
+let sessionCheckInterval = null;
+
+async function checkQuizSession() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/session/status"
+        );
+
+        const result = await response.json();
+
+        if (!result.success || !result.data) {
+
+            handleQuizEnded();
+
+        }
+
+    } catch (error) {
+
+        console.error("Session Check Error:", error);
+
+    }
+
+}
+
+
+function handleQuizEnded() {
+
+    // Prevent running multiple times
+    if (quizFinished) return;
+
+    quizFinished = true;
+
+    // Stop quiz timer
+    clearInterval(timerInterval);
+
+    // Stop checking session
+    clearInterval(sessionCheckInterval);
+
+    // Disable answer options
+    optionCards.forEach(card => {
+        card.style.pointerEvents = "none";
+    });
+
+    // Disable quiz buttons
+    previousBtn.disabled = true;
+    nextBtn.disabled = true;
+    reviewBtn.disabled = true;
+    clearBtn.disabled = true;
+    skipBtn.disabled = true;
+    submitBtn.disabled = true;
+    finishBtn.disabled = true;
+
+    alert("🏁 Quiz Has Ended");
+
+    document.body.innerHTML = `
+    <div style="
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:#050817;
+        color:white;
+        font-family:Arial;
+        text-align:center;
+    ">
+
+        <div>
+
+            <h1>🏁 Quiz Has Ended</h1>
+
+            <p>
+                The administrator has ended this quiz session.
+            </p>
+
+        </div>
+
+    </div>
+`;
+
+}
+
+/* ==========================================================
    DOM ELEMENTS
 ========================================================== */
 
@@ -60,15 +147,26 @@ const navigatorButtons = document.querySelectorAll(".nav-btn");
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // Check before allowing quiz
+    await checkQuizSession();
+
+    if (quizFinished) return;
+
     await fetchQuestions();
 
-restoreQuizState();
+    restoreQuizState();
 
-loadQuestion();
+    loadQuestion();
 
-updateNavigator();
+    updateNavigator();
 
-startTimer();
+    startTimer();
+
+    // Check every 2 seconds if admin ended quiz
+    sessionCheckInterval = setInterval(
+        checkQuizSession,
+        2000
+    );
 
 });
 
