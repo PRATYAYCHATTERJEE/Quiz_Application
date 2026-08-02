@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The live quiz session has ended. Thank you for participating in QuizVerse. Stay tuned for the next competition.">
+  <title>Quiz Session Ended | QuizVerse</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS Variables matching main project styles.css */
+    :root {
+      --bg-primary: #050814;
+      --bg-card: rgba(10, 15, 30, 0.65);
+      --neon-cyan: #22d3ee;
+      --neon-purple: #a855f7;
+      --neon-blue: #6366f1;
+      --neon-pink: #ec4899;
+      
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Poppins', sans-serif;
+      
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Strict disablement of scrolling */
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* Ambient background elements (Static positions, no float animations) */
+    .ambient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .floating-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .orb-cyan {
+      width: 350px;
+      height: 350px;
+      background: var(--neon-cyan);
+      top: 10%;
+      left: 5%;
+    }
+
+    .orb-purple {
+      width: 400px;
+      height: 400px;
+      background: var(--neon-purple);
+      bottom: 5%;
+      right: 5%;
+    }
+
+    .orb-pink {
+      width: 250px;
+      height: 250px;
+      background: var(--neon-pink);
+      top: 45%;
+      left: 45%;
+    }
+
+    .space-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Decorative Backdrops - Static, spinning slowly is fine but no drifting */
+    .bg-deco {
+      position: fixed;
+      pointer-events: none;
+      opacity: 0.04;
+      z-index: 1;
+    }
+    
+    .atom-deco {
+      bottom: 8%;
+      left: 6%;
+      animation: spinDeco 50s linear infinite;
+    }
+    
+    .grid-deco {
+      top: 10%;
+      right: 6%;
+      animation: spinDecoReverse 60s linear infinite;
+    }
+
+    @keyframes spinDeco {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinDecoReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Brand Logo styling */
+    .brand {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+      text-decoration: none;
+    }
+
+    .logo-svg {
+      filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4));
+    }
+
+    .logo-nucleus {
+      animation: pulseNucleus 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseNucleus {
+      0% { r: 3.5; opacity: 0.8; }
+      100% { r: 5; opacity: 1; filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.8)); }
+    }
+
+    .orbit-1 {
+      transform-origin: 25px 25px;
+      animation: rotateOrbit1 12s linear infinite;
+    }
+
+    .orbit-2 {
+      transform-origin: 25px 25px;
+      animation: rotateOrbit2 16s linear infinite;
+    }
+
+    .orbit-3 {
+      transform-origin: 25px 25px;
+      animation: rotateOrbit3 20s linear infinite;
+    }
+
+    @keyframes rotateOrbit1 {
+      0% { transform: rotate(30deg); }
+      100% { transform: rotate(390deg); }
+    }
+
+    @keyframes rotateOrbit2 {
+      0% { transform: rotate(-30deg); }
+      100% { transform: rotate(330deg); }
+    }
+
+    @keyframes rotateOrbit3 {
+      0% { transform: rotate(90deg); }
+      100% { transform: rotate(450deg); }
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--neon-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+
+    .brand-tagline {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* Main Container (Static, no parallax translates) */
+    .parallax-wrapper {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .card-container {
+      width: 100%;
+      position: relative;
+      animation: cardEnter 1s var(--ease-out) forwards;
+      opacity: 0;
+    }
+
+    /* Soft backglow animation */
+    .card-glow-element {
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple), var(--neon-pink));
+      border-radius: 30px;
+      z-index: -1;
+      opacity: 0.18;
+      filter: blur(20px);
+      animation: glowShift 8s linear infinite;
+    }
+
+    @keyframes glowShift {
+      0% { filter: blur(20px) hue-rotate(0deg); opacity: 0.18; }
+      50% { filter: blur(25px) hue-rotate(180deg); opacity: 0.25; }
+      100% { filter: blur(20px) hue-rotate(360deg); opacity: 0.18; }
+    }
+
+    /* Main Glassmorphic Card - Compact padding for scrolling elimination */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: 28px;
+      padding: 36px 40px;
+      text-align: center;
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.08),
+        0 24px 60px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(34, 211, 238, 0.35);
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.12),
+        0 24px 80px rgba(99, 102, 241, 0.15),
+        0 0 40px rgba(168, 85, 247, 0.05);
+    }
+
+    /* Icon circular wrapper & animation */
+    .icon-glow-wrapper {
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .icon-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(5, 8, 20, 0.8);
+      border: 2px solid rgba(34, 211, 238, 0.45);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-shadow: 
+        0 0 25px rgba(34, 211, 238, 0.25),
+        inset 0 0 15px rgba(168, 85, 247, 0.15);
+      opacity: 0;
+      transform: scale(0.5);
+      animation: iconPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: 0.4s;
+    }
+
+    .icon-circle::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      border: 1px dashed rgba(168, 85, 247, 0.3);
+      animation: spinDashed 25s linear infinite;
+    }
+
+    @keyframes spinDashed {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .icon-pulse-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      z-index: -1;
+      opacity: 0.15;
+      animation: pulseOuter 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseOuter {
+      0% { transform: scale(1); opacity: 0.15; }
+      100% { transform: scale(1.12); opacity: 0.3; filter: blur(4px); }
+    }
+
+    .timer-svg {
+      filter: drop-shadow(0 0 6px var(--neon-cyan));
+    }
+
+    .hand-hour, .hand-minute {
+      transform-origin: 32px 32px;
+    }
+    
+    .hand-hour {
+      animation: clockTick 120s linear infinite;
+    }
+    
+    .hand-minute {
+      animation: clockTick 10s linear infinite;
+    }
+
+    @keyframes clockTick {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 100px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      color: #d8b4fe; /* Violet accent text */
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.05);
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out forwards;
+      animation-delay: 0.6s;
+    }
+
+    .status-badge:hover {
+      background: rgba(34, 211, 238, 0.12);
+      border-color: rgba(34, 211, 238, 0.4);
+      color: #22d3ee;
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+    }
+
+    /* Main Heading */
+    .main-heading {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) forwards;
+      animation-delay: 0.75s;
+    }
+
+    .main-heading span {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue) 45%, var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Main message texts */
+    .main-message {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-family: var(--font-sans);
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .main-message p {
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) forwards;
+    }
+
+    .main-message p:nth-child(1) { animation-delay: 0.9s; }
+    .main-message p:nth-child(2) { animation-delay: 1.05s; margin-bottom: 0; }
+
+    .main-message strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Highlighted Next Quiz Box (Static, no floating animation) */
+    .next-quiz-box {
+      background: rgba(99, 102, 241, 0.06);
+      border: 1px solid rgba(99, 102, 241, 0.18);
+      border-radius: 16px;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      text-align: left;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) forwards;
+      animation-delay: 1.2s;
+    }
+
+    .next-quiz-box:hover {
+      border-color: rgba(34, 211, 238, 0.3);
+      background: rgba(99, 102, 241, 0.09);
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.06),
+        0 8px 24px rgba(99, 102, 241, 0.08);
+    }
+
+    .next-quiz-icon-wrapper {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(168, 85, 247, 0.12));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .next-quiz-icon {
+      color: var(--neon-cyan);
+      filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.6));
+    }
+
+    .next-quiz-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .next-quiz-heading {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    .next-quiz-text {
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Session Status Row */
+    .session-status-container {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+      animation-delay: 1.35s;
+    }
+
+    .session-status-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--neon-pink);
+      box-shadow: 0 0 8px var(--neon-pink);
+      display: inline-block;
+      animation: pulseRed 1.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseRed {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+        box-shadow: 0 0 6px var(--neon-pink);
+      }
+      100% {
+        transform: scale(1.15);
+        opacity: 1;
+        box-shadow: 0 0 14px var(--neon-pink), 0 0 24px rgba(236, 72, 153, 0.4);
+      }
+    }
+
+    .status-subtext {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* Primary Home button */
+    .btn-home-wrapper {
+      opacity: 0;
+      animation: cardEnter 0.8s var(--ease-spring) forwards;
+      animation-delay: 1.5s;
+      width: auto;
+      display: inline-block;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 34px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue) 45%, var(--neon-purple));
+      border: none;
+      border-radius: 12px;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 
+        0 4px 12px rgba(99, 102, 241, 0.35),
+        0 0 25px rgba(34, 211, 238, 0.18);
+      transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      outline: none;
+    }
+
+    .btn-home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue) 45%, var(--neon-cyan));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .btn-home:hover::before {
+      opacity: 1;
+    }
+
+    .btn-home span, .btn-home .arrow-icon {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-home:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 6px 18px rgba(99, 102, 241, 0.45),
+        0 0 30px rgba(34, 211, 238, 0.35);
+    }
+
+    .btn-home:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .arrow-icon {
+      transition: transform 0.25s var(--ease-spring);
+    }
+
+    .btn-home:hover .arrow-icon {
+      transform: translateX(5px);
+    }
+
+    /* Base Keyframes (Direct fade in, no floating motion) */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes iconPop {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* High responsiveness to screen height to dynamically compress spacing & avoid scrolling */
+    @media (max-height: 760px) {
+      .card {
+        padding: 24px 32px;
+      }
+      .icon-circle {
+        width: 64px;
+        height: 64px;
+      }
+      .timer-svg {
+        width: 32px;
+        height: 32px;
+      }
+      .icon-glow-wrapper {
+        margin-bottom: 12px;
+      }
+      .status-badge {
+        margin-bottom: 12px;
+        padding: 4px 14px;
+        font-size: 0.65rem;
+      }
+      .main-heading {
+        font-size: 2.1rem;
+        margin-bottom: 12px;
+      }
+      .main-message {
+        font-size: 0.88rem;
+        margin-bottom: 14px;
+      }
+      .next-quiz-box {
+        padding: 10px 16px;
+        margin-bottom: 14px;
+      }
+      .next-quiz-heading {
+        font-size: 0.88rem;
+      }
+      .next-quiz-text {
+        font-size: 0.78rem;
+      }
+      .session-status-container {
+        margin-bottom: 18px;
+      }
+      .btn-home {
+        padding: 10px 30px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-height: 640px) {
+      body {
+        padding: 10px;
+      }
+      .brand {
+        top: 16px;
+        left: 16px;
+      }
+      .card {
+        padding: 16px 24px;
+        border-radius: 20px;
+      }
+      .icon-glow-wrapper {
+        margin-bottom: 8px;
+      }
+      .status-badge {
+        margin-bottom: 8px;
+      }
+      .main-heading {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+      .main-message {
+        font-size: 0.82rem;
+        margin-bottom: 10px;
+      }
+      .next-quiz-box {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        gap: 12px;
+      }
+      .next-quiz-icon-wrapper {
+        width: 32px;
+        height: 32px;
+      }
+      .session-status-container {
+        margin-bottom: 12px;
+      }
+      .btn-home {
+        padding: 8px 24px;
+        font-size: 0.85rem;
+        border-radius: 10px;
+      }
+    }
+
+    /* RESPONSIVE MEDIA QUERIES (WIDTH based) */
+    @media (max-width: 768px) {
+      .card {
+        padding: 28px 24px;
+      }
+      .main-heading {
+        font-size: 2.2rem;
+      }
+      .brand {
+        top: 24px;
+        left: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .brand {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+      .card-container {
+        width: 94%;
+        margin: 0 auto;
+      }
+      .card {
+        padding: 24px 18px;
+        border-radius: 20px;
+      }
+      .main-heading {
+        font-size: 1.9rem;
+      }
+      .main-message {
+        font-size: 0.86rem;
+        margin-bottom: 14px;
+      }
+      .next-quiz-box {
+        padding: 12px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+      }
+      .next-quiz-icon-wrapper {
+        width: 34px;
+        height: 34px;
+      }
+      .btn-home-wrapper {
+        width: 100%;
+      }
+      .btn-home {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Floating Orbs (Static positions, no float animations) -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="floating-orb orb-cyan"></div>
+    <div class="floating-orb orb-purple"></div>
+    <div class="floating-orb orb-pink"></div>
+  </div>
+
+  <!-- Space Particle Canvas -->
+  <canvas id="space-canvas" class="space-canvas" aria-hidden="true"></canvas>
+
+  <!-- Decorative Space Science Vectors (Static) -->
+  <div class="bg-deco atom-deco" aria-hidden="true">
+    <svg viewBox="0 0 100 100" width="120" height="120">
+      <circle cx="50" cy="50" r="7" fill="none" stroke="var(--neon-cyan)" stroke-width="2" />
+      <ellipse class="orbit orbit-1" cx="50" cy="50" rx="38" ry="12" fill="none" stroke="var(--neon-blue)" stroke-width="1" transform="rotate(30, 50, 50)" />
+      <ellipse class="orbit orbit-2" cx="50" cy="50" rx="38" ry="12" fill="none" stroke="var(--neon-purple)" stroke-width="1" transform="rotate(150, 50, 50)" />
+      <ellipse class="orbit orbit-3" cx="50" cy="50" rx="38" ry="12" fill="none" stroke="var(--neon-pink)" stroke-width="1" transform="rotate(90, 50, 50)" />
+    </svg>
+  </div>
+
+  <div class="bg-deco grid-deco" aria-hidden="true">
+    <svg viewBox="0 0 100 100" width="180" height="180">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(168, 85, 247, 0.15)" stroke-dasharray="3 6" stroke-width="1" />
+      <circle cx="50" cy="50" r="28" fill="none" stroke="rgba(34, 211, 238, 0.15)" stroke-width="0.75" />
+      <circle cx="50" cy="50" r="14" fill="none" stroke="rgba(99, 102, 241, 0.1)" stroke-width="0.5" />
+      <line x1="8" y1="8" x2="92" y2="92" stroke="rgba(99, 102, 241, 0.08)" stroke-width="1" />
+      <line x1="92" y1="8" x2="8" y2="92" stroke="rgba(99, 102, 241, 0.08)" stroke-width="1" />
+    </svg>
+  </div>
+
+  <!-- Brand Logo -->
+  <a id="brandLogoLink" class="brand" href="index.html" aria-label="QuizVerse Home">
+    <svg class="logo-svg" viewBox="0 0 50 50" width="38" height="38" aria-hidden="true">
+      <circle class="logo-nucleus" cx="25" cy="25" r="4" fill="var(--neon-cyan)" />
+      <ellipse class="orbit orbit-1" cx="25" cy="25" rx="18" ry="5.5" fill="none" stroke="var(--neon-purple)" stroke-width="1.5" transform="rotate(30, 25, 25)" />
+      <ellipse class="orbit orbit-2" cx="25" cy="25" rx="18" ry="5.5" fill="none" stroke="var(--neon-cyan)" stroke-width="1.5" transform="rotate(-30, 25, 25)" />
+      <ellipse class="orbit orbit-3" cx="25" cy="25" rx="18" ry="5.5" fill="none" stroke="var(--neon-blue)" stroke-width="1.5" transform="rotate(90, 25, 25)" />
+    </svg>
+    <div class="brand-text">
+      <span class="brand-name">QuizVerse</span>
+      <span class="brand-tagline">Explore • Learn • Conquer</span>
+    </div>
+  </a>
+
+  <!-- Centered Glass Card Wrapper -->
+  <div class="parallax-wrapper">
+    <div class="card-container" id="quizEndedCard">
+      <!-- Glow element for soft outer light -->
+      <div class="card-glow-element"></div>
+      
+      <div class="card">
+        
+        <!-- Timer Icon -->
+        <div class="icon-glow-wrapper">
+          <div class="icon-circle">
+            <div class="icon-pulse-bg"></div>
+            <svg class="timer-svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
+              <!-- Outer glowing ring representing the timer -->
+              <circle cx="32" cy="32" r="28" fill="none" stroke="url(#timerGradient)" stroke-width="3" stroke-dasharray="176" stroke-dashoffset="40" />
+              <!-- Minute/Hour Ticks -->
+              <line x1="32" y1="8" x2="32" y2="12" stroke="var(--neon-cyan)" stroke-width="2" />
+              <line x1="32" y1="52" x2="32" y2="56" stroke="var(--neon-cyan)" stroke-width="2" />
+              <line x1="8" y1="32" x2="12" y2="32" stroke="var(--neon-cyan)" stroke-width="2" />
+              <line x1="52" y1="32" x2="56" y2="32" stroke="var(--neon-cyan)" stroke-width="2" />
+              <!-- Clock Hands -->
+              <polyline class="hand-hour" points="32,32 32,20" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" />
+              <polyline class="hand-minute" points="32,32 42,32" stroke="var(--neon-purple)" stroke-width="2" stroke-linecap="round" />
+              <!-- Core pivot -->
+              <circle cx="32" cy="32" r="3.5" fill="var(--neon-cyan)" />
+              <defs>
+                <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="var(--neon-cyan)" />
+                  <stop offset="50%" stop-color="var(--neon-blue)" />
+                  <stop offset="100%" stop-color="var(--neon-purple)" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="status-badge">SESSION CLOSED</div>
+
+        <!-- Main Heading -->
+        <h1 class="main-heading">Quiz <span>Has Ended</span></h1>
+
+        <!-- Messages -->
+        <div class="main-message">
+          <p class="msg-1"><strong>The time is up!</strong> This quiz session has officially ended. Thank you for participating in QuizVerse. Your enthusiasm and effort made this session special.</p>
+          <p class="msg-2">Don't worry if you missed this one — another challenge is always around the corner.</p>
+        </div>
+
+        <!-- Next Quiz Highlight Box -->
+        <div class="next-quiz-box" id="nextQuizBox">
+          <div class="next-quiz-icon-wrapper">
+            <svg class="next-quiz-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5" />
+              <path d="M12 2C7.5 2 4 5.5 4 10c0 1.5.5 3 1.5 4.5L12 22l6.5-7.5c1-1.5 1.5-3 1.5-4.5 0-4.5-3.5-8-8-8z" />
+              <circle cx="12" cy="10" r="2" />
+            </svg>
+          </div>
+          <div class="next-quiz-content">
+            <h2 class="next-quiz-heading">See You in the Next Quiz!</h2>
+            <p class="next-quiz-text">Keep learning, stay curious, and get ready to challenge yourself again in the next QuizVerse competition.</p>
+          </div>
+        </div>
+
+        <!-- Session Status -->
+        <div class="session-status-container">
+          <div class="session-status-row">
+            <span class="status-dot"></span>
+            <span>Quiz Session Closed</span>
+          </div>
+          <span class="status-subtext">New responses are no longer being accepted.</span>
+        </div>
+
+        <!-- Home Button -->
+        <div class="btn-home-wrapper">
+          <a id="backToHomeBtn" class="btn-home" href="index.html">
+            <span>Back to Home</span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════
+    // Space Canvas Particle Background
+    // ═══════════════════════════════════════════════════════════════
+    const canvas = document.getElementById('space-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.reset();
+        // Distribute them across the screen initially
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 1.2 + 0.3;
+        this.speedX = Math.random() * 0.08 - 0.04;
+        this.speedY = Math.random() * 0.08 - 0.04;
+        this.color = this.getRandomColor();
+      }
+
+      getRandomColor() {
+        const colors = [
+          'rgba(34, 211, 238, 0.4)', // Cyan
+          'rgba(168, 85, 247, 0.3)', // Purple
+          'rgba(99, 102, 241, 0.35)', // Blue
+          'rgba(255, 255, 255, 0.3)'  // White
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Reset if they leave screen boundaries
+        if (this.x < -10 || this.x > width + 10 || this.y < -10 || this.y > height + 10) {
+          this.reset();
+          if (this.speedX > 0) this.x = -5;
+          else this.x = width + 5;
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const particlesArray = [];
+    const particleCount = Math.min(45, Math.floor((width * height) / 30000)); 
+
+    for (let i = 0; i < particleCount; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+  </script>
+</body>
+</html>

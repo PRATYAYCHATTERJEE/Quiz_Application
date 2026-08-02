@@ -89,30 +89,7 @@ function handleQuizEnded() {
 
     alert("🏁 Quiz Has Ended");
 
-    document.body.innerHTML = `
-    <div style="
-        min-height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#050817;
-        color:white;
-        font-family:Arial;
-        text-align:center;
-    ">
-
-        <div>
-
-            <h1>🏁 Quiz Has Ended</h1>
-
-            <p>
-                The administrator has ended this quiz session.
-            </p>
-
-        </div>
-
-    </div>
-`;
+    window.location.href = "quiz_end.html";
 
 }
 
