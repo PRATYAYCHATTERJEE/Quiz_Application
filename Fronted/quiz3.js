@@ -1,7 +1,31 @@
 /* ==========================================================
    QUIZVERSE QUIZ.JS
 ========================================================== */
+const exitBtn = document.getElementById("exitBtn");
+const exitQuizModal = document.getElementById("exitQuizModal");
 
+const exitAnywayBtn = document.getElementById("exitAnywayBtn");
+const submitExitBtn = document.getElementById("submitExitBtn");
+const cancelExitBtn = document.getElementById("cancelExitBtn");
+
+/* ==========================================================
+   EXIT QUIZ MODAL
+========================================================== */
+
+// Open popup
+exitBtn.addEventListener("click", () => {
+
+    exitQuizModal.classList.add("show");
+
+});
+
+
+// Continue Quiz
+cancelExitBtn.addEventListener("click", () => {
+
+    exitQuizModal.classList.remove("show");
+
+});
 /* ==========================================================
    VARIABLES
 ========================================================== */
