@@ -62,7 +62,7 @@
         <button class="header-btn">
             <i class="fa-solid fa-sun"></i>
         </button>
-        <button class="exit-btn">
+        <button id="exitBtn" class="exit-btn">
             <i class="fa-solid fa-xmark"></i>
             Exit
         </button>
@@ -236,7 +236,65 @@
         </main>
 
     </div>
+<!-- =========================
+     EXIT QUIZ MODAL
+========================= -->
 
+<div id="exitQuizModal" class="exit-modal-overlay">
+
+    <div class="exit-modal">
+
+        <div class="exit-modal-icon">
+            ⚠️
+        </div>
+
+        <h2>Exit Quiz?</h2>
+
+        <p class="exit-warning">
+            Are you sure you want to leave the quiz?
+        </p>
+
+        <div class="exit-notice">
+
+            <span>!</span>
+
+            <p>
+                Your quiz progress may not be submitted if you exit now.
+            </p>
+
+        </div>
+
+        <div class="exit-modal-actions">
+
+            <button
+                id="exitAnywayBtn"
+                class="exit-anyway-btn">
+
+                Exit Anyway
+
+            </button>
+
+            <button
+                id="submitExitBtn"
+                class="submit-exit-btn">
+
+                Submit & Exit
+
+            </button>
+
+        </div>
+
+        <button
+            id="cancelExitBtn"
+            class="cancel-exit-btn">
+
+            Continue Quiz
+
+        </button>
+
+    </div>
+
+</div>
     <script src="quiz3.js"></script>
 
 </body>
