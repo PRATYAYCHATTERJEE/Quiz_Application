@@ -554,85 +554,114 @@ console.log("Selected Option:", selectedOption);
    FINISH QUIZ
 ========================================================== */
 
-finishBtn.addEventListener("click",finishQuiz);
+finishBtn.addEventListener("click", () => {
+    finishQuiz();
+});
 
-async function finishQuiz() {
 
-    const confirmFinish = confirm(
-        "Are you sure you want to finish the quiz?"
-    );
+async function finishQuiz(skipConfirm = false, redirectPage = "result.html") {
 
-    if (!confirmFinish) return;
+    // Normal Finish Quiz button should ask for confirmation
+    if (!skipConfirm) {
+
+        const confirmFinish = confirm(
+            "Are you sure you want to finish the quiz?"
+        );
+
+        if (!confirmFinish) return false;
+
+    }
+
 
     try {
 
-        const participantId = localStorage.getItem("participantId");
+        const participantId =
+            localStorage.getItem("participantId");
 
         const response = await fetch(
             "http://localhost:5000/api/participants/finish",
             {
                 method: "POST",
+
                 headers: {
                     "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
                     participantId
                 })
             }
         );
 
+
         const result = await response.json();
+
 
         if (!result.success) {
 
             alert(result.message);
-            return;
+
+            return false;
 
         }
 
+
+        // Stop timer
         clearInterval(timerInterval);
 
+
+        // Save result
         localStorage.setItem(
             "quizResult",
             JSON.stringify(result.result)
         );
 
-        alert("Quiz Submitted Successfully!");
 
-        window.location.href = "result.html";
+        // Redirect
+        window.location.href = redirectPage;
+
+        return true;
+
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Finish Quiz Error:", error);
 
         alert("Unable to submit quiz.");
+
+        return false;
 
     }
 
 }
+
 submitExitBtn.addEventListener("click", async () => {
 
-    try {
+    // Prevent double clicking
+    submitExitBtn.disabled = true;
 
-        submitExitBtn.disabled = true;
-        submitExitBtn.textContent = "Submitting...";
+    const originalText = submitExitBtn.textContent;
 
-        await submitQuiz();
+    submitExitBtn.textContent = "Submitting...";
 
-        window.location.href = "join.html";
 
-    } catch (error) {
+    const success = await finishQuiz(
+        true,
+        "result.html"
+    );
 
-        console.error("Submit & Exit Error:", error);
+
+    // If submission failed
+    if (!success) {
 
         submitExitBtn.disabled = false;
-        submitExitBtn.textContent = "Submit & Exit";
 
-        alert("Unable to submit the quiz. Please try again.");
+        submitExitBtn.textContent = originalText;
 
     }
 
 });
+
 /* ==========================================================
    SAVE QUIZ STATE
 ========================================================== */
