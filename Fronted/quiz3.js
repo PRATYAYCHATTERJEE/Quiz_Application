@@ -610,7 +610,29 @@ async function finishQuiz() {
     }
 
 }
+submitExitBtn.addEventListener("click", async () => {
 
+    try {
+
+        submitExitBtn.disabled = true;
+        submitExitBtn.textContent = "Submitting...";
+
+        await submitQuiz();
+
+        window.location.href = "join.html";
+
+    } catch (error) {
+
+        console.error("Submit & Exit Error:", error);
+
+        submitExitBtn.disabled = false;
+        submitExitBtn.textContent = "Submit & Exit";
+
+        alert("Unable to submit the quiz. Please try again.");
+
+    }
+
+});
 /* ==========================================================
    SAVE QUIZ STATE
 ========================================================== */
