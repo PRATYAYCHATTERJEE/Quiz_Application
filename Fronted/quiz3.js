@@ -26,6 +26,21 @@ cancelExitBtn.addEventListener("click", () => {
     exitQuizModal.classList.remove("show");
 
 });
+
+exitAnywayBtn.addEventListener("click", () => {
+
+    // Close modal
+    exitQuizModal.classList.remove("show");
+
+    // Optional: remove local quiz progress
+    localStorage.removeItem("quizAnswers");
+    localStorage.removeItem("currentQuestion");
+
+    // Leave quiz
+    window.location.href = "join.html";
+
+});
+
 /* ==========================================================
    VARIABLES
 ========================================================== */
