@@ -40,7 +40,32 @@ exitAnywayBtn.addEventListener("click", () => {
     window.location.href = "join.html";
 
 });
+/* ==========================================================
+   BROWSER BACK BUTTON → SHOW EXIT QUIZ MODAL
+========================================================== */
 
+// Add a temporary history entry for the quiz page
+history.pushState(
+    { quizPage: true },
+    "",
+    window.location.href
+);
+
+
+// Detect browser / mobile back navigation
+window.addEventListener("popstate", function () {
+
+    // Show the same Exit Quiz popup
+    exitQuizModal.classList.add("show");
+
+    // Keep user on the quiz page
+    history.pushState(
+        { quizPage: true },
+        "",
+        window.location.href
+    );
+
+});
 /* ==========================================================
    VARIABLES
 ========================================================== */
